@@ -1,0 +1,10 @@
+{
+	"token": "h",
+	"prefix": "j!",
+	"ownerid": "124194717471923",
+	"shards": 1,
+	"port": 8085,
+
+	"base_www": "http://jcolour.jaqreven.com/",
+	"_comment": "The base url: this+server id - Make sure to include a slash in the end."
+}

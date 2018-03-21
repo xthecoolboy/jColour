@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+	<head>
+
+		<!-- ALL THE SINGLE METAS -->
+		<title>jColour Colours</title>
+
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="Page to view jColour's colours.">
+		<meta name="author" content="Jaakko Repo">
+		<meta name="keywords" content="jColour, jColor, Discord, Discord bot">
+
+		<!-- Stylesheets -->
+		<link type="text/css" rel="stylesheet" href="css/bulma.css">
+		<link href="css/styles.css" rel="stylesheet" type="text/css">
+
+		<script type='text/javascript' src='js/tinycolor.js'></script>
+
+	</head>
+	<body>
+
+		<div class="is-page">
+			<section class="hero header is-fade is-small">
+				<div class="hero-body">
+					<div class="container">
+
+						<h1 class="title is-1 is-whitetext">jColour Options</h1>
+
+					</div>
+				</div>
+			</section>
+
+
+			<section class="hero colours">
+				<a name="colours"></a>
+				<% if (server) { %>
+				<h1 class="title">Here are the available colours.</h1>
+				<h2 class="subtitle">Use j!colour [colour name] <br/>
+					Click a colour to see a Discord chat preview.</h2>
+
+				<div class="container ">
+
+
+
+
+					<div class="columns is-multiline is-inline-flex-touch">
+
+						<% const roles = server.roles.array();
+						roles.forEach(function(element) { 
+							if (element.name.toLowerCase().startsWith("colour ")) {%>
+
+						<a onClick="toggleModal('<%= element.id %>')" class="card is-colour" style="background-color: <%=element.hexColor%>">
+							<div class="card-content">
+								<h2 id="<%= element.id %>" style="color: black" class="title style-colour"><%= element.name.substring(7) %></h2>
+							</div>
+
+							<script>
+								var textelement = document.getElementById("<%= element.id %>");
+								if(tinycolor("<%= element.hexColor %>").isDark()) {
+									textelement.style.color = "white";
+								}
+							</script>
+						</a>
+
+						<div class="modal" id="<%= element.id %>-modal">
+							<div onClick="toggleModal('<%= element.id %>')" class="modal-background"></div>
+							<div class="modal-content">
+								<h1 class="title">Colour previews.</h1>
+								<div class="card discord">
+									<div class="card-content">
+										<div class="media">
+											<div class="media-left">
+												<figure class="image is-64x64">
+													<img src="assets/discord.png" alt="Picture" />
+												</figure>
+											</div>
+											<div class="media-content">
+												<p class="name" style="color: <%= element.hexColor %>">Light mode</p>
+												<p class="date">Today at 6.00 PM</p>	
+
+												<p class="text">Testing the <%= element.name %>.</p>
+											</div> 
+										</div>
+									</div>
+								</div>
+
+								<div style="background: #36393E" class="card discord discord-dark">
+									<div class="card-content">
+										<div class="media">
+											<div class="media-left">
+												<figure class="image is-64x64">
+													<img src="assets/discord.png" alt="Picture" />
+												</figure>
+											</div>
+											<div class="media-content">
+												<p class="name" style="color: <%= element.hexColor %>">Dark mode</p>
+												<p class="date">Today at 6.00 PM</p>	
+
+												<p class="text">Testing the <%= element.name %>.</p>
+											</div> 
+										</div>
+									</div>
+								</div>
+							</div>
+							<button onClick="toggleModal('<%= element.id %>')" class="modal-close is-large" aria-label="close"></button>
+						</div>
+
+						<% }}) %>
+
+					</div>					
+
+					<% } else { %>
+					<h1 class="title">Server not available!</h1>
+					<h2 class="subtitle">Are you sure this is the correct URL?</h2>
+					<% } %>
+
+				</div>
+			</section>
+		</div>
+
+		<section class="section footer">
+			<div class="container">
+
+				<h2 class="is-white subtitle">
+					&copy; Jaakko Repo, 2018 <br />
+					Licensed under a MIT license.
+				</h2>
+
+			</div>
+		</section>
+
+		<script>
+			var toggleModal = (elemId) => {
+				var elem = document.getElementById(elemId + "-modal");
+				elem.classList.toggle("is-active");
+			}
+		</script>
+
+	</body>
+</html>

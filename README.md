@@ -1,26 +1,26 @@
-# jColour-Web
+# jColour
 
-This is the website for jColour where all the colours get listed.
-Uses React.JS
+Website + discord.js interface for the jColour bot
 
-## Demo
+## Invite me!
 
-Not right now
+https://jcolour.jaqreven.com
 
 ## Installing
 
 * Fork the repository
 * Clone it
-* Install the necessary components (Bulma, React etc) with `npm i`
-* `npm run webpack` to update app.js
+* Install the necessary components (Ejs, Express etc) with `npm i`
 
 * (Web server)
 
 ## Built With
 
-* [Bulma](https://bulma.io) - The framework used
-* [React](https://reactjs.org/) - A javascript library for handling the colours
-* [Font Awesome](https://fontawesome.com) - Icons (ex. scroll icon)
+* [Bulma](https://bulma.io) - The css framework used
+* [Express](https://expressjs.com/) - Web application framework
+* [EJS](http://ejs.co/) - Javascript templating
+* [Discord.js](https://discord.js.org) - Doing the heavy lifting for the Discord API.
+* [Commando](https://github.com/discordjs/Commando) - Command extension for Discord.js
 
 ## Contributing
 
@@ -37,7 +37,7 @@ Please submit a pull request or an issue.
 
 ## Authors
 
-See the list of [contributors](https://github.com/jaqreven/jColour-web/contributors) who participated in this project.
+See the list of [contributors](https://github.com/jaqreven/jColour/contributors) who participated in this project.
 
 ## License
 

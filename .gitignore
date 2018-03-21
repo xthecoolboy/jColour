@@ -59,3 +59,9 @@ typings/
 
 # next.js build output
 .next
+
+# my token
+config/config.json
+
+# macos chaos
+.DS_Store
