@@ -48,18 +48,31 @@ module.exports = class ChannelCommand extends Command {
 					}
 				});
 
+				let failed; // Prepare for spaghoot code
+
 				// Updating the roles
-				msg.member.removeRoles(rolesToRemove, `jColour: Colour update (=> ${args.role.name})`);
-				msg.member.addRole(args.role);
-				
-				// Notify about role updates
-				msg.say("The colour " + args.role.name + " has been added.")
-				
+				await msg.member.removeRoles(rolesToRemove, `jColour: Colour update (=> ${args.role.name})`).catch(function () {
+					msg.say("I am missing permissions. My role should be the highest in the server's role list.");
+					failed = true;
+				});
+				if (!failed) { // Spaghetti intensifies
+					await msg.member.addRole(args.role).catch(function () {
+						msg.say("I am missing permissions. My role should be the highest in the server's role list.");
+						failed = true;
+					});
+
+					// Notify about role updates
+					if (!failed) { // Oh god why would you put that there
+						await msg.say("The colour " + args.role.name + " has been added.") 
+					}					
+				}
+
+
 			} else { // Role is not a colour role
-				msg.say("That role is not a colour role: colour roles must start with the word 'colour'.")
+				await msg.say("That role is not a colour role: colour roles must start with the word 'colour'.")
 			}
 		} else { // User didn't supply a role
-			msg.say("Here's a list of all the colours: " + config.base_www + msg.guild.id + "\nUse `j!colour <colour name>`");
+			await msg.say("Here's a list of all the colours: " + config.base_www + msg.guild.id + "\nUse `j!colour <colour name>`")
 		}
 
 

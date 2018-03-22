@@ -25,7 +25,7 @@ module.exports = class ChannelCommand extends Command {
 
 	async run(msg, args) {
 
-		msg.say(`Here's the link to my repository: https://github.com/jaqreven/jColour`);
+		msg.say(`Here's the link to my repository: https://github.com/jaqreven/jColour`)
 
 	}
 };

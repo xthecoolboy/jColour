@@ -22,8 +22,8 @@ module.exports = class ChannelCommand extends Command {
 
 	async run(msg, args) {
 
-		const inviteLink = `https://discordapp.com/oauth2/authorize?client_id=${this.client.user.id}&scope=bot&permissions=268454912`
-		msg.say(`Here's the link to invite me: <${inviteLink}>`);
+		const inviteLink = `https://discordapp.com/oauth2/authorize?client_id=${this.client.user.id}&scope=bot&permissions=268454912`;
+		msg.say(`Here's the link to invite me: <${inviteLink}>`) 
 
 	}
 };

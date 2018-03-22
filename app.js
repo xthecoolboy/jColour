@@ -44,6 +44,24 @@ client.setProvider( // Sqlite database for prefixes and such
 ).catch(console.error);
 
 
+client.on('guildMemberAdd', member => {
+
+	// This is the default role
+	const autoRole = member.guild.roles.find("name", "colour default");
+
+	if (autoRole) { // If the role exists (otherwise null)
+
+		member.addRole(autoRole, `jColour: Join role (=> ${autoRole.name})`);
+
+	}
+});
+
+client.on('commandRun', command => {
+
+	// Logs the command
+	console.log('\x1b[34m%s\x1b[0m', "[COMMAND]: " + command.name + " / " + command.group.name)
+});
+
 client.login(config.token); // Logins to the api
 
 /*

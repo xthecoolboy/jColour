@@ -2,6 +2,8 @@
 
 Website + discord.js interface for the jColour bot
 
+[![Discord Bots](https://discordbots.org/api/widget/358968052500660226.svg)](https://discordbots.org/bot/358968052500660226)
+
 ## Invite me!
 
 https://jcolour.jaqreven.com
