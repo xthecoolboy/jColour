@@ -27,9 +27,9 @@ module.exports = class ChannelCommand extends Command {
 				{
 					key: 'role',
 					label: 'role',
-					prompt: "What colour do you want?",
+					prompt: "What colour do you want? Run the command again without an argument to see the list.",
 					type: 'role',
-					default: ''
+					default: ""
 				}
 			]
 		});
@@ -37,24 +37,29 @@ module.exports = class ChannelCommand extends Command {
 
 	async run(msg, args) {
 
-		if(args.role) {
-			if(args.role.name.toLowerCase().startsWith("colour ")) {
-				
-				let rolesToRemove = [];
+		if(args.role) { // If a role is specified in the argument
+			if(args.role.name.toLowerCase().startsWith("colour ")) { // Only colour roles allowed!
+				let rolesToRemove = []; // Init array for roles to remove
+
+				// Loop through roles and filter
 				msg.member.roles.array().forEach(function(element) {
-					if(element.name.startsWith("colour ") && element !== args.role) {
+					if(element.name.startsWith("colour ")) {
 						rolesToRemove.push(element);
 					}
 				});
-				msg.member.removeRoles(rolesToRemove, "jColour colour change");
+
+				// Updating the roles
+				msg.member.removeRoles(rolesToRemove, `jColour: Colour update (=> ${args.role.name})`);
 				msg.member.addRole(args.role);
 				
-				msg.say("You have a role! " + args.role.name)
-			} else {
+				// Notify about role updates
+				msg.say("The colour " + args.role.name + " has been added.")
+				
+			} else { // Role is not a colour role
 				msg.say("That role is not a colour role: colour roles must start with the word 'colour'.")
 			}
-		} else {
-			msg.say("Here's a list of all the roles: " + config.base_www + msg.guild.id);
+		} else { // User didn't supply a role
+			msg.say("Here's a list of all the roles: " + config.base_www + msg.guild.id + "\nUse `j!colour <colour name>`");
 		}
 
 

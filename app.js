@@ -5,15 +5,13 @@ const path = require('path');
 const {version, description} = require('./package.json');
 const config = require('./config/config.json');
 
-
+// Init client
 const client = new Commando.Client({
 	owner: config.ownerid,
 	commandPrefix: config.prefix,
 	disableEveryone: true,
 	unknownCommandResponse: false
 });
-
-exports.shard = new Discord.ShardClientUtil(client);
 
 client.registry
 // Registers your custom command groups
@@ -30,10 +28,9 @@ client.registry
 client.on('ready', () => {
 	console.log(`\nLogged in:
 Bot: ${client.user.tag} / ${client.user.id} / v${version} (Codename ${description})
-Shard: ${this.shard.id} (${this.shard.count} shards)
 `);
 
-	client.user.setGame("Discord.JS Recode")
+	client.user.setGame("j!colours " + version)
 
 	/*client.user.setUsername('jColour Alpha');
   client.user.setAvatar('./avatar.png')*/
@@ -42,12 +39,12 @@ Shard: ${this.shard.id} (${this.shard.count} shards)
 
 });
 
-client.setProvider(
+client.setProvider( // Sqlite database for prefixes and such
 	sqlite.open(path.join(__dirname, 'settings.sqlite3')).then(db => new Commando.SQLiteProvider(db))
 ).catch(console.error);
 
 
-client.login(config.token);
+client.login(config.token); // Logins to the api
 
 /*
 
@@ -55,43 +52,38 @@ WEB SERVER PART
 
 */
 
-// server.js
-
-// set up ======================================================================
-// get all the tools we need
+// Things we need for the web server
 const express = require('express');
 const app = express();
 const port = process.env.PORT || config.port;
 const helmet = require('helmet');
+const morgan = require("morgan");
 
 const middleware = [
 	helmet(),
-	express.static('public')
+	morgan('dev'), // Logs request data to console
+	express.static('public') // public dir can be accessed
 ]
 
-app.set('view engine', 'ejs'); // set up ejs for templating
+app.set('view engine', 'ejs'); // ejs for server side js templating
 app.use(middleware);
 
 // routes ======================================================================
 
 
-// show the home page (will also have our login links)
+// redirect to bot inv
 app.get('/', function(req, res) {
 	res.redirect(`https://discordapp.com/oauth2/authorize?client_id=${client.user.id}&scope=bot&permissions=268454912`)
 });
 
+// colour page: sends server as a var
 app.get('/:id', function(req, res) {
 	res.render('index.ejs', {
 		server: client.guilds.find("id", req.params.id)
 	});
 });
 
-
-// =============================================================================
-// ERROR PAGES =================================================================
-// =============================================================================
-
-// Handle 404
+// 404 (shouldn't happen!)
 app.use(function(req, res) {
 	res.status(404).render('error.ejs', {
 		errorNum: 404,
@@ -99,6 +91,6 @@ app.use(function(req, res) {
 	})
 });
 
-// launch ======================================================================
+// starts listening to requests
 app.listen(port);
 console.log('Listening to requests on port ' + port);

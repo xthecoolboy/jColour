@@ -3,11 +3,15 @@
 	<head>
 
 		<!-- ALL THE SINGLE METAS -->
-		<title>jColour Colours</title>
-
+		<% if (server) { %>
+		<title><%= server.name %> Colours</title>
+		<meta name="description" content="Page to view colours for <%= server.name %>">
+		<% } else { %>
+		<title>Server not found</title>
+		<meta name="description" content="Was it my fault?">		
+		<% } %>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="description" content="Page to view jColour's colours.">
 		<meta name="author" content="Jaakko Repo">
 		<meta name="keywords" content="jColour, jColor, Discord, Discord bot">
 
@@ -35,7 +39,7 @@
 			<section class="hero colours">
 				<a name="colours"></a>
 				<% if (server) { %>
-				<h1 class="title">Here are the available colours.</h1>
+				<h1 class="title">Here are the available colours at <%= server.name %></h1>
 				<h2 class="subtitle">Use j!colour [colour name] <br/>
 					Click a colour to see a Discord chat preview.</h2>
 
@@ -47,8 +51,10 @@
 					<div class="columns is-multiline is-inline-flex-touch">
 
 						<% const roles = server.roles.array();
+						let roleCount = 0;
 						roles.forEach(function(element) { 
-							if (element.name.toLowerCase().startsWith("colour ")) {%>
+							if (element.name.toLowerCase().startsWith("colour ")) {
+								roleCount++; %>
 
 						<a onClick="toggleModal('<%= element.id %>')" class="card is-colour" style="background-color: <%=element.hexColor%>">
 							<div class="card-content">
@@ -57,9 +63,9 @@
 
 							<script>
 								var textelement = document.getElementById("<%= element.id %>");
-								if(tinycolor("<%= element.hexColor %>").isDark()) {
-									textelement.style.color = "white";
-								}
+																		  if(tinycolor("<%= element.hexColor %>").isDark()) {
+																		  textelement.style.color = "white";
+																		  }
 							</script>
 						</a>
 
@@ -106,7 +112,10 @@
 							<button onClick="toggleModal('<%= element.id %>')" class="modal-close is-large" aria-label="close"></button>
 						</div>
 
-						<% }}) %>
+						<% }}) 
+						if(roleCount === 0) { %>
+						<h1 class="title">Server roles not setup! Ask an administrator to run j!tutorial.</h1>
+						<% }%>
 
 					</div>					
 
