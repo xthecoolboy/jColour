@@ -1,9 +1,9 @@
 {
 	"name": "jcolour-web",
-	"version": "1.0.0",
-	"description": "Website for the jColour Discord bot.",
+	"version": "2.0.0",
+	"description": "Beige",
 	"scripts": {
-		"webpack": "webpack"
+		"start": "node app.js"
 	},
 	"author": "Jaakko Repo",
 	"license": "MIT",

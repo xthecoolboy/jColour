@@ -30,7 +30,7 @@ client.on('ready', () => {
 Bot: ${client.user.tag} / ${client.user.id} / v${version} (Codename ${description})
 `);
 
-	client.user.setGame("j!colours " + version)
+	client.user.setGame("j!colours |  v" + version + " / " + description)
 
 	/*client.user.setUsername('jColour Alpha');
   client.user.setAvatar('./avatar.png')*/

@@ -59,7 +59,7 @@ module.exports = class ChannelCommand extends Command {
 				msg.say("That role is not a colour role: colour roles must start with the word 'colour'.")
 			}
 		} else { // User didn't supply a role
-			msg.say("Here's a list of all the roles: " + config.base_www + msg.guild.id + "\nUse `j!colour <colour name>`");
+			msg.say("Here's a list of all the colours: " + config.base_www + msg.guild.id + "\nUse `j!colour <colour name>`");
 		}
 
 
