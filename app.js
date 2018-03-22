@@ -30,7 +30,9 @@ client.on('ready', () => {
 Bot: ${client.user.tag} / ${client.user.id} / v${version} (Codename ${description})
 `);
 
-	client.user.setGame("j!colours |  v" + version + " / " + description)
+	client.user.setActivity("j!colours |  v" + version + " / " + description, { type: 'WATCHING' })
+		.then(presence => console.log(`Activity set.`))
+		.catch(console.error);
 
 	/*client.user.setUsername('jColour Alpha');
   client.user.setAvatar('./avatar.png')*/
@@ -59,7 +61,7 @@ client.on('guildMemberAdd', member => {
 client.on('commandRun', command => {
 
 	// Logs the command
-	console.log('\x1b[34m%s\x1b[0m', "[COMMAND]: " + command.name + " / " + command.group.name)
+	console.log('\x1b[36m%s\x1b[0m', "CMD " + command.name + " / " + command.group.name)
 });
 
 client.login(config.token); // Logins to the api

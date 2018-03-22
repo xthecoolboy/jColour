@@ -64,4 +64,6 @@ typings/
 config/config.json
 
 # macos chaos
-.DS_Store
+*.DS_Store
+
+settings.sqlite3
