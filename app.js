@@ -39,7 +39,7 @@ Bot: ${client.user.tag} / ${client.user.id} / v${version} (Codename ${descriptio
 	client.user.setActivity("j!colours |  v" + version + " / " + description, { type: 'WATCHING' })
 		.then(presence => console.log(`Activity set.`))
 		.catch(console.error);
-
+	
 	setInterval(() => {
 
 		if (config.dblToken) { //discordbots.org

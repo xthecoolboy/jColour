@@ -15,7 +15,6 @@ module.exports = class ChannelCommand extends Command {
 				duration: 10
 			},
 			aliases: [
-				"info",
 				"tut",
 				"how",
 				"howto",

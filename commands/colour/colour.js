@@ -37,6 +37,11 @@ module.exports = class ChannelCommand extends Command {
 
 	async run(msg, args) {
 
+		let prefix = this.client.commandPrefix;
+		if(msg.guild) {
+			prefix = msg.guild.commandPrefix;
+		}
+
 		if(args.role) { // If a role is specified in the argument
 			if(args.role.name.toLowerCase().startsWith("colour ")) { // Only colour roles allowed!
 				let rolesToRemove = []; // Init array for roles to remove
@@ -63,7 +68,7 @@ module.exports = class ChannelCommand extends Command {
 
 					// Notify about role updates
 					if (!failed) { // Oh god why would you put that there
-						await msg.say("The colour " + args.role.name + " has been added.") 
+						await msg.say("The " + args.role.name + " has been added.") 
 					}					
 				}
 
@@ -72,7 +77,7 @@ module.exports = class ChannelCommand extends Command {
 				await msg.say("That role is not a colour role: colour roles must start with the word 'colour'.")
 			}
 		} else { // User didn't supply a role
-			await msg.say("Here's a list of all the colours: " + config.base_www + msg.guild.id + "\nUse `j!colour <colour name>`")
+			await msg.say("Here's a list of all the colours: " + config.base_www + msg.guild.id + "\nUse `" + prefix + "colour <colour name>`")
 		}
 
 
