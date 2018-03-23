@@ -5,6 +5,12 @@ const path = require('path');
 const {version, description} = require('./package.json');
 const config = require('./config/config.json');
 
+const DBL = require("dblapi.js");
+const dbl = new DBL(config.dblToken);
+
+const DiscordBots = require('discordbots');
+const dbots = new DiscordBots(config.dbotsToken);
+
 // Init client
 const client = new Commando.Client({
 	owner: config.ownerid,
@@ -33,6 +39,23 @@ Bot: ${client.user.tag} / ${client.user.id} / v${version} (Codename ${descriptio
 	client.user.setActivity("j!colours |  v" + version + " / " + description, { type: 'WATCHING' })
 		.then(presence => console.log(`Activity set.`))
 		.catch(console.error);
+
+	setInterval(() => {
+
+		if (config.dblToken) { //discordbots.org
+			dbl.postStats(client.guilds.size);
+			console.log("Discordbots.org stats posted! Server count: " + client.guilds.size)
+		}
+
+		if (config.dbotsToken) { // bots.discord.pw
+			dbots.postBotStats(client.user.id, {
+				"server_count": client.guilds.size
+			});
+			console.log("Bots.discord.pw stats posted! Server count: " + client.guilds.size)
+		}
+
+	}, 1800000);
+
 
 	/*client.user.setUsername('jColour Alpha');
   client.user.setAvatar('./avatar.png')*/

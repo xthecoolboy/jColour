@@ -51,7 +51,11 @@ Please refer to part 1 in Setup.
 ~~━━━━━━━━━━━━━━━━━━━━━━━━━━━━━~~
 
 **Note**: We don't save any user data unless you ex. change a prefix. 
-All webpages are served dynamically and no data is left behind.`)
+All webpages are served dynamically and no data is left behind.
+
+~~━━━━━━━━━━━━━━━━━━━━━━━━━━━━━~~
+
+If you need further help, please join our support server at ${config.support}`)
 
 
 

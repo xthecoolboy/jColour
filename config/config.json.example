@@ -6,5 +6,13 @@
 	"port": 8085,
 
 	"base_www": "http://jcolour.jaqreven.com/",
-	"_comment": "The base url: this+server id - Make sure to include a slash in the end."
+	"_comment": "The base url: this+server id - Make sure to include a slash in the end.",
+	
+	"dblToken": "",
+	"_comment": "Token to discordbots.org, can be left empty",
+
+	"dbotsToken": "",
+	"_comment": "Token to bots.discord.pw, can be left empty",
+	
+	"support": "https://discord.gg/gwqgJy8"
 }
