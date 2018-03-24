@@ -77,7 +77,9 @@ module.exports = class ChannelCommand extends Command {
 				await msg.say("That role is not a colour role: colour roles must start with the word 'colour'.")
 			}
 		} else { // User didn't supply a role
-			await msg.say("Here's a list of all the colours: " + config.base_www + msg.guild.id + "\nUse `" + prefix + "colour <colour name>`")
+			await msg.say(`Here's a list of all the colours: ${config.base_www}${msg.guild.id}
+Use \`${prefix}colour <colour name>\` 
+For a random colour, try \`${prefix}random\``)
 		}
 
 
