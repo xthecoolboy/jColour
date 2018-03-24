@@ -45,8 +45,8 @@ module.exports = class ChannelCommand extends Command {
 
 		// thats a nice bowl of spaghetti
 		if (config.dblToken) {
-			dbl.hasVoted(msg.author.id, 14).then(function(result) {
-				if(!result) { // if user hasnt voted and dbl is enabled
+			dbl.hasVoted(msg.author.id, 14).then(function (result) {
+				if (!result) { // if user hasnt voted and dbl is enabled
 					msg.say("Sorry, but to use this command you need to vote for the bot every 2 weeks at https://discordbots.org/bot/" + clientUser.id);
 				} else {
 					changeRoles(); // If user has voted and dbl is enabled
@@ -57,7 +57,7 @@ module.exports = class ChannelCommand extends Command {
 		}
 
 
-		async function changeRoles () { // FUNCTION THAT CHANGES THE ROLES
+		async function changeRoles() { // FUNCTION THAT CHANGES THE ROLES
 			let colourRoles = []; // All colour roles
 			let rolesToRemove = []; // Roles the user has
 			msg.guild.roles.array().forEach(function (element) {
@@ -89,7 +89,7 @@ module.exports = class ChannelCommand extends Command {
 				if (!failed) { // Oh god why would you put that there
 					await msg.say("The (random) " + chosenRole.name + " has been added. Thanks for voting for me!")
 				}
-			}			
+			}
 		}
 
 
