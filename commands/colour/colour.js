@@ -12,6 +12,9 @@ const {
 	stripIndents
 } = require('common-tags');
 
+const DBL = require("dblapi.js");
+const dbl = new DBL(config.dblToken);
+
 module.exports = class ChannelCommand extends Command {
 	constructor(client) {
 		super(client, {
