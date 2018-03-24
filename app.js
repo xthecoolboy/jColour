@@ -126,7 +126,7 @@ app.get('/:id', function(req, res) {
 	});
 });
 
-// 404 (ok it can happen)
+// 404 (ok it can happen!)
 app.use(function(req, res) {
 	res.status(404).render('error.ejs', {
 		errorNum: 404,
