@@ -83,7 +83,7 @@ client.on('guildMemberAdd', member => {
 
 client.on('commandRun', command => {
 
-	// Logs the command
+	// Logs the command in cyan
 	console.log('\x1b[36m%s\x1b[0m', "CMD " + command.name + " / " + command.group.name)
 });
 
