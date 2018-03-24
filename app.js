@@ -64,7 +64,7 @@ Bot: ${client.user.tag} / ${client.user.id} / v${version} (Codename ${descriptio
 
 });
 
-client.setProvider( // Sqlite dfatabase for prefixes and such
+client.setProvider( // Sqlite database for prefixes and such
 	sqlite.open(path.join(__dirname, 'settings.sqlite3')).then(db => new Commando.SQLiteProvider(db))
 ).catch(console.error);
 
