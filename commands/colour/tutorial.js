@@ -40,7 +40,8 @@ module.exports = class ChannelCommand extends Command {
 **1.** Make sure my role (jColour) has permissions to change roles and is the highest role in the role list.
 **2.** Make a role called \`colour <something>\` and give it a colour.
 **3.** Repeat step 2. 
-**4.** Check that everything is working by typing \`${prefix}colour\`
+**4.** Check that everyth
+ing is working by typing \`${prefix}colour\`
 
 **Protip:** If you name a role \`colour default\`, all new members get it on join.
 
@@ -51,7 +52,7 @@ module.exports = class ChannelCommand extends Command {
 **2.** Type \`${prefix}colour <any colour from the list\`.
 **3.** Profit.
 
-**Protip:** With the command \`${prefix}random\` you can get a random colour from the list.
+**Protip:** With the command \`${prefix}colour random\` you can get a random colour from the list.
 
 ~~━━━━━━━━━━━━━━━━━━━━━━━━━━━━━~~
 

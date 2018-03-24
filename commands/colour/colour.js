@@ -1,5 +1,16 @@
-const {Command} = require('discord.js-commando');
+const {
+	Command
+} = require('discord.js-commando');
 const config = require('./../../config/config.json');
+
+const {
+	giveRole,
+	giveRandomRole
+} = require("./../../tools/giveRole.js");
+
+const {
+	stripIndents
+} = require('common-tags');
 
 module.exports = class ChannelCommand extends Command {
 	constructor(client) {
@@ -8,7 +19,7 @@ module.exports = class ChannelCommand extends Command {
 			group: 'colour',
 			memberName: 'colour',
 			description: 'Gives you a list of colours. To get a colour use `colour <colour name>`',
-			examples: ["colour <any name from the website>"],
+			examples: ["colour <any name from the website>", "colour random"],
 			guildOnly: true,
 			throttling: {
 				usages: 2,
@@ -23,66 +34,69 @@ module.exports = class ChannelCommand extends Command {
 				"jcolors",
 				"jcolours"
 			],
-			args: [
-				{
-					key: 'role',
-					label: 'role',
-					prompt: "What colour do you want? Run the command again without an argument to see the list.",
-					type: 'role',
-					default: ""
-				}
-			]
+			args: [{
+				key: 'role',
+				label: 'role',
+				prompt: "What colour do you want? Run the command again without an argument to see the list.",
+				error: "That is an invalid colour.",
+				type: 'string',
+				default: "",
+			}]
 		});
 	}
 
 	async run(msg, args) {
 
 		let prefix = this.client.commandPrefix;
-		if(msg.guild) {
+		if (msg.guild) {
 			prefix = msg.guild.commandPrefix;
 		}
 
-		if(args.role) { // If a role is specified in the argument
-			if(args.role.name.toLowerCase().startsWith("colour ")) { // Only colour roles allowed!
-				let rolesToRemove = []; // Init array for roles to remove
+		if (!args.role) {
+			await msg.say(stripIndents `Here's a list of all the colours: ${config.base_www}${msg.guild.id}
+			Use \`${prefix}colour <colour name>\` 
+			For a random colour, try \`${prefix}colour random\``)
+		} else {
 
-				// Loop through roles and filter
-				msg.member.roles.array().forEach(function(element) {
-					if(element.name.startsWith("colour ")) {
-						rolesToRemove.push(element);
-					}
-				});
+			if (args.role === "random") {
 
-				let failed; // Prepare for spaghoot code
+				/*
 
-				// Updating the roles
-				await msg.member.removeRoles(rolesToRemove, `jColour: Colour update (=> ${args.role.name})`).catch(function () {
-					msg.say("I am missing permissions. My role should be the highest in the server's role list.");
-					failed = true;
-				});
-				if (!failed) { // Spaghetti intensifies
-					await msg.member.addRole(args.role).catch(function () {
-						msg.say("I am missing permissions. My role should be the highest in the server's role list.");
-						failed = true;
+				RANDOM ROLE 
+
+				*/
+
+				if (config.dblToken) {
+					dbl.hasVoted(msg.author.id, 14).then(function (result) {
+						if (!result) { // if user hasnt voted and dbl is enabled
+							msg.say("Sorry, but to use this command you need to vote for the bot every 2 weeks at https://discordbots.org/bot/" + clientUser.id);
+						} else {
+							giveRandomRole(msg); // If user has voted and Discordbots.org listing is enabled
+						}
 					});
-
-					// Notify about role updates
-					if (!failed) { // Oh god why would you put that there
-						await msg.say("The " + args.role.name + " has been added.") 
-					}					
+				} else {
+					giveRandomRole(msg); // If DBL is not enabled
 				}
 
+			} else {
 
-			} else { // Role is not a colour role
-				await msg.say("That role is not a colour role: colour roles must start with the word 'colour'.")
+				// Gets a role by string, converts it to lower case. All role names are converted to lower case too.
+				const chosenRole = msg.guild.roles.find(val => val.name.toLowerCase() === "colour " + args.role.toLowerCase());
+				if (!chosenRole) { // chosenRole is null (doesnt exist)
+					msg.say("That colour doesn't exist!")
+				} else {
+
+					/*
+
+					EVERYTHING WAS SUCCESSFUL 
+					
+					*/
+
+					giveRole(msg, chosenRole);
+
+
+				}
 			}
-		} else { // User didn't supply a role
-			await msg.say(`Here's a list of all the colours: ${config.base_www}${msg.guild.id}
-Use \`${prefix}colour <colour name>\` 
-For a random colour, try \`${prefix}random\``)
 		}
-
-
-
 	}
 };
