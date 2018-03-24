@@ -49,7 +49,7 @@ module.exports = class ChannelCommand extends Command {
 				if (!result) { // if user hasnt voted and dbl is enabled
 					msg.say("Sorry, but to use this command you need to vote for the bot every 2 weeks at https://discordbots.org/bot/" + clientUser.id);
 				} else {
-					changeRoles(); // If user has voted and dbl is enabled
+					changeRoles(); // If user has voted and Discordbots.org listing is enabled
 				}
 			});
 		} else {
