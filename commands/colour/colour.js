@@ -55,6 +55,8 @@ module.exports = class ChannelCommand extends Command {
 			prefix = msg.guild.commandPrefix;
 		}
 
+		const clientUser = this.client;
+
 		if (!args.role) {
 			await msg.say(stripIndents `Here's a list of all the colours: ${config.base_www}${msg.guild.id}
 			Use \`${prefix}colour <colour name>\` 
