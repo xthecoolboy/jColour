@@ -1,49 +1,55 @@
 <!DOCTYPE html>
 <html>
-	<head>
 
-		<!-- ALL THE SINGLE METAS -->
-		<% if (server) { %>
-		<title><%= server.name %> Colours</title>
+<head>
+
+	<!-- ALL THE SINGLE METAS -->
+	<% if (server) { %>
+		<title>
+			<%= server.name %> Colours</title>
 		<meta name="description" content="Page to view colours for <%= server.name %>">
 		<% } else { %>
-		<title>Server not found</title>
-		<meta name="description" content="Was it my fault?">		
-		<% } %>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="author" content="Jaakko Repo">
-		<meta name="keywords" content="jColour, jColor, Discord, Discord bot">
+			<title>Server not found</title>
+			<meta name="description" content="Was it my fault?">
+			<% } %>
+				<meta charset="utf-8">
+				<meta name="viewport" content="width=device-width, initial-scale=1">
+				<meta name="author" content="Jaakko Repo">
+				<meta name="keywords" content="jColour, jColor, Discord, Discord bot">
 
-		<!-- Stylesheets -->
-		<link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
-		<link href="/css/styles.css" rel="stylesheet" type="text/css">
+				<!-- Stylesheets -->
+				<link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+				<link href="/css/styles.css" rel="stylesheet" type="text/css">
 
-		<script type='text/javascript' src='js/tinycolor.js'></script>
+				<script type='text/javascript' src='js/tinycolor.js'></script>
 
-	</head>
-	<body>
+</head>
 
-		<div class="is-page">
-			<section class="hero header is-fade is-small">
-				<div class="hero-body">
-					<div class="container">
+<body>
 
-						<h1 class="title is-1 is-whitetext">jColour Options</h1>
-
-					</div>
+	<div class="is-page">
+		<section class="hero header is-fade is-small">
+			<div class="hero-body">
+				<div class="container">
+					<% if (server) { %>
+						<h1 class="title is-1 is-whitetext">Colours for
+							<%= server.name %>
+						</h1>
+						<% } else { %>
+							<h1 class="title is-1 is-whitetext">oof
+							</h1>
+							<% } %>
 				</div>
-			</section>
+			</div>
+		</section>
 
 
-			<section class="hero colours">
-				<a name="colours"></a>
-				<% if (server) { %>
-				<h1 class="title">Here are the available colours at <%= server.name %></h1>
-				<h2 class="subtitle">Use j!colour [colour name] <br/>
-					Get a random colour with j!colour random <br />
-					Get the best colour for your avatar with j!colour pick <br />
-					Click a colour to see a Discord chat preview.</h2>
+		<section class="hero colours">
+			<a name="colours"></a>
+			<% if (server) { %>
+				<h2 class="subtitle">
+					Click a colour to see a Discord chat preview.
+				</h2>
 
 				<div class="container ">
 
@@ -58,95 +64,100 @@
 							if (element.name.toLowerCase().startsWith("colour ")) {
 								roleCount++; %>
 
-						<a onClick="toggleModal('<%= element.id %>')" class="card is-colour" style="background-color: <%=element.hexColor%>">
-							<div class="card-content">
-								<h2 id="<%= element.id %>" style="color: black" class="title style-colour"><%= element.name.substring(7) %></h2>
-							</div>
+							<a onClick="toggleModal('<%= element.id %>')" class="card is-colour" style="background-color: <%=element.hexColor%>">
+								<div class="card-content">
+									<h2 id="<%= element.id %>" style="color: black" class="title style-colour">
+										<%= element.name.substring(7) %>
+									</h2>
+								</div>
 
-							<script>
-								var textelement = document.getElementById("<%= element.id %>");
-																		  if(tinycolor("<%= element.hexColor %>").isDark()) {
-																		  textelement.style.color = "white";
-																		  }
-							</script>
-						</a>
+								<script>
+									var textelement = document.getElementById("<%= element.id %>");
+									if (tinycolor("<%= element.hexColor %>").isDark()) {
+										textelement.style.color = "white";
+									}
+								</script>
+							</a>
 
-						<div class="modal" id="<%= element.id %>-modal">
-							<div onClick="toggleModal('<%= element.id %>')" class="modal-background"></div>
-							<div class="modal-content">
-								<h1 class="title">Colour previews.</h1>
-								<div class="card discord">
-									<div class="card-content">
-										<div class="media">
-											<div class="media-left">
-												<figure class="image is-64x64">
-													<img src="assets/discord.png" alt="Picture" />
-												</figure>
+							<div class="modal" id="<%= element.id %>-modal">
+								<div onClick="toggleModal('<%= element.id %>')" class="modal-background"></div>
+								<div class="modal-content">
+									<h1 class="title">Colour previews.</h1>
+									<div class="card discord">
+										<div class="card-content">
+											<div class="media">
+												<div class="media-left">
+													<figure class="image is-64x64">
+														<img src="assets/discord.png" alt="Picture" />
+													</figure>
+												</div>
+												<div class="media-content">
+													<p class="name" style="color: <%= element.hexColor %>">Light mode</p>
+													<p class="date">Today at 6.00 PM</p>
+
+													<p class="text">Testing the
+														<%= element.name %>.</p>
+												</div>
 											</div>
-											<div class="media-content">
-												<p class="name" style="color: <%= element.hexColor %>">Light mode</p>
-												<p class="date">Today at 6.00 PM</p>	
+										</div>
+									</div>
 
-												<p class="text">Testing the <%= element.name %>.</p>
-											</div> 
+									<div style="background: #36393E" class="card discord discord-dark">
+										<div class="card-content">
+											<div class="media">
+												<div class="media-left">
+													<figure class="image is-64x64">
+														<img src="assets/discord.png" alt="Picture" />
+													</figure>
+												</div>
+												<div class="media-content">
+													<p class="name" style="color: <%= element.hexColor %>">Dark mode</p>
+													<p class="date">Today at 6.00 PM</p>
+
+													<p class="text">Testing the
+														<%= element.name %>.</p>
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>
-
-								<div style="background: #36393E" class="card discord discord-dark">
-									<div class="card-content">
-										<div class="media">
-											<div class="media-left">
-												<figure class="image is-64x64">
-													<img src="assets/discord.png" alt="Picture" />
-												</figure>
-											</div>
-											<div class="media-content">
-												<p class="name" style="color: <%= element.hexColor %>">Dark mode</p>
-												<p class="date">Today at 6.00 PM</p>	
-
-												<p class="text">Testing the <%= element.name %>.</p>
-											</div> 
-										</div>
-									</div>
-								</div>
+								<button onClick="toggleModal('<%= element.id %>')" class="modal-close is-large" aria-label="close"></button>
 							</div>
-							<button onClick="toggleModal('<%= element.id %>')" class="modal-close is-large" aria-label="close"></button>
-						</div>
 
-						<% }}) 
+							<% }}) 
 						if(roleCount === 0) { %>
-						<h1 class="title">Server roles not setup! Ask an administrator to run j!tutorial.</h1>
-						<% }%>
+								<h1 class="title">Server roles not setup! Ask an administrator to run j!tutorial.</h1>
+								<% }%>
 
-					</div>					
+					</div>
 
 					<% } else { %>
-					<h1 class="title">Server not available!</h1>
-					<h2 class="subtitle">Are you sure this is the correct URL?</h2>
-					<% } %>
+						<h1 class="title">Server not available!</h1>
+						<h2 class="subtitle">Are you sure this is the correct URL?</h2>
+						<% } %>
 
 				</div>
-			</section>
-		</div>
-
-		<section class="section footer">
-			<div class="container">
-
-				<h2 class="is-white subtitle">
-					&copy; Jaakko Repo, 2018 <br />
-					Licensed under a MIT license.
-				</h2>
-
-			</div>
 		</section>
+	</div>
 
-		<script>
-			var toggleModal = (elemId) => {
-				var elem = document.getElementById(elemId + "-modal");
-				elem.classList.toggle("is-active");
-			}
-		</script>
+	<section class="section footer">
+		<div class="container">
 
-	</body>
+			<h2 class="is-white subtitle">
+				&copy; Jaakko Repo, 2018
+				<br /> Licensed under a MIT license.
+			</h2>
+
+		</div>
+	</section>
+
+	<script>
+		var toggleModal = (elemId) => {
+			var elem = document.getElementById(elemId + "-modal");
+			elem.classList.toggle("is-active");
+		}
+	</script>
+
+</body>
+
 </html>
