@@ -5,15 +5,14 @@ const config = require('./../../config/config.json');
 
 const {
 	giveRole,
-	giveRandomRole
+	giveRandomRole,
+	giveSuitableRole,
+	checkDbl
 } = require("./../../tools/giveRole.js");
 
 const {
 	stripIndents
 } = require('common-tags');
-
-const DBL = require("dblapi.js");
-const dbl = new DBL(config.dblToken);
 
 module.exports = class ChannelCommand extends Command {
 	constructor(client) {
@@ -22,7 +21,7 @@ module.exports = class ChannelCommand extends Command {
 			group: 'colour',
 			memberName: 'colour',
 			description: 'Gives you a list of colours. To get a colour use `colour <colour name>`',
-			examples: ["colour <any name from the website>", "colour random"],
+			examples: ["colour <any name from the website>", "colour random", "colour pick"],
 			guildOnly: true,
 			throttling: {
 				usages: 2,
@@ -60,7 +59,8 @@ module.exports = class ChannelCommand extends Command {
 		if (!args.role) {
 			await msg.say(stripIndents `Here's a list of all the colours: ${config.base_www}${msg.guild.id}
 			Use \`${prefix}colour <colour name>\` 
-			For a random colour, try \`${prefix}colour random\``)
+			For a random colour, try \`${prefix}colour random\`
+			Get the best colour for your avatar: \`${prefix}colour pick\``)
 		} else {
 
 			if (args.role === "random") {
@@ -71,16 +71,24 @@ module.exports = class ChannelCommand extends Command {
 
 				*/
 
-				if (config.dblToken) {
-					dbl.hasVoted(msg.author.id, 14).then(function (result) {
-						if (!result) { // if user hasnt voted and dbl is enabled
-							msg.say("Sorry, but to use this command you need to vote for the bot every 2 weeks at https://discordbots.org/bot/" + clientUser.id);
-						} else {
-							giveRandomRole(msg); // If user has voted and Discordbots.org listing is enabled
-						}
-					});
+				if (checkDbl(msg)) {
+					giveRandomRole(msg, prefix);
 				} else {
-					giveRandomRole(msg); // If DBL is not enabled
+					msg.say("Sorry, but to use this command you need to vote for the bot every 2 weeks at https://discordbots.org/bot/" + clientUser.id);
+				}
+
+			} else if (["suitable", "pick", "choose"].includes(args.role)) {
+
+				/*
+
+				PICKS A COLOR FROM AVATAR
+
+				*/
+
+				if (checkDbl(msg)) {
+					giveSuitableRole(msg, prefix);
+				} else {
+					msg.say("Sorry, but to use this command you need to vote for the bot every 2 weeks at https://discordbots.org/bot/" + clientUser.id);
 				}
 
 			} else {

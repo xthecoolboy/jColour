@@ -53,6 +53,7 @@ ing is working by typing \`${prefix}colour\`
 **3.** Profit.
 
 **Protip:** With the command \`${prefix}colour random\` you can get a random colour from the list.
+\`${prefix}colour pick\` matches all available colours to your avatar and picks the best one.
 
 ~~━━━━━━━━━━━━━━━━━━━━━━━━━━━━━~~
 
