@@ -10,6 +10,12 @@ html {
 	background-color: #212121;
 }
 
+@media only screen and (max-device-width: 768px) {
+	.is-fullwidth-mobile {
+		width: calc(50% - 20px);
+	}
+}
+
 .is-white {
 	color: white;
 }
