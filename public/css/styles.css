@@ -12,7 +12,7 @@ html {
 
 @media only screen and (max-device-width: 768px) {
 	.is-fullwidth-mobile {
-		width: calc(50% - 20px);
+		width: 100%;
 	}
 }
 
