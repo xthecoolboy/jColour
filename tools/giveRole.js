@@ -7,14 +7,7 @@ const DBL = require("dblapi.js");
 const dbl = new DBL(config.dblToken);
 
 async function giveRole(msg, chosenRole) {
-    let rolesToRemove = []; // Init array for roles to remove
-
-    // Loop through roles and filter
-    msg.member.roles.array().forEach(function (element) {
-        if (element.name.startsWith("colour ")) {
-            rolesToRemove.push(element);
-        }
-    });
+    const rolesToRemove = msg.guild.roles.array().filter(role => role.name.startsWith("colour "));
 
     let failed; // Prepare for spaghoot code
 
@@ -37,13 +30,7 @@ async function giveRole(msg, chosenRole) {
 }
 
 async function giveRandomRole(msg, prefix) { // FUNCTION THAT GIVES A RANDOM ROLE
-    let colourRoles = []; // All colour roles
-    msg.guild.roles.array().forEach(function (element) {
-        if (element.name.startsWith("colour ")) {
-            colourRoles.push(element);
-
-        }
-    });
+    const colourRoles = msg.guild.roles.array().filter(role => role.name.startsWith("colour "));
 
     const chosenRole = colourRoles[Math.floor(Math.random() * colourRoles.length)];
     if (chosenRole) {
@@ -64,8 +51,9 @@ async function giveSuitableRole(msg, prefix) {
             distance: 999999
         }
 
-        msg.guild.roles.array().forEach(function (element) {
-            if (element.name.startsWith("colour ")) {
+        const colourRoles = msg.guild.roles.array().filter(role => role.name.startsWith("colour "));
+
+        colourRoles.forEach(function (element) {
                 const distance = chroma.distance(element.hexColor, color, "rgb");
                 // RGB distance between colours
 
@@ -76,7 +64,6 @@ async function giveSuitableRole(msg, prefix) {
                     }
                 }
 
-            }
         });
 
         const chosenRole = msg.guild.roles.find("id", smallestDistance.id);
