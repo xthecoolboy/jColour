@@ -1,33 +1,15 @@
 <!DOCTYPE html>
 <html>
-	<head>
-
-		<!-- ALL THE SINGLE METAS -->
-		<title><%= errorNum %> <%= errorMsg %></title>
-
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="description" content="<%= errorMsg %>">
-		<meta name="author" content="Jaakko Repo">
-		<meta name="keywords" content="jColour, jColor, Discord, Discord bot">
-
-		<!-- Stylesheets -->
-		<link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
-		<link href="/css/styles.css" rel="stylesheet" type="text/css">
-
-	</head>
+<%- include('elements/meta', {
+	title: errorNum + ": " + errorMsg,
+	desc: "An error occurred."
+}) %>
 	<body>
 
 		<div class="is-page">
-			<section class="hero header is-fade is-small">
-				<div class="hero-body">
-					<div class="container">
-
-						<h1 class="title is-1 is-whitetext">jColour Options</h1>
-
-					</div>
-				</div>
-			</section>
+			<%- include('elements/header', {
+				text: "Oof?"
+			}) %>
 
 
 			<section class="hero colours">
@@ -39,16 +21,7 @@
 			</section>
 		</div>
 
-		<section class="section footer">
-			<div class="container">
-
-				<h2 class="is-white subtitle">
-					&copy; Jaakko Repo, 2018 <br />
-					Licensed under a MIT license.
-				</h2>
-
-			</div>
-		</section>
+		<%- include elements/footer %>
 
 	</body>
 </html>

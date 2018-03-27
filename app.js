@@ -101,6 +101,7 @@ const app = express();
 const port = process.env.PORT || config.port;
 const helmet = require('helmet');
 const morgan = require("morgan");
+const tinycolor = require("tinycolor2");
 
 const middleware = [
 	helmet(),
@@ -122,7 +123,8 @@ app.get('/', function(req, res) {
 // colour page: sends server as a var
 app.get('/:id', function(req, res) {
 	res.render('index.ejs', {
-		server: client.guilds.find("id", req.params.id)
+		server: client.guilds.find("id", req.params.id),
+		tinycolor: tinycolor
 	});
 });
 
