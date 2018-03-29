@@ -81,6 +81,10 @@ if (config.dblWebAuth) {
 		console.log(`Webhook running at http://${hook.hostname}:${hook.port}${hook.path}`);
 	});
 	dbl.webhook.on('vote', vote => {
+		if (vote["type"] === "test") {
+			console.log("Received webhook test!");
+			console.log(vote);
+		}
 		if (vote["bot"] === client.user.id && vote["type"] === "upvote") {
 			client.settings.set(`vote-${vote["user"]}`, new Date())
 		};
