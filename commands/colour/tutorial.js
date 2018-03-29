@@ -57,7 +57,7 @@ ing is working by typing \`${prefix}colour\`
 
 ~~━━━━━━━━━━━━━━━━━━━━━━━━━━━━━~~
 
-**Note**: We don't save any user data unless you ex. change a prefix. 
+**Note**: We don't save any user data unless you ex. change a prefix or vote for the bot. 
 All webpages are served dynamically and no data is left behind.
 
 ~~━━━━━━━━━━━━━━━━━━━━━━━━━━━━━~~
