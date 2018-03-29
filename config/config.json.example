@@ -14,5 +14,8 @@
 	"dbotsToken": "",
 	"_comment": "Token to bots.discord.pw, can be left empty",
 	
-	"support": "https://discord.gg/gwqgJy8"
+	"support": "https://discord.gg/gwqgJy8",
+
+	"dblWebAuth": "",
+	"_comment6": "If you use DBL webhooks, use this as the webhook authorization."
 }

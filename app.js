@@ -2,11 +2,17 @@ const Discord = require('discord.js');
 const Commando = require('discord.js-commando');
 const sqlite = require('sqlite');
 const path = require('path');
-const {version, description} = require('./package.json');
+const {
+	version,
+	description
+} = require('./package.json');
 const config = require('./config/config.json');
 
 const DBL = require("dblapi.js");
-const dbl = new DBL(config.dblToken);
+const dbl = new DBL(config.dblToken, {
+	webhookPort: 5000,
+	webhookAuth: config.dblWebAuth
+});
 
 const DiscordBots = require('discordbots');
 const dbots = new DiscordBots(config.dbotsToken);
@@ -20,15 +26,15 @@ const client = new Commando.Client({
 });
 
 client.registry
-// Registers your custom command groups
+	// Registers your custom command groups
 	.registerGroups([
-	['colour', 'Colour'],
-])
+		['colour', 'Colour'],
+	])
 
-// Registers all built-in groups, commands, and argument types
+	// Registers all built-in groups, commands, and argument types
 	.registerDefaults()
 
-// Registers all of your commands in the ./commands/ directory
+	// Registers all of your commands in the ./commands/ directory
 	.registerCommandsIn(path.join(__dirname, 'commands'));
 
 client.on('ready', () => {
@@ -36,10 +42,12 @@ client.on('ready', () => {
 Bot: ${client.user.tag} / ${client.user.id} / v${version} (Codename ${description})
 `);
 
-	client.user.setActivity("j!colours |  v" + version + " / " + description, { type: 'WATCHING' })
+	client.user.setActivity("j!colours |  v" + version + " / " + description, {
+			type: 'WATCHING'
+		})
 		.then(presence => console.log(`Activity set.`))
 		.catch(console.error);
-	
+
 	setInterval(() => {
 
 		if (config.dblToken) { //discordbots.org
@@ -56,7 +64,6 @@ Bot: ${client.user.tag} / ${client.user.id} / v${version} (Codename ${descriptio
 
 	}, 1800000);
 
-
 	/*client.user.setUsername('jColour Alpha');
   client.user.setAvatar('./avatar.png')*/
 
@@ -68,6 +75,18 @@ client.setProvider( // Sqlite database for prefixes and such
 	sqlite.open(path.join(__dirname, 'settings.sqlite3')).then(db => new Commando.SQLiteProvider(db))
 ).catch(console.error);
 
+if (config.dblWebAuth) {
+
+	dbl.webhook.on('ready', hook => {
+		console.log(`Webhook running at http://${hook.hostname}:${hook.port}${hook.path}`);
+	});
+	dbl.webhook.on('vote', vote => {
+		if (vote["bot"] === client.user.id && vote["type"] === "upvote") {
+			client.settings.set(`vote-${vote["user"]}`, new Date())
+		};
+	});
+
+}
 
 client.on('guildMemberAdd', member => {
 
@@ -116,12 +135,12 @@ app.use(middleware);
 
 
 // redirect to bot inv
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
 	res.redirect(`https://discordapp.com/oauth2/authorize?client_id=${client.user.id}&scope=bot&permissions=268454912`)
 });
 
 // colour page: sends server as a var
-app.get('/:id', function(req, res) {
+app.get('/:id', function (req, res) {
 	res.render('index.ejs', {
 		server: client.guilds.find("id", req.params.id),
 		tinycolor: tinycolor
@@ -129,7 +148,7 @@ app.get('/:id', function(req, res) {
 });
 
 // 404 (/css, /js etc)
-app.use(function(req, res) {
+app.use(function (req, res) {
 	res.status(404).render('error.ejs', {
 		errorNum: 404,
 		errorMsg: "File not found."

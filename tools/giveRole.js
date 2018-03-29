@@ -29,7 +29,7 @@ async function giveRole(msg, chosenRole) {
     }
 }
 
-async function giveRandomRole(msg, prefix) { // FUNCTION THAT GIVES A RANDOM ROLE
+async function giveRandomRole(msg, prefix, client) { // FUNCTION THAT GIVES A RANDOM ROLE
     const colourRoles = msg.guild.roles.array().filter(role => role.name.startsWith("colour "));
 
     const chosenRole = colourRoles[Math.floor(Math.random() * colourRoles.length)];
@@ -41,7 +41,7 @@ async function giveRandomRole(msg, prefix) { // FUNCTION THAT GIVES A RANDOM ROL
 
 }
 
-async function giveSuitableRole(msg, prefix) {
+async function giveSuitableRole(msg, prefix, client) {
     getColors(msg.author.displayAvatarURL, function (err, colors) {
         if (err) throw err
         const color = colors[0];
@@ -54,15 +54,15 @@ async function giveSuitableRole(msg, prefix) {
         const colourRoles = msg.guild.roles.array().filter(role => role.name.startsWith("colour "));
 
         colourRoles.forEach(function (element) {
-                const distance = chroma.distance(element.hexColor, color, "rgb");
-                // RGB distance between colours
+            const distance = chroma.distance(element.hexColor, color, "rgb");
+            // RGB distance between colours
 
-                if (distance < smallestDistance.distance) { // Replaces if smaller
-                    smallestDistance = {
-                        id: element.id,
-                        distance: distance
-                    }
+            if (distance < smallestDistance.distance) { // Replaces if smaller
+                smallestDistance = {
+                    id: element.id,
+                    distance: distance
                 }
+            }
 
         });
 
@@ -76,19 +76,36 @@ async function giveSuitableRole(msg, prefix) {
     })
 };
 
-async function checkDbl(msg) {
+function checkDbl(msg, client) {
     if (config.dblToken) {
-        dbl.hasVoted(msg.author.id, 14).then(function (result) {
-            if (!result) { // if user hasnt voted and dbl is enabled
-                return false
-            } else {
-                return true
-            }
-        });
+        if (client.isOwner(msg.author)) {
+            return true; // User is bot owner
+        } else {
+            const result = withinLastMonth( // checks if vote was within last 30 days and exists
+                client.settings.get(`vote-${msg.author.id}`),
+                new Date()
+            )
+            return result;
+        }
     } else {
-        return true
+        return true // no dbl token in config
     }
 }
+
+var withinLastMonth = function (d1, d2, msg) { // https://stackoverflow.com/questions/6154689/how-to-check-if-date-is-within-30-days
+    if (d1) {
+        var diff = Math.abs(new Date(d1).getTime() - d2.getTime());
+        if (diff / (1000 * 60 * 60 * 24) <= 31) {
+            return true; // Vote was within the last 30 days
+        } else {
+            return false; // Vote was over 31 days ago
+        }
+    } else {
+        return false; // Hasn't voted at all or database died somewhere lol
+    }
+
+};
+
 module.exports.giveRole = giveRole;
 module.exports.giveRandomRole = giveRandomRole;
 module.exports.giveSuitableRole = giveSuitableRole;

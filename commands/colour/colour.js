@@ -70,11 +70,10 @@ module.exports = class ChannelCommand extends Command {
 				RANDOM ROLE 
 
 				*/
-
-				if (checkDbl(msg)) {
+				if (checkDbl(msg, clientUser)) {
 					giveRandomRole(msg, prefix);
 				} else {
-					msg.say("Sorry, but to use this command you need to vote for the bot every 2 weeks at https://discordbots.org/bot/" + clientUser.id);
+					msg.say("Sorry, but to use this command you need to vote for the bot every 2 weeks at https://discordbots.org/bot/" + clientUser.user.id);
 				}
 
 			} else if (["suitable", "pick", "choose"].includes(args.role)) {
@@ -85,10 +84,10 @@ module.exports = class ChannelCommand extends Command {
 
 				*/
 
-				if (checkDbl(msg)) {
+				if (checkDbl(msg, clientUser)) {
 					giveSuitableRole(msg, prefix);
 				} else {
-					msg.say("Sorry, but to use this command you need to vote for the bot every 2 weeks at https://discordbots.org/bot/" + clientUser.id);
+					msg.say("Sorry, but to use this command you need to vote for the bot every 2 weeks at https://discordbots.org/bot/" + clientUser.user.id);
 				}
 
 			} else {
