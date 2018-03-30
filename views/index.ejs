@@ -75,13 +75,59 @@
 
 							</div>
 
-							<div class="media">
-								<figure class="image">
-									<a href="https://discordbots.org/bot/358968052500660226">
-										<img src="https://discordbots.org/api/widget/358968052500660226.svg" alt="jColour at Discordbots.org" />
-									</a>
-								</figure>
-							</div>
+							<% if (registry) { 
+								const availableCommands = registry.commands.filter(
+									command => !([
+										"eval", 
+										"groups", 
+										"enable", 
+										"disable", 
+										"reload", 
+										"load", 
+										"unload"
+									].includes(command.name))
+								); %>
+								<h1 class="title is-3">Available commands:</h1>
+								<div class="tg-wrap">
+									<table class="tg">
+										<tr>
+											<th class="tg-us36">Command</th>
+											<th class="tg-us36">Usage</th>
+											<th class="tg-us36">Argument</th>
+											<th class="tg-us36">Group</th>
+										</tr>
+										<% availableCommands.forEach(function(command) { %>
+
+
+
+											<tr>
+												<td class="tg-us36"><%= command.name %></td>
+												<td class="tg-us36"><%= command.format %>
+													<br>
+												</td>
+												<td class="tg-us36"><%= command.description %>
+													<br>
+												</td>
+												<td class="tg-us36"><%= command.group.name %></td>
+											</tr>
+
+
+											<% }) %>
+
+									</table>
+								</div>
+
+								<% } %>
+
+									<br />
+
+									<div class="media">
+										<figure class="image">
+											<a href="https://discordbots.org/bot/358968052500660226">
+												<img src="https://discordbots.org/api/widget/358968052500660226.svg" alt="jColour at Discordbots.org" />
+											</a>
+										</figure>
+									</div>
 
 						</div>
 					</div>

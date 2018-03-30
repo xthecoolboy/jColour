@@ -157,7 +157,9 @@ app.get('/video', function (req, res) { // Tutorial video
 
 // index page
 app.get('/', function (req, res) {
-	res.render('index.ejs', {});
+	res.render('index.ejs', {
+		registry: client.registry
+	});
 });
 
 // colour page: sends server as a var

@@ -38,7 +38,7 @@ module.exports = class ChannelCommand extends Command {
 			],
 			args: [{
 				key: 'role',
-				label: 'role',
+				label: 'role/"pick"/"random"',
 				prompt: "What colour do you want? Run the command again without an argument to see the list.",
 				error: "That is an invalid colour.",
 				type: 'string',
