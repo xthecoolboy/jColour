@@ -139,13 +139,26 @@ app.use(middleware);
 
 
 // redirect to bot inv
-app.get('/', function (req, res) {
+app.get('/invite', function (req, res) {
 	res.redirect(`https://discordapp.com/oauth2/authorize?client_id=${client.user.id}&scope=bot&permissions=268454912`)
+});
+
+app.get('/support', function (req, res) { // Support guild
+	res.redirect(config.support)
+});
+
+app.get('/demo', function (req, res) { // Demo guild
+	res.redirect("/358971438964801557")
+});
+
+// index page
+app.get('/', function (req, res) {
+	res.render('index.ejs', {});
 });
 
 // colour page: sends server as a var
 app.get('/:id', function (req, res) {
-	res.render('index.ejs', {
+	res.render('colour.ejs', {
 		server: client.guilds.find("id", req.params.id),
 		tinycolor: tinycolor
 	});

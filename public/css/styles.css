@@ -16,6 +16,14 @@ html {
 	}
 }
 
+.is-large {
+	margin: 5px;
+}
+
+.has-card-margin {
+	margin: 10px;
+}
+
 .is-white {
 	color: white;
 }

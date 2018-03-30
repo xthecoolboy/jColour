@@ -33,7 +33,7 @@ module.exports = class ChannelCommand extends Command {
 			prefix = msg.guild.commandPrefix;
 		}
 
-		msg.say(`**__TUTORIAL__**
+		const tutorialMsg = `**__TUTORIAL__**
 ~~━━━━━━━━━━━━━━━━━━━━━━━━━━━━━~~
 
 **Setup**
@@ -62,7 +62,9 @@ All webpages are served dynamically and no data is left behind.
 
 ~~━━━━━━━━━━━━━━━━━━━━━━━━━━━━━~~
 
-If you need further help, please join our support server at ${config.support}`)
+If you need further help, please join our support server at ${config.support}`;
+
+		msg.say(tutorialMsg)
 
 
 
