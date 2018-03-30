@@ -42,7 +42,7 @@ client.on('ready', () => {
 Bot: ${client.user.tag} / ${client.user.id} / v${version} (Codename ${description})
 `);
 
-	client.user.setActivity("j!colours |  v" + version + " / " + description, {
+	client.user.setActivity(client.commandPrefix + "colours |  v" + version + " / " + description, {
 			type: 'WATCHING'
 		})
 		.then(presence => console.log(`Activity set.`))
