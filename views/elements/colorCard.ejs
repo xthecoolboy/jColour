@@ -1,52 +1,7 @@
-<a onClick="toggleModal('<%= element.id %>')" class="card is-colour is-fullwidth-mobile" style="background-color: <%=element.hexColor%>">
+<a onClick="toggleModal('<%= element.name %>', '<%= element.hexColor %>')" class="card is-colour is-fullwidth-mobile" style="background-color: <%=element.hexColor%>">
     <div class="card-content">
         <h2 id="<%= element.id %>" style="color: <%= tinycolor(element.hexColor).isDark() ? "white" : "black" %>" class="title is-5 style-colour">
             <%= element.name.substring(7) %>
         </h2>
     </div>
 </a>
-
-<div class="modal" id="<%= element.id %>-modal">
-    <div onClick="toggleModal('<%= element.id %>')" class="modal-background"></div>
-    <div class="modal-content">
-        <h1 class="title">Colour previews.</h1>
-        <div class="card discord">
-            <div class="card-content">
-                <div class="media">
-                    <div class="media-left">
-                        <figure class="image is-64x64">
-                            <img src="assets/discord.png" alt="Picture" />
-                        </figure>
-                    </div>
-                    <div class="media-content">
-                        <p class="name" style="color: <%= element.hexColor %>">Light mode</p>
-                        <p class="date">Today at 6.00 PM</p>
-
-                        <p class="text">Testing the
-                            <%= element.name %>.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div style="background: #36393E" class="card discord discord-dark">
-            <div class="card-content">
-                <div class="media">
-                    <div class="media-left">
-                        <figure class="image is-64x64">
-                            <img src="assets/discord.png" alt="Picture" />
-                        </figure>
-                    </div>
-                    <div class="media-content">
-                        <p class="name" style="color: <%= element.hexColor %>">Dark mode</p>
-                        <p class="date">Today at 6.00 PM</p>
-
-                        <p class="text">Testing the
-                            <%= element.name %>.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <button onClick="toggleModal('<%= element.id %>')" class="modal-close is-large" aria-label="close"></button>
-</div>

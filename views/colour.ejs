@@ -6,98 +6,150 @@
 	desc: server ? `Colours for ${server.name}` : "Was it my fault?"
 }) %>
 
-	<body>
+	<% function convertToHSL (hex) {
+	var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
 
-		<div class="is-page">
-			
-			<%- include('elements/header', {
+	var r = parseInt(result[1], 16);
+	var g = parseInt(result[2], 16);
+	var b = parseInt(result[3], 16);
+
+	r /= 255, g /= 255, b /= 255;
+	var max = Math.max(r, g, b), min = Math.min(r, g, b);
+	var h, s, l = (max + min) / 2;
+
+	if(max == min){
+		h = s = 0; // achromatic
+	} else {
+		var d = max - min;
+		s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+		switch(max) {
+			case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+			case g: h = (b - r) / d + 2; break;
+			case b: h = (r - g) / d + 4; break;
+		}
+		h /= 6;
+	}
+
+	s = s*100;
+	s = Math.round(s);
+	l = l*100;
+	l = Math.round(l);
+	h = Math.round(360*h);
+
+	return [h, s, l];
+} %>
+
+		<body>
+
+			<div class="is-page">
+
+				<%- include('elements/header', {
 				text: server ? `Colours for ${server.name}` : "Server not found."
 			}) %>
 
-			<section class="hero colours">
-				<a name="colours"></a>
-				<% if (server) { %>
-					<h2 class="subtitle">
-						Click a colour to see a Discord chat preview.
-					</h2>
+					<section class="hero colours">
+						<a name="colours"></a>
+						<% if (server) { %>
+							<h2 class="subtitle">
+								Click a colour to see a Discord chat preview.
+							</h2>
 
-					<div class="container ">
+							<div class="container ">
 
-						<div class="columns is-multiline is-inline-flex-touch">
+								<div class="columns is-multiline is-inline-flex-touch">
 
-						<% 
-						
-						function convertToHSL (hex) {
-							var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-
-							var r = parseInt(result[1], 16);
-							var g = parseInt(result[2], 16);
-							var b = parseInt(result[3], 16);
-
-							r /= 255, g /= 255, b /= 255;
-							var max = Math.max(r, g, b), min = Math.min(r, g, b);
-							var h, s, l = (max + min) / 2;
-
-							if(max == min){
-								h = s = 0; // achromatic
-							} else {
-								var d = max - min;
-								s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-								switch(max) {
-									case r: h = (g - b) / d + (g < b ? 6 : 0); break;
-									case g: h = (b - r) / d + 2; break;
-									case b: h = (r - g) / d + 4; break;
-								}
-								h /= 6;
-							}
-
-							s = s*100;
-							s = Math.round(s);
-							l = l*100;
-							l = Math.round(l);
-							h = Math.round(360*h);
-
-							return [h, s, l];
-						}						
-						
-						const roles = server.roles.array();
-						const colourRoles = roles.filter(role => role.name.startsWith("colour "));
-						const roleCount = colourRoles.length;
-						colourRoles.sort(function (a, b) {
-     					   return convertToHSL(a.hexColor)[0] - convertToHSL(b.hexColor)[0];
-   						 });
-						colourRoles.forEach(function(element) { %>
-								<%- include('elements/colorCard', {
-								element: element, 
-								tinycolor: tinycolor
-							}) %>
+									<% 	const roles = server.roles.array();
+								const colourRoles = roles.filter(role => role.name.startsWith("colour "));
+								const roleCount = colourRoles.length;
+								colourRoles.sort(function (a, b) {
+								return convertToHSL(a.hexColor)[0] - convertToHSL(b.hexColor)[0];
+								});
+								colourRoles.forEach(function(element) { %>
+										<%- include('elements/colorCard', {
+										element: element, 
+										tinycolor: tinycolor
+									}) %>
 
 
-									<% }) 
+											<% }) 
 						if(roleCount === 0) { %>
-										<h1 class="title">Server roles not setup! Ask an administrator to run j!tutorial.</h1>
-										<% }%>
+												<h1 class="title">Server roles not setup! Ask an administrator to run j!tutorial.</h1>
+												<% }%>
 
+								</div>
+
+								<% } else { %>
+									<h1 class="title">Server not available!</h1>
+									<h2 class="subtitle">Are you sure this is the correct URL?</h2>
+									<% } %>
+
+							</div>
+					</section>
+			</div>
+
+			<div class="modal" id="modal">
+				<div onClick="toggleModal()" class="modal-background"></div>
+				<div class="modal-content">
+					<h1 class="title">Colour previews.</h1>
+					<div class="card discord">
+						<div class="card-content">
+							<div class="media">
+								<div class="media-left">
+									<figure class="image is-64x64">
+										<img src="assets/discord.png" alt="Picture" />
+									</figure>
+								</div>
+								<div class="media-content">
+									<p class="name" id="modal-colour1">Discord user</p>
+									<p class="date">Today at 6.00 PM</p>
+
+									<p class="text" id="modal-text1"></p>
+								</div>
+							</div>
 						</div>
-
-						<% } else { %>
-							<h1 class="title">Server not available!</h1>
-							<h2 class="subtitle">Are you sure this is the correct URL?</h2>
-							<% } %>
-
 					</div>
-			</section>
-		</div>
 
-		<%- include elements/footer %>
+					<div style="background: #36393E" class="card discord discord-dark">
+						<div class="card-content">
+							<div class="media">
+								<div class="media-left">
+									<figure class="image is-64x64">
+										<img src="assets/discord.png" alt="Picture" />
+									</figure>
+								</div>
+								<div class="media-content">
+									<p class="name" id="modal-colour2">Discord user</p>
+									<p class="date">Today at 6.00 PM</p>
 
-			<script>
-				var toggleModal = (elemId) => {
-					var elem = document.getElementById(elemId + "-modal");
-					elem.classList.toggle("is-active");
-				}
-			</script>
+									<p class="text" id="modal-text2"></p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<button onClick="toggleModal()" class="modal-close is-large" aria-label="close"></button>
+			</div>
 
-	</body>
+			<%- include elements/footer %>
+
+				<script>
+					var toggleModal = (name, hexColor) => {
+						if (name && hexColor) {
+							var colour1 = document.getElementById("modal-colour1");
+							var colour2 = document.getElementById("modal-colour2");
+							var text1 = document.getElementById("modal-text1");
+							var text2 = document.getElementById("modal-text2");
+
+							colour1.style.color = hexColor;
+							colour2.style.color = hexColor;
+							text1.innerHTML = "Trying the " + name + " with light mode!";
+							text2.innerHTML = "Trying the " + name + " with dark mode!";
+						}
+						var elem = document.getElementById("modal");
+						elem.classList.toggle("is-active");
+					}
+				</script>
+
+		</body>
 
 </html>

@@ -6,15 +6,19 @@ Website + discord.js interface for the jColour bot
 
 ## Invite me!
 
-https://jcolour.jaqreven.com
+https://jcolour.jaqreven.com/invite
 
 ## Installing
 
 * Fork the repository
 * Clone it
 * Install the necessary components (Ejs, Express etc) with `npm i`
+* Make a Discord bot
+* Rename /config/config.json.example to /config/config.json and fill it up
+* npm start 
 
-* (Web server)
+* (Ex. Apache for domains)
+
 
 ## Built With
 

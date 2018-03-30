@@ -70,11 +70,11 @@ module.exports = class ChannelCommand extends Command {
 				RANDOM ROLE 
 
 				*/
-				if (checkDbl(msg, clientUser)) {
+				// if (checkDbl(msg, clientUser)) {
 					giveRandomRole(msg, prefix);
-				} else {
+				/* } else {
 					msg.say("Sorry, but to use this command you need to vote for the bot every month at https://discordbots.org/bot/" + clientUser.user.id);
-				}
+				} */
 
 			} else if (["suitable", "pick", "choose"].includes(args.role)) {
 

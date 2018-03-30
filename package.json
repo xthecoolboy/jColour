@@ -1,6 +1,6 @@
 {
-	"name": "jcolour-web",
-	"version": "2.0.0",
+	"name": "jcolour",
+	"version": "2.0.1",
 	"description": "Beige",
 	"scripts": {
 		"start": "node app.js"
