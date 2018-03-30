@@ -62,6 +62,7 @@ All webpages are served dynamically and no data is left behind.
 
 ~~━━━━━━━━━━━━━━━━━━━━━━━━━━━━━~~
 
+Here's a Youtube tutorial for the setup: <https://jcolour.jaqreven.com/video>
 If you need further help, please join our support server at ${config.support}`;
 
 		msg.say(tutorialMsg)

@@ -151,6 +151,10 @@ app.get('/demo', function (req, res) { // Demo guild
 	res.redirect("/358971438964801557")
 });
 
+app.get('/video', function (req, res) { // Tutorial video
+	res.redirect("https://www.youtube.com/watch?v=7hGpLlN_vIo")
+});
+
 // index page
 app.get('/', function (req, res) {
 	res.render('index.ejs', {});
