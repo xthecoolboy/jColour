@@ -59,7 +59,7 @@ async function giveSuitableRole(msg, prefix, client) {
         const colourRoles = msg.guild.roles.array().filter(role => role.name.toLowerCase().startsWith("colour "));
 
         colourRoles.forEach(function (element) {
-            const distance = chroma.distance(element.hexColor, color, "rgb");
+            const distance = chroma.distance(element.hexColor, color, "lab");
             // RGB distance between colours
 
             if (distance < smallestDistance.distance) { // Replaces if smaller
