@@ -5,9 +5,9 @@ module.exports = class ChannelCommand extends Command {
 	constructor(client) {
 		super(client, {
 			name: 'support',
-			group: 'util',
+			group: 'info',
 			memberName: 'support',
-			description: 'Gives the link for support',
+			description: 'Gives the link to my support server.',
 			examples: ["support", "support there are no arguments smh"],
 			guildOnly: false,
 			throttling: {
@@ -15,15 +15,15 @@ module.exports = class ChannelCommand extends Command {
 				duration: 10
 			},
 			aliases: [
-				"supp",
-				"discord"
+				"support",
+				"plshelp"
 			]
 		});
 	}
 
 	async run(msg, args) {
 
-		msg.say(`Here's the link to get support: ${config.support}`) 
+		msg.say(`Here's the link to my support server: <${config.support}>`) 
 
 	}
 };

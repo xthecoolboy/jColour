@@ -11,7 +11,7 @@ module.exports = class ChannelCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'stats',
-      group: 'util',
+      group: 'info',
       memberName: 'stats',
       description: 'Fetches info related to the bot',
       examples: ["stats", "stats adding arguments is useless"],
@@ -20,6 +20,9 @@ module.exports = class ChannelCommand extends Command {
           usages: 2,
           duration: 10
       },
+      aliases: [
+        "info"
+      ]
     });
   }
 
@@ -64,6 +67,12 @@ module.exports = class ChannelCommand extends Command {
         stripIndents`
         **Guilds**: ${client.guilds.size}
         **Channels**: ${client.channels.size}`,
+        true
+      )
+
+      .addField(
+        "Owner",
+        this.client.owners[0].tag,
         true
       )
 

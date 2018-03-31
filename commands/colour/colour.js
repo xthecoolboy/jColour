@@ -20,7 +20,7 @@ module.exports = class ChannelCommand extends Command {
 			name: 'colour',
 			group: 'colour',
 			memberName: 'colour',
-			description: 'Gives you a list of colours. To get a colour use `colour <colour name>`',
+			description: 'Gives you a list of colours (if no arguments) or gives you a colour.',
 			examples: ["colour <any name from the website>", "colour random", "colour pick"],
 			guildOnly: true,
 			throttling: {
@@ -39,6 +39,7 @@ module.exports = class ChannelCommand extends Command {
 			args: [{
 				key: 'role',
 				label: 'role/"pick"/"random"',
+				format: '[role/"pick"/"random"]',
 				prompt: "What colour do you want? Run the command again without an argument to see the list.",
 				error: "That is an invalid colour.",
 				type: 'string',

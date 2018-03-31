@@ -78,13 +78,7 @@
 							<% if (registry) { 
 								const availableCommands = registry.commands.filter(
 									command => !([
-										"eval", 
-										"groups", 
-										"enable", 
-										"disable", 
-										"reload", 
-										"load", 
-										"unload"
+										"eval"
 									].includes(command.name))
 								); %>
 								<h1 class="title is-3">Available commands:</h1>
@@ -92,8 +86,8 @@
 									<table class="tg">
 										<tr>
 											<th class="tg-us36">Command</th>
-											<th class="tg-us36">Usage</th>
 											<th class="tg-us36">Argument</th>
+											<th class="tg-us36">Description</th>
 											<th class="tg-us36">Group</th>
 										</tr>
 										<% availableCommands.forEach(function(command) { %>

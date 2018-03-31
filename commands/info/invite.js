@@ -4,7 +4,7 @@ module.exports = class ChannelCommand extends Command {
 	constructor(client) {
 		super(client, {
 			name: 'invite',
-			group: 'util',
+			group: 'info',
 			memberName: 'invite',
 			description: 'Gives the link to invite me ',
 			examples: ["invite", "invite there are no arguments smh"],

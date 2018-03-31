@@ -29,10 +29,19 @@ client.registry
 	// Registers your custom command groups
 	.registerGroups([
 		['colour', 'Colour'],
+		['info', 'Information']
 	])
 
-	// Registers all built-in groups, commands, and argument types
-	.registerDefaults()
+	// Registers all built-in groups, some commands, and argument types
+	.registerDefaultGroups() 
+	.registerDefaultTypes() 
+	.registerDefaultCommands({
+		help: false,
+		prefix: false,
+		eval_: true,
+		ping: false,
+		commandState: false
+	}) 
 
 	// Registers all of your commands in the ./commands/ directory
 	.registerCommandsIn(path.join(__dirname, 'commands'));
