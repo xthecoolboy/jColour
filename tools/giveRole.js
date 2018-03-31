@@ -7,30 +7,35 @@ const DBL = require("dblapi.js");
 const dbl = new DBL(config.dblToken);
 
 async function giveRole(msg, chosenRole) {
-    const rolesToRemove = msg.guild.roles.array().filter(role => role.name.startsWith("colour "));
+    const rolesToRemove = msg.guild.roles.array().filter(role => role.name.toLowerCase().startsWith("colour "));
 
     let failed; // Prepare for spaghoot code
 
     // Updating the roles
-    await msg.member.removeRoles(rolesToRemove, `jColour: Colour update (=> ${chosenRole.name})`).catch(function () {
+    await msg.member.removeRoles(rolesToRemove, `jColour: Colour update (=> ${chosenRole ? chosenRole.name : "Remove roles"})`).catch(function () {
         msg.say("I am missing permissions. My role should be the highest in the server's role list.");
         failed = true;
     });
     if (!failed) { // Spaghetti intensifies
-        await msg.member.addRole(chosenRole).catch(function () {
-            msg.say("I am missing permissions. My role should be the highest in the server's role list.");
-            failed = true;
-        });
-
-        // Notify about role updates
-        if (!failed) { // Oh god why would you put that there
-            await msg.say("The " + chosenRole.name + " has been added.")
+        if(chosenRole) {
+            await msg.member.addRole(chosenRole).catch(function () {
+                msg.say("I am missing permissions. My role should be the highest in the server's role list.");
+                failed = true;
+            });
+    
+            // Notify about role updates
+            if (!failed) { // Oh god why would you put that there
+                await msg.say("The " + chosenRole.name + " has been added.")
+            }
+        } else {
+            await msg.say("All colours have been removed!")
         }
+
     }
 }
 
 async function giveRandomRole(msg, prefix, client) { // FUNCTION THAT GIVES A RANDOM ROLE
-    const colourRoles = msg.guild.roles.array().filter(role => role.name.startsWith("colour "));
+    const colourRoles = msg.guild.roles.array().filter(role => role.name.toLowerCase().startsWith("colour "));
 
     const chosenRole = colourRoles[Math.floor(Math.random() * colourRoles.length)];
     if (chosenRole) {
@@ -51,7 +56,7 @@ async function giveSuitableRole(msg, prefix, client) {
             distance: 999999
         }
 
-        const colourRoles = msg.guild.roles.array().filter(role => role.name.startsWith("colour "));
+        const colourRoles = msg.guild.roles.array().filter(role => role.name.toLowerCase().startsWith("colour "));
 
         colourRoles.forEach(function (element) {
             const distance = chroma.distance(element.hexColor, color, "rgb");

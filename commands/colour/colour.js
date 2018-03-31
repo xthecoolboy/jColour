@@ -27,6 +27,7 @@ module.exports = class ChannelCommand extends Command {
 				usages: 2,
 				duration: 10
 			},
+			format: '[role/"pick"/"random"/"none"]',
 			aliases: [
 				"color",
 				"colours",
@@ -38,8 +39,7 @@ module.exports = class ChannelCommand extends Command {
 			],
 			args: [{
 				key: 'role',
-				label: 'role/"pick"/"random"',
-				format: '[role/"pick"/"random"]',
+				label: 'role',
 				prompt: "What colour do you want? Run the command again without an argument to see the list.",
 				error: "That is an invalid colour.",
 				type: 'string',
@@ -59,9 +59,11 @@ module.exports = class ChannelCommand extends Command {
 
 		if (!args.role) {
 			await msg.say(stripIndents `Here's a list of all the colours: ${config.base_www}${msg.guild.id}
+			
 			Use \`${prefix}colour <colour name>\` 
 			For a random colour, try \`${prefix}colour random\`
-			Get the best colour for your avatar: \`${prefix}colour pick\``)
+			Get the best colour for your avatar: \`${prefix}colour pick\`
+			You can also get rid of all colours with \`${prefix}colour none\``)
 		} else {
 
 			if (args.role === "random") {
@@ -91,6 +93,8 @@ module.exports = class ChannelCommand extends Command {
 					msg.say("Sorry, but to use this command you need to vote for the bot every month at https://discordbots.org/bot/" + clientUser.user.id);
 				}
 
+			} else if (["none", "remove"].includes(args.role)) {
+				giveRole(msg)
 			} else {
 
 				// Gets a role by string, converts it to lower case. All role names are converted to lower case too.
