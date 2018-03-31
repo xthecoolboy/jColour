@@ -43,6 +43,7 @@ module.exports = class ChannelCommand extends Command {
 **4.** Check that everything is working by typing \`${prefix}colour\`
 
 **Protip:** If you name a role \`colour default\`, all new members get it on join.
+If you want to allow members (everyone or one role) to get custom hex colour roles, check out \`${prefix}colour hex\`.
 
 ~~━━━━━━━━━━━━━━━━━━━━━━━━━━━━━~~
 

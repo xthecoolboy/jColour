@@ -59,7 +59,9 @@
 								<div class="columns is-multiline is-inline-flex-touch">
 
 									<% 	const roles = server.roles.array();
-								const colourRoles = roles.filter(role => role.name.startsWith("colour "));
+								const colourRoles = roles.filter(
+          							role => role.name.toLowerCase().startsWith("colour ") && !role.name.toLowerCase().startsWith("colour u-")
+        						);
 								const roleCount = colourRoles.length;
 								colourRoles.sort(function (a, b) {
 								return convertToHSL(a.hexColor)[0] - convertToHSL(b.hexColor)[0];
