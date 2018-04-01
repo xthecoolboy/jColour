@@ -6,55 +6,125 @@ const config = require('./../config/config.json');
 const DBL = require("dblapi.js");
 const dbl = new DBL(config.dblToken);
 
-async function giveRole(msg, chosenRole, dontDelete) {
-    const rolesToRemove = msg.guild.roles.filter(role => role.name.toLowerCase().startsWith("colour "));
-    const userRole = rolesToRemove.find(role => role.name.toLowerCase() === "colour u-" + msg.author.id);
-    
-    if (chosenRole.name.startsWith("colour u-") && !dontDelete) {
+/* 
+
+The holy piece of code that makes the thing work
+
+*/
+
+async function giveThings(options) {
+    /*
+    {
+        msg: {object},
+        removeRoles: [array],
+        addRole: [array],
+        deleteUserRoles: boolean,
+        createRole: {object}.
+        message: string
+    }
+    */
+    let failed;
+    if (!failed && options.removeRoles) {
+        await options.msg.member.removeRoles(
+            options.removeRoles,
+            "jColour: Colour update"
+        ).catch(function () {
+            options.msg.say("I am missing permissions. My role should be the highest in the server's role list.");
+            failed = true;
+        });
+    }
+    if (!failed && options.addRole) {
+        await options.msg.member.addRole(
+            options.addRole,
+            "jColour: Colour update"
+        ).catch(function () {
+            options.msg.say("I am missing permissions. My role should be the highest in the server's role list.");
+            failed = true;
+        });
+    }
+    if (!failed && options.deleteUserRoles) {
+        const userRole = options.msg.guild.roles.find(
+            role => role.name.toLowerCase() === "colour u-" + options.msg.author.id
+        );
+
+        if (userRole) {
+            userRole.delete("jColour: Colour update")
+                .catch(function () {
+                    options.msg.say("I am missing permissions. My role should be the highest in the server's role list.");
+                    failed = true;
+                });
+        }
+    }
+
+    if (!failed && options.createRole) {
+        options.msg.guild.createRole({
+                    // name: 'colour u-' + msg.author.id,
+                    name: options.createRole.name,
+                    color: options.createRole.colour
+                },
+                `jColour: Colour update`,
+            )
+            .then(role => options.msg.member.addRole(
+                role,
+                "jColour: Colour update"
+            ))
+            .catch(function () {
+                msg.say("I am missing permissions. My role should be the highest in the server's role list.");
+                failed = true;
+            });
+    }
+
+    if (!failed) {
+        options.msg.say(options.message)
+    }
+}
+
+
+/*
+
+STUFF 
+
+*/
+
+async function giveRole(msg, chosenRole) {
+    const rolesToRemove = msg.guild.roles.filter(role => role.name.toLowerCase().startsWith("colour ") & role !== chosenRole);
+
+    if (chosenRole.name.startsWith("colour u-")) {
         msg.say("That is a user role, you can't have it.")
     } else {
 
-        if (userRole && !dontDelete) {
-            userRole.delete("Role no longer needed")
-                .catch(function () {
-                    msg.say("I am missing permissions. My role should be the highest in the server's role list.");
-                });
-        }
+        await giveThings({
+            msg: msg,
+            removeRoles: rolesToRemove,
+            addRole: chosenRole,
+            deleteUserRoles: true,
+            createRole: null,
+            message: `The ${chosenRole.name} (${chosenRole.hexColor}) has been added.`
+        })
 
-        let failed; // Prepare for spaghoot code
 
-        // Updating the roles
-        await msg.member.removeRoles(rolesToRemove, `jColour: Colour update (=> ${chosenRole ? chosenRole.name : "Remove roles"})`).catch(function () {
-            msg.say("I am missing permissions. My role should be the highest in the server's role list.");
-            failed = true;
-        });
-        if (!failed) { // Spaghetti intensifies
-            if (chosenRole) {
-                await msg.member.addRole(chosenRole).catch(function () {
-                    msg.say("I am missing permissions. My role should be the highest in the server's role list.");
-                    failed = true;
-                });
-
-                // Notify about role updates
-                if (!failed) { // Oh god why would you put that there
-                    await msg.say("The " + chosenRole.name + " has been added.")
-                }
-            } else {
-                await msg.say("All colours have been removed!")
-            }
-
-        }
     }
 }
 
 async function giveRandomRole(msg, prefix, client) { // FUNCTION THAT GIVES A RANDOM ROLE
-    const colourRoles = msg.guild.roles.array().filter(
+    const colourRoles = msg.guild.roles.filter(
         role => role.name.toLowerCase().startsWith("colour ") && !role.name.toLowerCase().startsWith("colour u-")
     );
 
-    const chosenRole = colourRoles[Math.floor(Math.random() * colourRoles.length)];
+    const chosenRole = colourRoles.array()[Math.floor(Math.random() * colourRoles.array().length)];
+    const noChosenRole = colourRoles.filter(
+        role => role !== chosenRole
+    );
+
     if (chosenRole) {
-        await giveRole(msg, chosenRole, false);
+        await giveThings({
+            msg: msg,
+            removeRoles: noChosenRole,
+            addRole: chosenRole,
+            deleteUserRoles: true,
+            createRole: null,
+            message: `The random ${chosenRole.name} (${chosenRole.hexColor}) has been added.`
+        })
     } else {
         msg.say(`There are no roles setup! Please check out ${prefix}tutorial`)
     }
@@ -71,13 +141,13 @@ async function giveSuitableRole(msg, prefix, client) {
             distance: 999999
         }
 
-        const colourRoles = msg.guild.roles.array().filter(
+        const colourRoles = msg.guild.roles.filter(
             role => role.name.toLowerCase().startsWith("colour ") && !role.name.toLowerCase().startsWith("colour u-")
         );
 
-        colourRoles.forEach(function (element) {
+        colourRoles.array().forEach(function (element) {
             const distance = chroma.distance(element.hexColor, color, "lab");
-            // RGB distance between colours
+            // lab distance between colours
 
             if (distance < smallestDistance.distance) { // Replaces if smaller
                 smallestDistance = {
@@ -89,14 +159,132 @@ async function giveSuitableRole(msg, prefix, client) {
         });
 
         const chosenRole = msg.guild.roles.find("id", smallestDistance.id);
+        const noChosenRole = colourRoles.filter(
+            role => role !== chosenRole
+        );
+
         if (chosenRole) {
-            giveRole(msg, chosenRole, false);
+            giveThings({
+                msg: msg,
+                removeRoles: noChosenRole,
+                addRole: chosenRole,
+                deleteUserRoles: true,
+                createRole: null,
+                message: `I chose the ${chosenRole.name} (${chosenRole.hexColor}) for you based on your avatar.`
+            })
         } else {
             msg.say(`There are no roles setup! Please check out ${prefix}tutorial`)
         }
 
     })
 };
+
+async function removeRole(msg) {
+    const rolesToRemove = msg.guild.roles.filter(role => role.name.toLowerCase().startsWith("colour ") && role.name !== "colour u-" + msg.author.id);
+    await giveThings({
+        msg: msg,
+        removeRoles: rolesToRemove,
+        addRole: null,
+        deleteUserRoles: true,
+        createRole: null,
+        message: "All roles have been removed from you."
+    })
+}
+
+async function giveHexRole(msg, client, prefix, colour) {
+
+    const pickRole = ["suitable", "pick", "choose"].includes(colour.toLowerCase());
+    const randomRole = colour.toLowerCase() === "random";
+    console.log(randomRole)
+    if (pickRole) {
+        if (checkDbl(msg, client)) {
+            getColors(msg.author.displayAvatarURL, function (err, colors) {
+                if (err) throw err
+                colour = chroma(colors[0]).hex();
+                giveActualHexRole(msg, client, prefix, colour, "(suitable) ")
+            })
+        } else {
+            msg.say("Sorry, but to use this command you need to vote for the bot every month at https://discordbots.org/bot/" + client.user.id);
+        }
+    } else if (randomRole) {
+        colour = chroma(
+            Math.floor(Math.random() * 360), // hue 0-360
+            Math.random(), // saturation 0-1
+            Math.random(), // Lightness 0-1 
+            'hsl').hex() // hsl colour space
+        console.log(colour);
+        giveActualHexRole(msg, client, prefix, colour, "(random) ")
+    } else {
+        await giveActualHexRole(msg, client, prefix, colour, "")
+    }
+
+    async function giveActualHexRole(msg, client, prefix, colour, extraWord) {
+
+        if (/(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(colour)) { // Checks that it indeed is a hex colour
+
+            const colourRoles = msg.guild.roles.filter(role => role.name.toLowerCase().startsWith("colour ")); // all colour roles
+            const noUserRoles = colourRoles.filter(role => !role.name.toLowerCase().startsWith("colour u-")); // no colour u-39832958392 roles
+            const noUsersRole = colourRoles.filter(role => !(role.name.toLowerCase() === "colour u-" + msg.author.id)); // all roles except users own
+
+            if (noUserRoles.find("hexColor", chroma(colour).hex())) { // tries to find an exiting role with same color
+                const foundRole = noUserRoles.find("hexColor", chroma(colour).hex()) // Converting so ex. #fff and #ffffff work
+                await giveThings({
+                    msg: msg,
+                    removeRoles: noUsersRole,
+                    addRole: foundRole,
+                    deleteUserRoles: true,
+                    createRole: null,
+                    message: `I gave you the ${extraWord}${foundRole.name} since it has exactly the same colour (${foundRole.hexColor}).`
+                })
+            } else { // no existing roles found
+                const foundRole = colourRoles.find(role => role.name.toLowerCase() === "colour u-" + msg.author.id) // checks if user role exists for author
+                if (foundRole) { // yeah
+                    foundRole.setColor(colour) // changes existing roles colour
+                        .catch(function () {
+                            msg.say("I am missing permissions. My role should be the highest in the server's role list.");
+                        });
+                    if (!msg.member.roles.has(foundRole.id)) { // if somehow member doesnt have it
+                        await giveThings({
+                            msg: msg,
+                            removeRoles: noUsersRole,
+                            addRole: foundRole,
+                            deleteUserRoles: false,
+                            createRole: null,
+                            message: `Gave you the role with the ${extraWord}colour ${colour}.`
+                        })
+                    } else {
+                        msg.say(`The colour of user role has been updated to ${extraWord}${colour}.`)
+                    }
+                } else { // nope
+                    await giveThings({
+                        msg: msg,
+                        removeRoles: noUsersRole,
+                        addRole: null,
+                        deleteUserRoles: false,
+                        createRole: {
+                            name: "colour u-" + msg.author.id,
+                            colour: colour
+                        },
+                        message: `Made a new role with the colour ${colour}`
+                    })
+                }
+            }
+
+        } else {
+            msg.say("That is not a hex colour! Please supply hex colours in #xxxxxx format (ex. #ffff00 for yellow")
+        }
+
+    }
+
+
+}
+
+
+/*
+
+CHECKS
+
+*/
 
 function checkDbl(msg, client) {
     if (config.dblToken) {
@@ -153,64 +341,10 @@ function checkHexPerms(msg, client) {
 
 }
 
-async function giveHexRole(msg, client, prefix, colour) {
-
-    if (/(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(colour)) { // Checks that it indeed is a hex colour
-
-        const colourRoles = msg.guild.roles.filter(role => role.name.toLowerCase().startsWith("colour ")); // all colour roles
-        const noUserRoles = colourRoles.filter(role => !role.name.toLowerCase().startsWith("colour u-")); // no colour u-39832958392 roles
-        const noUsersRole = colourRoles.filter(role => !(role.name.toLowerCase() === "colour u-" + msg.author.id)); // all roles except users own
-        let failed;
-
-        await msg.member.removeRoles( // removes normal (non u-39852395823) ones
-            noUsersRole,
-            `jColour: Colour update (=> Hex ${colour})`
-        ).catch(function () {
-            msg.say("I am missing permissions. My role should be the highest in the server's role list.");
-            failed = true;
-        });
-
-        if (!failed) {
-            if (noUserRoles.find("hexColor", chroma(colour).hex())) { // tries to find an exiting role with same color
-                const foundRole = noUserRoles.find("hexColor", chroma(colour).hex()) // Converting so ex. #fff and #ffffff work
-                await giveRole(msg, foundRole, false);
-            } else { // no existing roles found
-                const foundRole = colourRoles.find(role => role.name.toLowerCase() === "colour u-" + msg.author.id) // checks if user role exists for author
-                if (foundRole) { // yeah
-                    foundRole.setColor(colour) // changes existing roles colour
-                        .catch(function () {
-                            msg.say("I am missing permissions. My role should be the highest in the server's role list.");
-                        });
-                    if (!msg.member.roles.has(foundRole.id)) { // if somehow member doesnt have it
-                        await giveRole(msg, foundRole, true);
-                    } else {
-                        msg.say(`The colour of user role (${foundRole.name}) has been updated.`)
-                    }
-                } else { // nope
-                    msg.guild.createRole({
-                                name: 'colour u-' + msg.author.id,
-                                color: colour,
-                            },
-                            `jColour: Colour update (=> Hex ${colour})`,
-                        )
-                        .then(role => giveRole(msg, role, true))
-                        .catch(function () {
-                            msg.say("I am missing permissions. My role should be the highest in the server's role list.");
-                        });
-                }
-            }
-        }
-
-    } else {
-        msg.say("That is not a hex colour! Please supply hex colours in #xxxxxx format (ex. #ffff00 for yellow")
-    }
-
-
-}
-
 module.exports.giveRole = giveRole;
 module.exports.giveRandomRole = giveRandomRole;
 module.exports.giveSuitableRole = giveSuitableRole;
 module.exports.checkDbl = checkDbl;
 module.exports.checkHexPerms = checkHexPerms;
 module.exports.giveHexRole = giveHexRole;
+module.exports.removeRole = removeRole;

@@ -9,7 +9,8 @@ const {
 	giveSuitableRole,
 	checkDbl,
 	checkHexPerms,
-	giveHexRole
+	giveHexRole,
+	removeRole
 } = require("./../../tools/giveRole.js");
 
 const {
@@ -103,7 +104,7 @@ module.exports = class ChannelCommand extends Command {
 				}
 
 			} else if (["none", "remove"].includes(args.role)) {
-				giveRole(msg)
+				removeRole(msg)
 			} else if (args.role.toLowerCase() === "hex") { // HEX INFORMATION
 
 				msg.say(stripIndents `**Hex Colours: Setup**
@@ -120,7 +121,8 @@ module.exports = class ChannelCommand extends Command {
 				**Hex Colours: Usage**
 				
 				The hex colour needs to be in #xxxxxx format (ex. #ff00ff is pink).
-				After you've got a hex colour, type \`${prefix}colour hex <hex colour>\`.`)
+				After you've got a hex colour, type \`${prefix}colour hex <hex colour>\`
+				You can also use \`${prefix}colour hex pick/random\`.`)
 
 			} else if (args.role.toLowerCase().startsWith("hex ")) {
 
