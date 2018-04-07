@@ -33,15 +33,15 @@ client.registry
 	])
 
 	// Registers all built-in groups, some commands, and argument types
-	.registerDefaultGroups() 
-	.registerDefaultTypes() 
+	.registerDefaultGroups()
+	.registerDefaultTypes()
 	.registerDefaultCommands({
 		help: false,
 		prefix: false,
 		eval_: true,
 		ping: false,
 		commandState: false
-	}) 
+	})
 
 	// Registers all of your commands in the ./commands/ directory
 	.registerCommandsIn(path.join(__dirname, 'commands'));
@@ -84,23 +84,6 @@ client.setProvider( // Sqlite database for prefixes and such
 	sqlite.open(path.join(__dirname, 'settings.sqlite3')).then(db => new Commando.SQLiteProvider(db))
 ).catch(console.error);
 
-if (config.dblWebAuth) {
-
-	dbl.webhook.on('ready', hook => {
-		console.log(`Webhook running at http://${hook.hostname}:${hook.port}${hook.path}`);
-	});
-	dbl.webhook.on('vote', vote => {
-		if (vote["type"] === "test") {
-			console.log("Received webhook test!");
-			console.log(vote);
-		}
-		if (vote["bot"] === client.user.id && vote["type"] === "upvote") {
-			client.settings.set(`vote-${vote["user"]}`, new Date())
-		};
-	});
-
-}
-
 client.on('guildMemberAdd', member => {
 
 	// This is the default role
@@ -118,6 +101,7 @@ client.on('commandRun', command => {
 	// Logs the command in cyan
 	console.log('\x1b[36m%s\x1b[0m', "CMD " + command.name + " / " + command.group.name)
 });
+
 
 client.login(config.token); // Logins to the api
 
@@ -161,7 +145,7 @@ app.get('/demo', function (req, res) { // Demo guild
 });
 
 app.get('/video', function (req, res) { // Tutorial video
-	res.redirect("https://www.youtube.com/watch?v=7hGpLlN_vIo")
+	res.redirect("https://www.youtube.com/watch?v=AqXlkReI_QU&feature=youtu.be")
 });
 
 // index page
@@ -173,10 +157,12 @@ app.get('/', function (req, res) {
 
 // colour page: sends server as a var
 app.get('/:id', function (req, res) {
+
 	res.render('colour.ejs', {
 		server: client.guilds.find("id", req.params.id),
 		tinycolor: tinycolor
-	});
+	})
+
 });
 
 // 404 (/css, /js etc)
@@ -190,3 +176,26 @@ app.use(function (req, res) {
 // starts listening to requests
 app.listen(port);
 console.log('Listening to requests on port ' + port);
+
+/*
+
+WEBHOOK PART
+
+*/
+
+if (config.dblWebAuth) {
+
+	dbl.webhook.on('ready', hook => {
+		console.log(`Webhook running at http://${hook.hostname}:${hook.port}${hook.path}`);
+	});
+	dbl.webhook.on('vote', vote => {
+		if (vote["type"] === "test") {
+			console.log("Received webhook test!");
+			console.log(vote);
+		}
+		if (vote["bot"] === client.user.id && vote["type"] === "upvote") {
+			client.settings.set(`vote-${vote["user"]}`, new Date())
+		};
+	});
+
+}

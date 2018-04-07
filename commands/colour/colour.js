@@ -62,52 +62,60 @@ module.exports = class ChannelCommand extends Command {
 		const requiredRole = msg.guild.roles.find("id", requiredRoleId);
 		const requiredRoleName = requiredRole ? requiredRole.name : "";
 
+		const requiredTotalRoleId = msg.guild.settings.get('color-role', null);
+		const requiredTotalRole = msg.guild.roles.find("id", requiredTotalRoleId);
+		const requiredTotalRoleName = requiredTotalRole ? requiredTotalRole.name : "";
+		const totalAccess = requiredTotalRoleId ? msg.member.roles.has(requiredTotalRole.id) : true;
+
 		const clientUser = this.client;
 
 		const customColourNotif = checkHexPerms(msg, clientUser) ? `\nYou can get a custom colour with \`${prefix}colour hex <hex colour>\`.` : "";
 
-		if (!args.role) {
-			await msg.say(stripIndents `Here's a list of all the colours: ${config.base_www}${msg.guild.id}
+		if (!totalAccess) {
+			await msg.say("Sorry, but to use the colour command you need the `" + requiredTotalRoleName + "` role. Admins: " + prefix + "set-role")
+		} else {
+			if (!args.role) {
+				await msg.say(stripIndents `Here's a list of all the colours: ${config.base_www}${msg.guild.id}
 
 			Use \`${prefix}colour <colour name>\` 
 			For a random colour, try \`${prefix}colour random\`
 			Get the best colour for your avatar: \`${prefix}colour pick\`
 			You can also get rid of all colours with \`${prefix}colour none\`
 			${customColourNotif}`)
-		} else {
+			} else {
 
-			if (args.role.toLowerCase() === "random") {
+				if (args.role.toLowerCase() === "random") {
 
-				/*
+					/*
 
-				RANDOM ROLE 
+					RANDOM ROLE 
 
-				*/
-				// if (checkDbl(msg, clientUser)) {
-				giveRandomRole(msg, prefix);
-				/* } else {
-					msg.say("Sorry, but to use this command you need to vote for the bot every month at https://discordbots.org/bot/" + clientUser.user.id);
-				} */
+					*/
+					// if (checkDbl(msg, clientUser)) {
+					giveRandomRole(msg, prefix);
+					/* } else {
+						msg.say("Sorry, but to use this command you need to vote for the bot every month at https://discordbots.org/bot/" + clientUser.user.id);
+					} */
 
-			} else if (["suitable", "pick", "choose"].includes(args.role.toLowerCase())) {
+				} else if (["suitable", "pick", "choose"].includes(args.role.toLowerCase())) {
 
-				/*
+					/*
 
-				PICKS A COLOR FROM AVATAR
+					PICKS A COLOR FROM AVATAR
 
-				*/
+					*/
 
-				if (checkDbl(msg, clientUser)) {
-					giveSuitableRole(msg, prefix);
-				} else {
-					msg.say("Sorry, but to use this command you need to vote for the bot every month at https://discordbots.org/bot/" + clientUser.user.id);
-				}
+					if (checkDbl(msg, clientUser)) {
+						giveSuitableRole(msg, prefix);
+					} else {
+						msg.say("Sorry, but to use this command you need to vote for the bot every month at https://discordbots.org/bot/" + clientUser.user.id);
+					}
 
-			} else if (["none", "remove"].includes(args.role)) {
-				removeRole(msg)
-			} else if (args.role.toLowerCase() === "hex") { // HEX INFORMATION
+				} else if (["none", "remove"].includes(args.role)) {
+					removeRole(msg)
+				} else if (args.role.toLowerCase() === "hex") { // HEX INFORMATION
 
-				msg.say(stripIndents `**Hex Colours: Setup**
+					msg.say(stripIndents `**Hex Colours: Setup**
 
 				You can allow users to make custom colour roles for themselves.
 				*You need \`manage roles\` permissions for this!*
@@ -124,37 +132,38 @@ module.exports = class ChannelCommand extends Command {
 				After you've got a hex colour, type \`${prefix}colour hex <hex colour>\`
 				You can also use \`${prefix}colour hex pick/random\`.`)
 
-			} else if (args.role.toLowerCase().startsWith("hex ")) {
+				} else if (args.role.toLowerCase().startsWith("hex ")) {
 
-				const colour = args.role.split(" ")[1];
-				if (checkHexPerms(msg, clientUser)) {
-					await giveHexRole(msg, clientUser, prefix, colour);
-				} else {
-					if (requiredRoleName) {
-						msg.say(`Sorry, but you don't have access to custom hex roles. You need the ${requiredRoleName} role.`)
+					const colour = args.role.split(" ")[1];
+					if (checkHexPerms(msg, clientUser)) {
+						await giveHexRole(msg, clientUser, prefix, colour);
 					} else {
-						msg.say(`Custom hex roles are not enabled. Ask an admin to run \`${prefix}colour hex\` and \`${prefix}enable-hex\`.`)
+						if (requiredRoleName) {
+							msg.say(`Sorry, but you don't have access to custom hex roles. You need the ${requiredRoleName} role.`)
+						} else {
+							msg.say(`Custom hex roles are not enabled. Ask an admin to run \`${prefix}colour hex\` and \`${prefix}enable-hex\`.`)
+						}
+
 					}
 
-				}
-
-			} else {
-
-				// Gets a role by string, converts it to lower case. All role names are converted to lower case too.
-				const chosenRole = msg.guild.roles.find(val => val.name.toLowerCase() === "colour " + args.role.toLowerCase());
-				if (!chosenRole) { // chosenRole is null (doesnt exist)
-					msg.say("That colour doesn't exist!")
 				} else {
 
-					/*
+					// Gets a role by string, converts it to lower case. All role names are converted to lower case too.
+					const chosenRole = msg.guild.roles.find(val => val.name.toLowerCase() === "colour " + args.role.toLowerCase());
+					if (!chosenRole) { // chosenRole is null (doesnt exist)
+						msg.say("That colour doesn't exist!")
+					} else {
 
-					EVERYTHING WAS SUCCESSFUL 
+						/*
+
+						EVERYTHING WAS SUCCESSFUL 
 					
-					*/
+						*/
 
-					giveRole(msg, chosenRole);
+						giveRole(msg, chosenRole);
 
 
+					}
 				}
 			}
 		}
