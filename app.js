@@ -121,7 +121,7 @@ const tinycolor = require("tinycolor2");
 
 const middleware = [
 	helmet(),
-	morgan('dev'), // Logs request data to console
+	morgan('tiny'), // Logs request data to console
 	express.static('public') // public dir can be accessed
 ]
 

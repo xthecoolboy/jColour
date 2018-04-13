@@ -24,13 +24,13 @@ module.exports = class ChannelCommand extends Command {
 			group: 'colour',
 			memberName: 'colour',
 			description: 'Gives you a list of colours (if no arguments) or gives you a colour.',
-			examples: ["colour <any name from the website>", "colour random", "colour pick"],
+			examples: ["colour <any name from the website>", "colour random", "colour pick", "colour none", "colour hex random"],
 			guildOnly: true,
 			throttling: {
 				usages: 2,
 				duration: 10
 			},
-			format: '[role/"pick"/"random"/"none"]',
+			format: '[colour/"pick"/"random"/"hex"/"none"]',
 			aliases: [
 				"color",
 				"colours",
@@ -68,9 +68,7 @@ module.exports = class ChannelCommand extends Command {
 		const totalAccess = requiredTotalRoleId ? msg.member.roles.has(requiredTotalRole.id) : true;
 
 		const clientUser = this.client;
-
-		const customColourNotif = checkHexPerms(msg, clientUser) ? `\nYou can get a custom colour with \`${prefix}colour hex <hex colour>\`.` : "";
-
+		
 		if (!totalAccess) {
 			await msg.say("Sorry, but to use the colour command you need the `" + requiredTotalRoleName + "` role. Admins: " + prefix + "set-role")
 		} else {
@@ -81,7 +79,8 @@ module.exports = class ChannelCommand extends Command {
 			For a random colour, try \`${prefix}colour random\`
 			Get the best colour for your avatar: \`${prefix}colour pick\`
 			You can also get rid of all colours with \`${prefix}colour none\`
-			${customColourNotif}`)
+			
+			If enabled, you can get a custom colour with \`${prefix}colour hex <hex colour>\`.`)
 			} else {
 
 				if (args.role.toLowerCase() === "random") {
