@@ -120,7 +120,9 @@ const morgan = require("morgan");
 const tinycolor = require("tinycolor2");
 
 const middleware = [
-	helmet(),
+	helmet({
+		frameguard: false
+	}),
 	morgan('tiny'), // Logs request data to console
 	express.static('public') // public dir can be accessed
 ]
