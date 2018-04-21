@@ -65,8 +65,9 @@ module.exports = class ChannelCommand extends Command {
       .addField(
         "Size",
         stripIndents`
-        **Guilds**: ${client.guilds.size}
-        **Channels**: ${client.channels.size}`,
+        **Guilds**: ${client.guilds.size * client.shard.count}
+        **Channels**: ${client.channels.size * client.shard.count}
+        **Shards**: ${client.shard.count}`,
         true
       )
 

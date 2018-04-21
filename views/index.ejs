@@ -76,12 +76,7 @@
 
 							</div>
 
-							<% if (registry) { 
-								const availableCommands = registry.commands.filter(
-									command => !([
-										"eval"
-									].includes(command.name))
-								); %>
+							<% if (registry) { %>
 								<h1 class="title is-3">Available commands:</h1>
 								<div class="tg-wrap">
 									<table class="tg">
@@ -91,7 +86,7 @@
 											<th class="tg-us36">Description</th>
 											<th class="tg-us36">Group</th>
 										</tr>
-										<% availableCommands.forEach(function(command) { %>
+										<% registry.forEach(function(command) { %>
 
 
 
@@ -100,10 +95,10 @@
 												<td class="tg-us36"><%= command.format %>
 													<br>
 												</td>
-												<td class="tg-us36"><%= command.description %>
+												<td class="tg-us36"><%= command.desc %>
 													<br>
 												</td>
-												<td class="tg-us36"><%= command.group.name %></td>
+												<td class="tg-us36"><%= command.group %></td>
 											</tr>
 
 

@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
-
+<% const server = servers.find(function(element) {
+  return element;
+})
+%>
 <%- include('elements/meta', {
 	title: server ? `${server.name} Colours` : "Server not found",
 	desc: server ? `Colours for ${server.name}` : "Was it my fault?"
@@ -59,13 +62,10 @@
 								<div class="columns is-multiline is-inline-flex-touch">
 
 									<% 	
-									const roles = server.roles.array();
-								const colourRoles = roles.filter(
-          							role => role.name.toLowerCase().startsWith("colour ") && !role.name.toLowerCase().startsWith("colour u-")
-        						);
+									const colourRoles = server.roles
 								const roleCount = colourRoles.length;
 								colourRoles.sort(function (a, b) {
-								return convertToHSL(a.hexColor)[0] - convertToHSL(b.hexColor)[0];
+								return convertToHSL(a.colour)[0] - convertToHSL(b.colour)[0];
 								});
 								colourRoles.forEach(function(element) { %>
 										<%- include('elements/colorCard', {
@@ -83,7 +83,8 @@
 
 								<% } else { %>
 									<h1 class="title">Server not available!</h1>
-									<h2 class="subtitle">Are you sure this is the correct URL?</h2>
+									<h2 class="subtitle">Are you sure this is the correct URL? <br />
+									It's also possible that the bot is booting up.</h2>
 									<% } %>
 
 							</div>
