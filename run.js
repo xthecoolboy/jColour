@@ -51,7 +51,11 @@ app.use(middleware);
 
 // redirect to bot inv
 app.get('/invite', function (req, res) {
-	res.redirect(`https://discordapp.com/oauth2/authorize?client_id=${client.user.id}&scope=bot&permissions=268454912`)
+	Manager.fetchClientValues("user.id").then(
+		function (value) {
+			res.redirect(`https://discordapp.com/oauth2/authorize?client_id=${value[0]}&scope=bot&permissions=268454912`)
+		}
+	)
 });
 
 app.get('/support', function (req, res) { // Support guild
