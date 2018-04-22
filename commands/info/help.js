@@ -89,7 +89,9 @@ module.exports = class HelpCommand extends Command {
                             ~~━━━━━━━━━━━━~~
                             `).join('\n\n')
                     }
-				`, { split: true }));
+
+					View the documentation: https://jcolour.jaqreven.com/docs
+					`, { split: true }));
 				// if(msg.channel.type !== 'dm') messages.push(await msg.say('Sent you a DM with information.'));
 			} catch(err) {
 				messages.push(await msg.say('Unable to send the message.'));

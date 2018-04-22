@@ -16,65 +16,35 @@
 					<div class="hero-body">
 						<div class="container is-centered infobox" id="info">
 
-							<h1 class="title is-2">So what am I?</h1>
-							<h2 class="subtitle is-4">
-								I am a Discord bot for managing colour roles.
+							<h2 class="title is-3">
+								jColour - the colour managing Discord bot
 							</h2>
 
-							<div class="columns is-multiline">
+							<a href="/invite" class="button is-large is-dark">
+								Invite
+							</a>
 
+							<a href="/docs" class="button is-large is-dark">
+								Documentation
+							</a>
 
-								<div class="card has-card-margin">
-									<div class="card-content">
-										Here's what I can do:
-										<br />
-										<ul>
-											<li>make a website based on the colours of your server</li>
-											<li>give a default colour to new members</li>
-											<li>change your colour to the one you want</li>
-											<li>give a random colour from the list</li>
-											<li>pick the best available colour for your profile picture</li>
-											<li>give you a random, chosen or the most suiting hex colour</li>
-										</ul>
-									</div>
-								</div>
+							<a href="/demo" class="button is-large is-dark">
+								Demo
+							</a>
 
+							<a href="https://github.com/jaqreven/jColour" class="button is-large is-dark">
+								Github
+							</a>
 
-								<div class="card has-card-margin">
-									<div class="card-content">
-
-										<h1 class="title is-3">Useful links:</h1>
-
-										<center>
-
-											<a href="/invite" class="button is-large is-dark">
-												Invite me
-											</a>
-
-											<a href="/support" class="button is-large is-dark">
-												Support
-											</a>
-
-											<a href="/video" class="button is-large is-dark">
-												Tutorial
-											</a>
-											<br />
-
-											<a href="/demo" class="button is-large is-dark">
-												Demo Site
-											</a>
-
-											<a href="https://github.com/jaqreven/jColour" class="button is-large is-dark">
-												Github
-											</a>
-
-										</center>
-
-									</div>
-								</div>
-
-
-							</div>
+							<h1 class="title is-3">Here's what I can do:</h1>
+							<ul>
+								<li>make a website based on the colours of your server</li>
+								<li>give a default colour to new members</li>
+								<li>change your colour to the one you want</li>
+								<li>give a random colour from the list</li>
+								<li>pick the best available colour for your profile picture</li>
+								<li>give you a random, chosen or the most suiting hex colour</li>
+							</ul>
 
 							<% if (registry) { %>
 								<h1 class="title is-3">Available commands:</h1>
@@ -91,14 +61,20 @@
 
 
 											<tr>
-												<td class="tg-us36"><%= command.name %></td>
-												<td class="tg-us36"><%= command.format %>
-													<br>
+												<td class="tg-us36">
+													<%= command.name %>
 												</td>
-												<td class="tg-us36"><%= command.desc %>
-													<br>
+												<td class="tg-us36">
+													<%= command.format %>
+														<br>
 												</td>
-												<td class="tg-us36"><%= command.group %></td>
+												<td class="tg-us36">
+													<%= command.desc %>
+														<br>
+												</td>
+												<td class="tg-us36">
+													<%= command.group %>
+												</td>
 											</tr>
 
 

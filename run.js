@@ -2,13 +2,11 @@ const config = require('./config/config.json');
 
 // Things the Discord bot sharding needs
 const Discord = require('discord.js');
-if (config.dblWebAuth) { // if webhook
-	const DBL = require("dblapi.js");
-	const dbl = new DBL(config.dblToken, { // webhook startup
-		webhookPort: 5000,
-		webhookAuth: config.dblWebAuth
-	});
-}
+const DBL = require("dblapi.js");
+const dbl = new DBL(config.dblToken, { // webhook startup
+	webhookPort: 5000,
+	webhookAuth: config.dblWebAuth
+});
 
 // Things we need for the web server
 const express = require('express');
@@ -42,11 +40,13 @@ const middleware = [
 		frameguard: false
 	}),
 	morgan('tiny'), // Logs request data to console
-	express.static('public') // public dir can be accessed
+	express.static('public'), // public dir can be accessed
 ]
 
 app.set('view engine', 'ejs'); // ejs for server side js templating
 app.use(middleware);
+
+app.use("/docs", express.static('docs/_build/html'))
 
 // routes ======================================================================
 
