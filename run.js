@@ -1,19 +1,29 @@
 const config = require('./config/config.json');
 
-const DBL = require("dblapi.js");
-const dbl = new DBL(config.dblToken, {
-	webhookPort: 5000,
-	webhookAuth: config.dblWebAuth
-});
+// Things the Discord bot sharding needs
+const Discord = require('discord.js');
+if (config.dblWebAuth) { // if webhook
+	const DBL = require("dblapi.js");
+	const dbl = new DBL(config.dblToken, { // webhook startup
+		webhookPort: 5000,
+		webhookAuth: config.dblWebAuth
+	});
+}
+
+// Things we need for the web server
+const express = require('express');
+const app = express();
+const port = process.env.PORT || config.port;
+const helmet = require('helmet');
+const morgan = require("morgan");
+const tinycolor = require("tinycolor2");
 
 /* 
 
 LAUNCHING SHARDS
-this is a mess dont use it, it doesnt work
+this should work now
 
 */
-
-const Discord = require('discord.js');
 
 const Manager = new Discord.ShardingManager('./app.js', {
 	totalShards: 2
@@ -26,14 +36,6 @@ Manager.spawn()
 WEB SERVER PART
 
 */
-
-// Things we need for the web server
-const express = require('express');
-const app = express();
-const port = process.env.PORT || config.port;
-const helmet = require('helmet');
-const morgan = require("morgan");
-const tinycolor = require("tinycolor2");
 
 const middleware = [
 	helmet({
@@ -72,10 +74,10 @@ app.get('/video', function (req, res) { // Tutorial video
 
 // index page
 app.get('/', function (req, res) {
-	Manager.broadcastEval("this.getCommandData()").then(
+	Manager.broadcastEval("this.getCommandData()").then( // gets commands from shards
 		function (value) {
 			res.render('index.ejs', {
-				registry: value[0]
+				registry: value[0] // first shard
 			})
 		}
 	)
@@ -83,7 +85,7 @@ app.get('/', function (req, res) {
 
 // colour page: sends server as a var
 app.get('/:id', function (req, res) {
-	Manager.broadcastEval("this.getGuildData('" + req.params.id + "')").then(
+	Manager.broadcastEval("this.getGuildData('" + req.params.id + "')").then( // gets roles from shards
 		function (value) {
 			res.render('colour.ejs', {
 				servers: value,

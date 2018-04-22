@@ -195,7 +195,6 @@ async function giveHexRole(msg, client, prefix, colour) {
 
     const pickRole = ["suitable", "pick", "choose"].includes(colour.toLowerCase());
     const randomRole = colour.toLowerCase() === "random";
-    console.log(randomRole)
     if (pickRole) {
         if (checkDbl(msg, client)) {
             getColors(msg.author.displayAvatarURL, function (err, colors) {
@@ -212,7 +211,6 @@ async function giveHexRole(msg, client, prefix, colour) {
             Math.random(), // saturation 0-1
             Math.random(), // Lightness 0-1 
             'hsl').hex() // hsl colour space
-        console.log(colour);
         giveActualHexRole(msg, client, prefix, colour, "(random) ")
     } else {
         await giveActualHexRole(msg, client, prefix, colour, "")

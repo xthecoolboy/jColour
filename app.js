@@ -81,38 +81,38 @@ Shard: ${client.shard.id} (count ${client.shard.count})
 
 });
 
-client.getGuildData = function (id) {
+client.getGuildData = function (id) { // server is a circular object so I have to make my own object
 	const guild = client.guilds.find("id", id);
 	if (guild) {
-		const json = {
+		const json = { // Guild name and empty array
 			"name": guild.name,
 			"roles": []
 		};
-		const colourRoles = guild.roles.array().filter(
+		const colourRoles = guild.roles.array().filter( // only colour roles
 			role =>
 			role.name.toLowerCase().startsWith("colour ") &&
 			!(role.name.toLowerCase().startsWith("colour u-"))
 		);
-		colourRoles.forEach(role => 
+		colourRoles.forEach(role =>  // push each role into array
 			json["roles"].push({
 				"name": role.name,
 				"colour": role.hexColor,
 				"id": role.id
 			})
 		)
-		return json;
+		return json; // return json
 	} else {
-		return false;
+		return false; // return false so the main process knows which one to pick
 	}
 }
 
-client.getCommandData = function () {
+client.getCommandData = function () { // we need to get command data this way too
 	const json = []
-	client.registry.commands.filter(
+	client.registry.commands.filter( // no eval commands
 		command => !([
 			"eval"
 		].includes(command.name))
-	).forEach(command => json.push(
+	).forEach(command => json.push( // every commands name format desc and group
 		{
 			"name": command.name,
 			"format": command.format,
@@ -123,7 +123,7 @@ client.getCommandData = function () {
 	return json;
 }
 
-client.handleWebhook = function (type, bot, user) {
+client.handleWebhook = function (type, bot, user) { // handles webhooks for each shard
 	if (type === "test") {
 		console.log("Received webhook test!");
 	}
