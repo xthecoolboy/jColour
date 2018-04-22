@@ -1,6 +1,6 @@
 {
 	"name": "jcolour",
-	"version": "2.1.0",
+	"version": "2.1.1",
 	"description": "Cobalt",
 	"scripts": {
 		"start": "node run.js"
@@ -8,7 +8,6 @@
 	"author": "Jaakko Repo",
 	"license": "MIT",
 	"dependencies": {
-		"bulma": "^0.6.2",
 		"dblapi.js": "^2.0.0",
 		"discord.js": "^11.3.2",
 		"discord.js-commando": "^0.9.0",

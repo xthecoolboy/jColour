@@ -1,0 +1,29 @@
+Initial setup
+=============
+
+This section will tech you what to do when setupping the bot.
+
+Invite
+-------
+
+#. Open https://jcolour.jaqreven.com/invite
+#. Click the server you want to use (and don't change permissions)
+#. Invite the bot
+
+Role Setup
+-----------
+
+#. Open the roles of your Discord server
+#. Find a role named "jColour"
+#. Drag it to the top of the roles list - it should be on top of even the admins. This is required for managing the roles of all users.
+#. Remove colours from all roles (except ones you want to use for colours)
+#. Save the roles.
+
+Restricting to a role
+---------------------
+
+If you want to restrict all colours to a certain role:
+
+#. Type j!set-role
+#. Reply with the name of the role ("everyone" for no limits)
+#. Done! Now only that role can access colours.

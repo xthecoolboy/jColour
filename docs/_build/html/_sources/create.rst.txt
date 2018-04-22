@@ -1,0 +1,16 @@
+Creating colours
+================
+
+Creating normal colours
+------------------------
+
+#. Make a role named "colour something" (ex. "colour red")
+#. Give that role a colour
+#. That's it!
+
+Creating default colours
+-------------------------
+
+#. Make a role named "colour default"
+#. Give that role a colour
+#. That's it! Now the colour gets given to all new members on join.

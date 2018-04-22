@@ -1,0 +1,462 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>jColour &mdash; jColour  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="#" class="icon icon-home"> jColour
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">jColour</a><ul>
+<li><a class="reference internal" href="#links">Links</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#getting-colours">Getting colours</a><ul>
+<li><a class="reference internal" href="#colour-list">Colour list</a></li>
+<li><a class="reference internal" href="#specific-colour">Specific colour</a></li>
+<li><a class="reference internal" href="#random-colour">Random colour</a></li>
+<li><a class="reference internal" href="#suitable-colour">Suitable colour</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#getting-hex-colours">Getting hex colours</a><ul>
+<li><a class="reference internal" href="#specific-hex-colour">Specific hex colour</a></li>
+<li><a class="reference internal" href="#random-hex-colour">Random hex colour</a></li>
+<li><a class="reference internal" href="#suitable-hex-colour">Suitable hex colour</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#utils">Utils</a><ul>
+<li><a class="reference internal" href="#help">Help</a></li>
+<li><a class="reference internal" href="#prefix">Prefix</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#initial-setup">Initial setup</a><ul>
+<li><a class="reference internal" href="#invite">Invite</a></li>
+<li><a class="reference internal" href="#role-setup">Role Setup</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#creating-colours">Creating colours</a><ul>
+<li><a class="reference internal" href="#normal-colours">Normal colours</a></li>
+<li><a class="reference internal" href="#default-colour">Default colour</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#restricting">Restricting</a></li>
+<li><a class="reference internal" href="#setup-hex-colours">Setup hex colours</a><ul>
+<li><a class="reference internal" href="#enable">Enable</a></li>
+<li><a class="reference internal" href="#disable">Disable</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#final-notes">Final notes</a><ul>
+<li><a class="reference internal" href="#data-collection">Data Collection</a></li>
+<li><a class="reference internal" href="#license">License</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">jColour</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>jColour</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="jcolour">
+<h1>jColour<a class="headerlink" href="#jcolour" title="Permalink to this headline">¶</a></h1>
+<p>jColour is a Discord bot for managing Discord colour roles.</p>
+<div class="section" id="links">
+<h2>Links<a class="headerlink" href="#links" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Website: <a class="reference external" href="https://jcolour.jaqreven.com">https://jcolour.jaqreven.com</a></li>
+<li>Example site: <a class="reference external" href="https://jcolour.jaqreven.com/demo">https://jcolour.jaqreven.com/demo</a></li>
+<li>Video tutorial: <a class="reference external" href="https://jcolour.jaqreven.com/video">https://jcolour.jaqreven.com/video</a></li>
+<li>Support: <a class="reference external" href="https://jcolour.jaqreven.com/support">https://jcolour.jaqreven.com/support</a></li>
+<li>Invite: <a class="reference external" href="https://jcolour.jaqreven.com/invite">https://jcolour.jaqreven.com/invite</a></li>
+<li>Github: <a class="reference external" href="https://github.com/jaqreven/jColour">https://github.com/jaqreven/jColour</a></li>
+</ul>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="getting-colours">
+<h1>Getting colours<a class="headerlink" href="#getting-colours" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="colour-list">
+<h2>Colour list<a class="headerlink" href="#colour-list" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Type j!colour</li>
+<li>Open the link the bot sent you</li>
+<li>Profit</li>
+</ol>
+<p>Protip: You can click a colour to see a chat preview.</p>
+</div>
+<div class="section" id="specific-colour">
+<h2>Specific colour<a class="headerlink" href="#specific-colour" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Choose a colour</li>
+<li>Type j!colour &lt;colour name&gt; (ex. j!colour red)</li>
+<li>Profit</li>
+</ol>
+</div>
+<div class="section" id="random-colour">
+<h2>Random colour<a class="headerlink" href="#random-colour" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Type j!colour &lt;random&gt;</li>
+<li>Profit</li>
+</ol>
+</div>
+<div class="section" id="suitable-colour">
+<h2>Suitable colour<a class="headerlink" href="#suitable-colour" title="Permalink to this headline">¶</a></h2>
+<p>jColour looks at your avatar and decides which available colour suits it the best.</p>
+<ol class="arabic simple">
+<li>Type j!colour pick</li>
+<li>Profit</li>
+</ol>
+<hr class="docutils" />
+</div>
+</div>
+<div class="section" id="getting-hex-colours">
+<span id="gethex"></span><h1>Getting hex colours<a class="headerlink" href="#getting-hex-colours" title="Permalink to this headline">¶</a></h1>
+<div class="line-block">
+<div class="line">Make sure hex colours are enabled!</div>
+<div class="line">To see how this is done please refer to <a class="reference internal" href="#hex"><span class="std std-ref">Setup hex colours</span></a>.</div>
+</div>
+<div class="section" id="specific-hex-colour">
+<h2>Specific hex colour<a class="headerlink" href="#specific-hex-colour" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Type j!colour hex #hex (ex. j!colour hex #ff00ff)</li>
+<li>That’s it!</li>
+</ol>
+</div>
+<div class="section" id="random-hex-colour">
+<h2>Random hex colour<a class="headerlink" href="#random-hex-colour" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Type j!colour hex random</li>
+<li>Done!</li>
+</ol>
+</div>
+<div class="section" id="suitable-hex-colour">
+<h2>Suitable hex colour<a class="headerlink" href="#suitable-hex-colour" title="Permalink to this headline">¶</a></h2>
+<p>jColour looks at your avatar and decides which hex colour suits it the best.</p>
+<ol class="arabic simple">
+<li>Type j!colour hex pick</li>
+<li>Done!</li>
+</ol>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="utils">
+<h1>Utils<a class="headerlink" href="#utils" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="help">
+<h2>Help<a class="headerlink" href="#help" title="Permalink to this headline">¶</a></h2>
+<p>To see all my commands, please refer to j!help.</p>
+</div>
+<div class="section" id="prefix">
+<h2>Prefix<a class="headerlink" href="#prefix" title="Permalink to this headline">¶</a></h2>
+<p>You can change my prefix with j!prefix:</p>
+<ul class="simple">
+<li>j!prefix default</li>
+<li>j!prefix none</li>
+<li>j!prefix !</li>
+</ul>
+<p>If you forgot my prefix, you can always tag me instead: &#64;jColour prefix default</p>
+</div>
+</div>
+<div class="section" id="initial-setup">
+<h1>Initial setup<a class="headerlink" href="#initial-setup" title="Permalink to this headline">¶</a></h1>
+<p>This section will tech you what to do when setupping the bot.</p>
+<div class="section" id="invite">
+<h2>Invite<a class="headerlink" href="#invite" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Open <a class="reference external" href="https://jcolour.jaqreven.com/invite">https://jcolour.jaqreven.com/invite</a></li>
+<li>Click the server you want to use (and don’t change permissions)</li>
+<li>Invite the bot</li>
+</ol>
+</div>
+<div class="section" id="role-setup">
+<h2>Role Setup<a class="headerlink" href="#role-setup" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Open the roles of your Discord server</li>
+<li>Find a role named “jColour”</li>
+<li>Drag it to the top of the roles list - it should be on top of even the admins. This is required for managing the roles of all users.</li>
+<li>Remove colours from all roles (except ones you want to use for colours)</li>
+<li>Save the roles.</li>
+</ol>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="creating-colours">
+<h1>Creating colours<a class="headerlink" href="#creating-colours" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="normal-colours">
+<h2>Normal colours<a class="headerlink" href="#normal-colours" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Make a role named “colour something” (ex. “colour red”)</li>
+<li>Give that role a colour</li>
+<li>That’s it!</li>
+</ol>
+</div>
+<div class="section" id="default-colour">
+<h2>Default colour<a class="headerlink" href="#default-colour" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Make a role named “colour default”</li>
+<li>Give that role a colour</li>
+<li>That’s it! Now the colour gets given to all new members on join.</li>
+</ol>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="restricting">
+<h1>Restricting<a class="headerlink" href="#restricting" title="Permalink to this headline">¶</a></h1>
+<p>If you want to restrict all colour commands to a certain role:</p>
+<ol class="arabic simple">
+<li>Type j!set-role</li>
+<li>Reply with the name of the role (“everyone” for no limits)</li>
+<li>Done! Now only that role can access colours.</li>
+</ol>
+<p>You can also restrict hex colours only: <a class="reference internal" href="#hex"><span class="std std-ref">Setup hex colours</span></a></p>
+<hr class="docutils" />
+</div>
+<div class="section" id="setup-hex-colours">
+<span id="hex"></span><h1>Setup hex colours<a class="headerlink" href="#setup-hex-colours" title="Permalink to this headline">¶</a></h1>
+<div class="line-block">
+<div class="line">Hex colours are off by default.</div>
+<div class="line">Before enabling please note that Discord has a limit of 200 roles.</div>
+</div>
+<div class="section" id="enable">
+<h2>Enable<a class="headerlink" href="#enable" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Type j!enable-hex</li>
+<li>Reply with the name of the role that will be able to use hex colours (“everyone” for no limits)</li>
+<li>Done! Get back to <a class="reference internal" href="#gethex"><span class="std std-ref">Getting hex colours</span></a>.</li>
+</ol>
+</div>
+<div class="section" id="disable">
+<h2>Disable<a class="headerlink" href="#disable" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Type j!disable-hex</li>
+<li>Reply with yes/no: Do you want to delete all the hex roles?</li>
+<li>Done! No more hex colours.</li>
+</ol>
+</div>
+</div>
+<div class="section" id="final-notes">
+<h1>Final notes<a class="headerlink" href="#final-notes" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="data-collection">
+<h2>Data Collection<a class="headerlink" href="#data-collection" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">jColour doesnt explicitly collect any data, though some might get saved to Apache &amp; PM2 logs and SQL databases.</div>
+<div class="line">This includes but may not be limited to:</div>
+</div>
+<ul class="simple">
+<li>Anonymous command executions</li>
+<li>Sites accessed</li>
+<li>Server prefixes</li>
+<li>Discordbots.org votes (id, vote date)</li>
+</ul>
+</div>
+<div class="section" id="license">
+<h2>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
+<p>Copyright (c) 2017-2018 Jaakko Repo</p>
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the “Software”), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:</p>
+<p>The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.</p>
+<p>THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Jaakko Repo.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          
+          SphinxRtdTheme.Navigation.enableSticky();
+          
+      });
+  </script> 
+
+</body>
+</html>
