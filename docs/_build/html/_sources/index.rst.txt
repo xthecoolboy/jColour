@@ -103,6 +103,8 @@ You can change my prefix with j!prefix:
 
 If you forgot my prefix, you can always tag me instead: @jColour prefix default
 
+****
+
 =============
 Initial setup
 =============
@@ -183,6 +185,8 @@ Disable
 #. Type j!disable-hex
 #. Reply with yes/no: Do you want to delete all the hex roles?
 #. Done! No more hex colours.
+
+****
 
 =============
 Final notes
