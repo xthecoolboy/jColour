@@ -1,6 +1,6 @@
 {
 	"name": "jcolour",
-	"version": "2.1.1",
+	"version": "2.2.0-beta",
 	"description": "Cobalt",
 	"scripts": {
 		"start": "node run.js"

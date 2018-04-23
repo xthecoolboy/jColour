@@ -16,6 +16,36 @@ Links
 
 ****
 
+===========================
+Frequently asked questions
+===========================
+
+How do I invite the bot?
+------------------------
+
+https://jcolour.jaqreven.com/invite
+
+How do I add colours?
+----------------------
+
+#. :ref:`initialsetup`
+#. :ref:`createcolours`
+
+How do I get colours?
+----------------------
+
+| Normal colours: :ref:`getcolours`
+| Hex colours: :ref:`gethex` 
+
+Can I restrict colours to a role?
+----------------------------------
+
+Yes! Right over here: :ref:`restricting`
+
+****
+
+.. _getcolours:
+
 ================
 Getting colours
 ================
@@ -105,6 +135,8 @@ If you forgot my prefix, you can always tag me instead: @jColour prefix default
 
 ****
 
+.. _initialsetup:
+
 =============
 Initial setup
 =============
@@ -129,6 +161,8 @@ Role Setup
 
 ****
 
+.. _createcolours:
+
 ================
 Creating colours
 ================
@@ -148,6 +182,8 @@ Default colour
 #. That's it! Now the colour gets given to all new members on join.
 
 ****
+
+.. _restricting:
 
 ==============
 Restricting
