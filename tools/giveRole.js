@@ -150,7 +150,7 @@ async function giveSuitableRole(msg, prefix, client) {
         );
 
         colourRoles.array().forEach(function (element) {
-            const distance = chroma.distance(element.hexColor, color, "lab");
+            const distance = chroma.deltaE(element.hexColor, color);
             // lab distance between colours
 
             if (distance < smallestDistance.distance) { // Replaces if smaller
@@ -216,19 +216,23 @@ async function giveHexRole(msg, client, prefix, colour) {
             'hsl').hex() // hsl colour space
         giveActualHexRole(msg, client, prefix, colour, "(random) ")
     } else {
-        await giveActualHexRole(msg, client, prefix, colour, "")
+        try {
+            const chromaColour = chroma(colour)
+            await giveActualHexRole(msg, client, prefix, chromaColour.hex(), "")
+        } catch (ex) {
+            msg.say("That is not a hex colour! Please supply hex colours in #xxxxxx format (ex. #ffff00 for yellow). I also support X11 colour names: http://cng.seas.rochester.edu/CNG/docs/x11color.html")
+        }
+        
     }
 
     async function giveActualHexRole(msg, client, prefix, colour, extraWord) {
-
-        if (/(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(colour)) { // Checks that it indeed is a hex colour
 
             const colourRoles = msg.guild.roles.filter(role => role.name.toLowerCase().startsWith("colour ")); // all colour roles
             const noUserRoles = colourRoles.filter(role => !role.name.toLowerCase().startsWith("colour u-")); // no colour u-39832958392 roles
             const noUsersRole = colourRoles.filter(role => !(role.name.toLowerCase() === "colour u-" + msg.author.id)); // all roles except users own
 
-            if (noUserRoles.find("hexColor", chroma(colour).hex())) { // tries to find an exiting role with same color
-                const foundRole = noUserRoles.find("hexColor", chroma(colour).hex()) // Converting so ex. #fff and #ffffff work
+            if (noUserRoles.find("hexColor", colour)) { // tries to find an exiting role with same color
+                const foundRole = noUserRoles.find("hexColor", colour) // Converting so ex. #fff and #ffffff work
                 await giveThings({
                     msg: msg,
                     removeRoles: noUsersRole,
@@ -240,7 +244,7 @@ async function giveHexRole(msg, client, prefix, colour) {
             } else { // no existing roles found
 
                 let trueColour = colour; // discord thinks #000000 and no colour are the same thing
-                if (chroma(colour).hex() === chroma("#000000").hex()) {
+                if (colour === "#000000") {
                     trueColour = "#010000";
                 }
                 const foundRole = colourRoles.find(role => role.name.toLowerCase() === "colour u-" + msg.author.id) // checks if user role exists for author
@@ -275,10 +279,6 @@ async function giveHexRole(msg, client, prefix, colour) {
                     })
                 }
             }
-
-        } else {
-            msg.say("That is not a hex colour! Please supply hex colours in #xxxxxx format (ex. #ffff00 for yellow")
-        }
 
     }
 
