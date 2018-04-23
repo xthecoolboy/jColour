@@ -1,7 +1,7 @@
 {
 	"name": "jcolour",
-	"version": "2.2.0-beta",
-	"description": "Cobalt",
+	"version": "2.2.0",
+	"description": "Dandelion",
 	"scripts": {
 		"start": "node run.js"
 	},

@@ -57,10 +57,14 @@ async function giveThings(options) {
     }
 
     if (!failed && options.createRole) {
+        let colour = options.createRole.color; // discord thinks #000000 and no colour are the same thing
+        if (chroma(options.createRole.colour).hex() === chroma("#000000").hex()) {
+            colour = "#010000";
+        }
         options.msg.guild.createRole({
                     // name: 'colour u-' + msg.author.id,
                     name: options.createRole.name,
-                    color: options.createRole.colour
+                    color: colour
                 },
                 `jColour: Colour update`,
             )
@@ -192,7 +196,6 @@ async function removeRole(msg) {
 }
 
 async function giveHexRole(msg, client, prefix, colour) {
-
     const pickRole = ["suitable", "pick", "choose"].includes(colour.toLowerCase());
     const randomRole = colour.toLowerCase() === "random";
     if (pickRole) {
@@ -235,9 +238,14 @@ async function giveHexRole(msg, client, prefix, colour) {
                     message: `I gave you the ${extraWord}${foundRole.name} since it has exactly the same colour (${foundRole.hexColor}).`
                 })
             } else { // no existing roles found
+
+                let trueColour = colour; // discord thinks #000000 and no colour are the same thing
+                if (chroma(colour).hex() === chroma("#000000").hex()) {
+                    trueColour = "#010000";
+                }
                 const foundRole = colourRoles.find(role => role.name.toLowerCase() === "colour u-" + msg.author.id) // checks if user role exists for author
                 if (foundRole) { // yeah
-                    foundRole.setColor(colour) // changes existing roles colour
+                    foundRole.setColor(trueColour) // changes existing roles colour
                         .catch(function () {
                             msg.say("I am missing permissions. My role should be the highest in the server's role list.");
                         });
