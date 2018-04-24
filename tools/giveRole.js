@@ -57,14 +57,15 @@ async function giveThings(options) {
     }
 
     if (!failed && options.createRole) {
-        let colour = options.createRole.color; // discord thinks #000000 and no colour are the same thing
-        if (chroma(options.createRole.colour).hex() === chroma("#000000").hex()) {
+        /* let colour = options.createRole.colour; // discord thinks #000000 and no colour are the same thing
+        if (colour === "#000000") {
             colour = "#010000";
         }
+        console.log(colour) */
         options.msg.guild.createRole({
                     // name: 'colour u-' + msg.author.id,
                     name: options.createRole.name,
-                    color: colour
+                    color: options.createRole.colour
                 },
                 `jColour: Colour update`,
             )
@@ -216,69 +217,83 @@ async function giveHexRole(msg, client, prefix, colour) {
             'hsl').hex() // hsl colour space
         giveActualHexRole(msg, client, prefix, colour, "(random) ")
     } else {
+        let chromaColour;
         try {
-            const chromaColour = chroma(colour)
-            await giveActualHexRole(msg, client, prefix, chromaColour.hex(), "")
+            chromaColour = chroma(colour)
         } catch (ex) {
-            msg.say("That is not a hex colour! Please supply hex colours in #xxxxxx format (ex. #ffff00 for yellow). I also support X11 colour names: http://cng.seas.rochester.edu/CNG/docs/x11color.html")
+            msg.say(`That is not a hex colour! Please supply a colour in one of these formats:
+
+Hex:
+  #ffffff (white)
+  #ff00ff (pink)
+  #000000 (black)
+X11 colours:
+  green
+  blue
+  ivory
+  
+More X11 colours: http://cng.seas.rochester.edu/CNG/docs/x11color.html`)
         }
-        
+        if (chromaColour) {
+            await giveActualHexRole(msg, client, prefix, chromaColour.hex(), "")
+        }
+
     }
 
     async function giveActualHexRole(msg, client, prefix, colour, extraWord) {
 
-            const colourRoles = msg.guild.roles.filter(role => role.name.toLowerCase().startsWith("colour ")); // all colour roles
-            const noUserRoles = colourRoles.filter(role => !role.name.toLowerCase().startsWith("colour u-")); // no colour u-39832958392 roles
-            const noUsersRole = colourRoles.filter(role => !(role.name.toLowerCase() === "colour u-" + msg.author.id)); // all roles except users own
+        const colourRoles = msg.guild.roles.filter(role => role.name.toLowerCase().startsWith("colour ")); // all colour roles
+        const noUserRoles = colourRoles.filter(role => !role.name.toLowerCase().startsWith("colour u-")); // no colour u-39832958392 roles
+        const noUsersRole = colourRoles.filter(role => !(role.name.toLowerCase() === "colour u-" + msg.author.id)); // all roles except users own
 
-            if (noUserRoles.find("hexColor", colour)) { // tries to find an exiting role with same color
-                const foundRole = noUserRoles.find("hexColor", colour) // Converting so ex. #fff and #ffffff work
-                await giveThings({
-                    msg: msg,
-                    removeRoles: noUsersRole,
-                    addRole: foundRole,
-                    deleteUserRoles: true,
-                    createRole: null,
-                    message: `I gave you the ${extraWord}${foundRole.name} since it has exactly the same colour (${foundRole.hexColor}).`
-                })
-            } else { // no existing roles found
+        if (noUserRoles.find("hexColor", colour)) { // tries to find an exiting role with same color
+            const foundRole = noUserRoles.find("hexColor", colour) // Converting so ex. #fff and #ffffff work
+            await giveThings({
+                msg: msg,
+                removeRoles: noUsersRole,
+                addRole: foundRole,
+                deleteUserRoles: true,
+                createRole: null,
+                message: `I gave you the ${extraWord}${foundRole.name} since it has exactly the same colour (${foundRole.hexColor}).`
+            })
+        } else { // no existing roles found
 
-                let trueColour = colour; // discord thinks #000000 and no colour are the same thing
-                if (colour === "#000000") {
-                    trueColour = "#010000";
-                }
-                const foundRole = colourRoles.find(role => role.name.toLowerCase() === "colour u-" + msg.author.id) // checks if user role exists for author
-                if (foundRole) { // yeah
-                    foundRole.setColor(trueColour) // changes existing roles colour
-                        .catch(function () {
-                            msg.say("I am missing permissions. My role should be the highest in the server's role list.");
-                        });
-                    if (!msg.member.roles.has(foundRole.id)) { // if somehow member doesnt have it
-                        await giveThings({
-                            msg: msg,
-                            removeRoles: noUsersRole,
-                            addRole: foundRole,
-                            deleteUserRoles: false,
-                            createRole: null,
-                            message: `Gave you the role with the ${extraWord}colour ${colour}.`
-                        })
-                    } else {
-                        msg.say(`The colour of user role has been updated to ${extraWord}${colour}.`)
-                    }
-                } else { // nope
+            let trueColour = colour; // discord thinks #000000 and no colour are the same thing
+            if (colour === "#000000") {
+                trueColour = "#010000";
+            }
+            const foundRole = colourRoles.find(role => role.name.toLowerCase() === "colour u-" + msg.author.id) // checks if user role exists for author
+            if (foundRole) { // yeah
+                foundRole.setColor(trueColour) // changes existing roles colour
+                    .catch(function () {
+                        msg.say("I am missing permissions. My role should be the highest in the server's role list.");
+                    });
+                if (!msg.member.roles.has(foundRole.id)) { // if somehow member doesnt have it
                     await giveThings({
                         msg: msg,
                         removeRoles: noUsersRole,
-                        addRole: null,
+                        addRole: foundRole,
                         deleteUserRoles: false,
-                        createRole: {
-                            name: "colour u-" + msg.author.id,
-                            colour: colour
-                        },
-                        message: `Made a new role with the colour ${colour}`
+                        createRole: null,
+                        message: `Gave you the role with the ${extraWord}colour ${colour}.`
                     })
+                } else {
+                    msg.say(`The colour of user role has been updated to ${extraWord}${colour}.`)
                 }
+            } else { // nope
+                await giveThings({
+                    msg: msg,
+                    removeRoles: noUsersRole,
+                    addRole: null,
+                    deleteUserRoles: false,
+                    createRole: {
+                        name: "colour u-" + msg.author.id,
+                        colour: trueColour
+                    },
+                    message: `Made a new role with the colour ${colour} - if you didnt get a colour, please run the command again.`
+                })
             }
+        }
 
     }
 
