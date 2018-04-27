@@ -1,0 +1,45 @@
+<!--
+<nav class="navbar is-blue">
+    <div class="navbar-brand">
+        <a class="navbar-item nav-button" href="/">
+            jColour
+        </a>
+
+
+        <div class="navbar-burger burger" id="navBurger" onClick="toggleView()" data-target="navMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+
+    <div id="navMenu" class="navbar-menu">
+        <div class="navbar-end">
+            <% if (auth && user) { %>
+                <a class="navbar-item nav-button" href="/logout" id="homeLink">
+                    Log out (<%= user.tag %>)
+                </a>
+            <% } else { %>
+                <a class="navbar-item nav-button" href="/auth" id="homeLink">
+                    Log in
+                </a>
+            <% } %>
+            <a class="navbar-item nav-button" href="/docs">
+                Docs
+            </a>
+            <a class="navbar-item nav-button" href="https://github.com/jaqreven/jColour">
+                Github
+            </a>
+        </div>
+    </div>
+</nav>
+
+<script>
+    function toggleView() {
+        var menu = document.getElementById('navMenu');
+        var burger = document.getElementById("navBurger");
+        menu.classList.toggle('is-active');
+        burger.classList.toggle('is-active');
+    }
+</script>
+-->

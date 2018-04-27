@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<%- include('elements/meta', {
+	title: server ? server.name + " - jColour" : "jColour",
+	desc: "jColour Discord bot."
+}) %>
+
+<body>
+
+<div class="is-page">
+<%- include('elements/nav', {
+    user: user,
+    auth: auth
+}) %>
+
+    <section class="main-content columns is-fullheight">
+    
+    <%- include('elements/servers', {
+        commonServers: commonServers,
+        server: server,
+        page: page,
+        user: user,
+        auth: auth
+    }) %> 
+
+    <div class="container column is-9 full-column">
+        <div class="section">
+            <% if (server) { 
+                console.log(server) %>
+
+                <h1 class="title is-2"> <%= server.name %> Settings </h1>
+            
+                <h2 class="title is-4">Colour restricting</h2>
+                <h2 class="subtitle is-6 has-select-below">
+                    If this is enabled, only members of the selected role are able to get colours. <br />
+                    @everyone for no limits.
+                </h2>
+
+                <select class="select">
+
+                    <% function restrictIsSelected (role) {
+                        return role.id === server.restrictRole
+                    }
+
+                    server.allroles.forEach(function (role) { %>
+                        <option <%= restrictIsSelected(role) ? 'selected="selected"' : '' %> value="<%= role.id %>"><%= role.name %></option>
+                    <% }) %>
+
+                </select>
+
+                <h2 class="title is-4">Hex Colours</h2>
+                <h2 class="subtitle is-6 has-select-below">
+                    Choose a role that is able to use hex colours. <br />
+                    Disable by selecting 'Disabled'. <br />
+                    @everyone for no limits.
+                </h2>
+
+                <select class="select">
+
+                    <option <%= server.hexRole ? '' : 'selected="selected"' %> value="">Disabled</option>
+
+                    <% function hexIsSelected (role) {
+                        if (server.hexRole) {
+                            return role.id === server.hexRole
+                        } else {
+                            return false
+                        }
+                    }
+
+                    server.allroles.forEach(function (role) { %>
+                        <option <%= hexIsSelected(role) ? 'selected="selected"' : '' %> value="<%= role.id %>"><%= role.name %></option>
+                    <% }) %>
+
+                </select>
+
+                <h2 class="title is-4">Delete Hex Colours</h2>
+                <h2 class="subtitle is-6 has-select-below">
+                    If you want to delete all hex colours (user colours), please check this:
+                </h2>
+
+                <input id="checkBox" type="checkbox"> Delete all hex colours?</input>
+
+                <br /> <br />
+                <a href="#" class="button is-large is-blue">Save</a>
+
+            <% } %>
+            
+
+        
+        </div>
+    </div>
+    
+    </section>
+
+</div>
+
+<%- include elements/footer %>
+
+</body>
+
+</html>

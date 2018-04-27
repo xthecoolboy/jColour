@@ -1,6 +1,6 @@
-<a onClick="toggleModal('<%= element.name %>', '<%= element.colour %>')" class="card is-colour is-fullwidth-mobile" style="background-color: <%=element.colour%>">
+<a id="colourcard-<%= element.id %>" onClick="toggleModal('<%= element.name %>', '<%= element.colour %>', '<%= auth ? user.name : "Discord User"%>', '<%= auth ? user.avatar : "/assets/discord.png" %>')" class="card is-colour is-fullwidth-mobile" style="background-color: <%=element.colour%>">
     <div class="card-content">
-        <h2 id="<%= element.id %>" style="color: <%= tinycolor(element.colour).isDark() ? "white" : "black" %>" class="title is-5 style-colour">
+        <h2 id="<%= element.id %>" style="color: <%= chroma(element.colour).luminance() < 0.5 ? "white" : "black" %>" class="title is-5 style-colour">
             <%= element.name.substring(7) %>
         </h2>
     </div>

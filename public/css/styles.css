@@ -1,6 +1,12 @@
-.is-page {
+/*
+
+DEFAULT PAGE SETTINGS
+
+*/
+
+/* .is-page {
 	min-height: 95vh;
-}
+} */
 
 body {
 	background-color: #eaeaea;
@@ -9,6 +15,19 @@ body {
 html {
 	background-color: #212121;
 }
+
+.footer {
+	background-color: #212121;
+	z-index: 10 !important;
+	position: relative;
+	margin-top: -1rem !important;
+}
+
+/*
+
+COMMANDS TABLE
+
+*/
 
 .tg {
 	border-collapse: collapse;
@@ -52,7 +71,7 @@ html {
 	vertical-align: top
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
 	.tg {
 		width: auto !important;
 	}
@@ -65,26 +84,16 @@ html {
 	}
 }
 
+/*
+
+Colour cards
+
+*/
+
 @media only screen and (max-device-width: 768px) {
 	.is-fullwidth-mobile {
 		width: 100%;
 	}
-}
-
-.is-large {
-	margin: 5px;
-}
-
-.has-card-margin {
-	margin: 10px;
-}
-
-.is-white {
-	color: white;
-}
-
-.footer {
-	background-color: #212121;
 }
 
 .is-colour {
@@ -94,8 +103,8 @@ html {
 	box-shadow: 0px 5px 15px 1px rgba(0, 0, 0, 0.37);
 }
 
-.is-whitetext {
-	color: white !important;
+.has-card-margin {
+	margin: 10px;
 }
 
 .colours {
@@ -106,6 +115,12 @@ html {
 	text-transform: capitalize;
 	color: white;
 }
+
+/*
+
+Colour modals
+
+*/
 
 .modal-content {
 	background-color: white;
@@ -136,68 +151,177 @@ html {
 	color: white;
 }
 
-.discord img {
-	border-radius: 50%;
-}
-
 .discord .media-left {
 	margin: 0px 20px 0px 0px;
 }
 
-.is-fade {
-	background: linear-gradient(270deg, #ed1a1a, #4261f2, #361aed);
-	background-size: 600% 600%;
+/*
 
-	-webkit-animation: FadeEffect 15s ease infinite;
-	-moz-animation: FadeEffect 15s ease infinite;
-	-o-animation: FadeEffect 15s ease infinite;
-	animation: FadeEffect 15s ease infinite;
+Misc
+
+*/
+
+.is-large {
+	margin: 5px;
 }
 
-@-webkit-keyframes FadeEffect {
-	0% {
-		background-position: 0% 50%
-	}
-	50% {
-		background-position: 100% 50%
-	}
-	100% {
-		background-position: 0% 50%
+.is-white {
+	color: white !important;
+	transition-duration: 0.1s;
+}
+
+li .is-white:hover {
+	background-color: rgb(62, 139, 255);
+	transition-duration: 0.1s;
+}
+
+.is-active {
+	background-color: rgb(36, 106, 212) !important;
+	transition-duration: 0.1s;
+}
+
+.is-active:hover {
+	background-color: rgb(55, 126, 233) !important;
+	transition-duration: 0.1s;
+}
+
+.rounded-img {
+	border-radius: 50%;
+}
+
+.has-no-colours {
+	color: rgba(240, 80, 80, 0.6);
+	float: right;
+}
+
+.is-blue {
+	background-color: #3273dc;
+	color: white;
+	transition-duration: 0.2s;
+}
+
+.is-blue-btn:hover,
+.is-blue-btn:active {
+	background-color: #5383d1;
+	color: white;
+	transition-duration: 0.2s;
+}
+
+.has-select-below {
+	margin-bottom: 5px !important;
+}
+
+.select {
+	margin-bottom: 1rem !important;
+}
+
+@media screen and (max-device-width: 768px) {
+	.server-column {
+		margin-bottom: 0px !important;
+		padding-bottom: 0px !important;
 	}
 }
 
-@-moz-keyframes FadeEffect {
-	0% {
-		background-position: 0% 50%
+.server-column {
+	z-index: 1 !important;
+	position: static
+}
+
+.features {
+	list-style-type: disc;
+	margin-left: 30px;
+	padding-bottom: 15px;
+}
+
+.has-features-below {
+	margin-bottom: 0px !important;
+	margin-top: 15px !important;
+}
+
+/*
+
+Nav
+
+*/
+
+.closebtn { /* desktop */
+	display: none
+}
+
+@media screen and (max-device-width: 768px) { /* mobile */
+	.server-column {
+		height: 0%;
+		width: 100%;
+		position: fixed;
+		z-index: 100 !important;
+		top: 0;
+		left: 0;
+		background-color: rgb(0, 0, 0);
+		background-color: rgba(0, 0, 0, 0.9);
+		transition: 0.2s;
+		overflow-y: scroll;
+		padding: 0px !important;
 	}
-	50% {
-		background-position: 100% 50%
+	.nav-content {
+		position: relative;
+		width: 100%;
+		overflow-y: scroll;
+		text-align: center;
+		margin-top: 30px;
+		display: none;
+		font-size: 50% !important;
+		padding-bottom: 50px !important;
 	}
-	100% {
-		background-position: 0% 50%
+	.server-column a {
+		padding: 8px;
+		text-decoration: none;
+		font-size: 24px;
+		color: #818181;
+		display: block;
+		transition: 0.3s;
+	}
+	.server-column a:hover,
+	.server-column a:focus {
+		color: #f1f1f1;
+	}
+	.server-column .closebtn {
+		position: fixed !important;
+		z-index: 100 !important;
+		top: 5px !important;
+		right: 5px !important;
+		font-size: 32px;
+		z-index: 101;
+		padding: 5px;
+		background-color: rgba(0, 0, 0, 0.9);
+		border-radius: 4px;
+		padding-top: 0px !important;
 	}
 }
 
-@-o-keyframes FadeEffect {
-	0% {
-		background-position: 0% 50%
-	}
-	50% {
-		background-position: 100% 50%
-	}
-	100% {
-		background-position: 0% 50%
+/* .nav-button {
+	background-color: #5d95ef;
+	border-radius: 5px;
+	margin: 5px;
+	transition-duration: 0.2s;
+}
+
+.nav-button:hover, .nav-button:active {
+	background-color: #5383d1 !important;
+	color: white !important;
+	transition-duration: 0.2s;
+}
+
+@media screen and (min-device-width: 768px) {
+	.navbar-menu {
+		padding-right: 10px;
 	}
 }
 
-@keyframes FadeEffect {
-	0% {
-		background-position: 0% 50%
-	}
-	50% {
-		background-position: 100% 50%
-	}
-	100% {
-		background-position: 0% 50%
-	}
+.nav-title {
+	font-size: 25px;
+	vertical-align: center;
 }
+
+.navbar-item {
+	color: white;
+} */

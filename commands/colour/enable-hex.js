@@ -54,12 +54,10 @@ module.exports = class ChannelCommand extends Command {
             prefix = msg.guild.commandPrefix;
         }
 
-        msg.guild.settings.set('hexColor', true);
+        msg.guild.settings.set('hexColor', args.role.id);
         if (args.role.name === "@everyone") {
-            msg.guild.settings.remove('hexColor-role');
             msg.say(`Custom hex colours have been enabled. Use \`${prefix}colour hex <hex colour>\` to get a custom hex colour. \`Everyone\` can get one. Please note that Discord has a hard limit on roles.`)
         } else {
-            msg.guild.settings.set('hexColor-role', args.role.id);
             msg.say(`Custom hex colours have been enabled. Use \`${prefix}colour hex <hex colour>\` to get a custom hex colour. Only people with the role \`${args.role.name}\` can get one. Please note that Discord has a hard limit on roles.`)
         }
 

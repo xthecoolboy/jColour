@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<%- include('elements/meta', {
+	title: server ? server.name + " - jColour" : "jColour",
+	desc: "jColour Discord bot.",
+    server: server ? server : null
+}) %>
+
+<body>
+
+<div class="is-page">
+<%- include('elements/nav', {
+    user: user,
+    auth: auth
+}) %>
+
+    <section class="main-content columns is-fullheight">
+    
+    <%- include('elements/servers', {
+        commonServers: commonServers,
+        server: server,
+        page: page,
+        user: user,
+        auth: auth
+    }) %> 
+
+
+    <div class="container column is-9 full-column">
+        <div class="section">
+            <% if (server) {
+                const sortedRoles = server.roles.sort(function (a, b) {
+                    return chroma(a.colour).get("hsl.h") - chroma(b.colour).get("hsl.h");
+                });
+                if (server.roles.length === 0) { %>
+                    <div class="is-server">
+                        <h1 class="title is-2">This server has no colours!</h1>
+                        <h2 class="subtitle is-4">Please ask a staff member to set them up.</h2>
+                        <a href="/docs" class="button is-large is-blue is-blue-btn">Docs</a>
+                    </div>
+                <% } else { %>
+                    <div class="columns is-multiline is-inline-flex-touch is-server" id="colours-<%= server.id %>">
+                        <% sortedRoles.forEach(function(element) { %>
+                            <%- include('elements/colorCard', {
+                                element: element, 
+                                chroma: chroma,
+                                user: user,
+                                server: server
+                            }) %> 
+                        <% }) %>
+                    </div>
+                <% }
+            } else { %>
+                <%- include('elements/home', {
+                    registry: registry
+                }) %>
+            <% } %>
+            
+
+        
+        </div>
+    </div>
+    
+    </section>
+
+<div class="modal" id="modal">
+    <div onClick="toggleModal()" class="modal-background"></div>
+    <div class="modal-content">
+        <h1 class="title">Colour previews.</h1>
+        <div class="card discord">
+            <div class="card-content">
+                <div class="media">
+                    <div class="media-left">
+                        <figure class="image is-64x64">
+                            <img class="rounded-img" id="modal-img1" src="assets/discord.png" alt="Picture" />
+                        </figure>
+                    </div>
+                    <div class="media-content">
+                        <p class="name" id="modal-colour1">Discord user</p>
+                        <p class="date">Today at 6.00 PM</p>
+
+                        <p class="text" id="modal-text1"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="background: #36393E" class="card discord discord-dark">
+            <div class="card-content">
+                <div class="media">
+                    <div class="media-left">
+                        <figure class="image is-64x64">
+                            <img class="rounded-img" id="modal-img2" src="assets/discord.png" alt="Picture" />
+                        </figure>
+                    </div>
+                    <div class="media-content">
+                        <p class="name" id="modal-colour2">Discord user</p>
+                        <p class="date">Today at 6.00 PM</p>
+
+                        <p class="text" id="modal-text2"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button onClick="toggleModal()" class="modal-close is-large" aria-label="close"></button>
+</div>
+
+</div>
+
+<%- include elements/footer %>
+
+<script>
+    var toggleModal = (name, hexColor, userName, userAvatar) => {
+        if (name && hexColor) {
+            var colour1 = document.getElementById("modal-colour1");
+            var colour2 = document.getElementById("modal-colour2");
+            var text1 = document.getElementById("modal-text1");
+            var text2 = document.getElementById("modal-text2");
+            var img1 = document.getElementById("modal-img1");
+            var img2 = document.getElementById("modal-img2");
+
+            colour1.style.color = hexColor;
+            colour1.innerHTML = userName;
+            colour2.style.color = hexColor;
+            colour2.innerHTML = userName;
+            text1.innerHTML = "Trying the " + name + " with light mode!";
+            text2.innerHTML = "Trying the " + name + " with dark mode!";
+            img1.src = userAvatar;
+            img2.src = userAvatar;
+        }
+        var elem = document.getElementById("modal");
+        elem.classList.toggle("is-active");
+    }
+</script>
+
+</body>
+
+</html>

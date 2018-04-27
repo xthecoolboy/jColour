@@ -70,7 +70,9 @@
 								colourRoles.forEach(function(element) { %>
 										<%- include('elements/colorCard', {
 										element: element, 
-										tinycolor: tinycolor
+										tinycolor: tinycolor,
+										userName: "",
+										userAvatar: ""
 									}) %>
 
 
@@ -100,7 +102,7 @@
 							<div class="media">
 								<div class="media-left">
 									<figure class="image is-64x64">
-										<img src="assets/discord.png" alt="Picture" />
+										<img class="rounded-img" src="assets/discord.png" alt="Picture" />
 									</figure>
 								</div>
 								<div class="media-content">
@@ -118,7 +120,7 @@
 							<div class="media">
 								<div class="media-left">
 									<figure class="image is-64x64">
-										<img src="assets/discord.png" alt="Picture" />
+										<img class="rounded-img" src="assets/discord.png" alt="Picture" />
 									</figure>
 								</div>
 								<div class="media-content">
