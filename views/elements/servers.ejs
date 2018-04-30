@@ -21,7 +21,7 @@
                                 <span style="vertical-align:middle" class="icon">
                                     <img src="<%= server.iconurl %>" class="rounded-img" alt="Server">
                                 </span>
-                                <%= server.name %> <%- server ? server.roles.length === 0 ? '<span class="has-no-colours">🚫</span>' : '' : '' %>
+                                <%= server.name %> <%- server ? server.roles.length === 0 ? '<span class="has-no-colours tooltip">🚫 <span class="tooltip-text">This server has no colours!</span> </span>' : '' : '' %>
                             </a>
                         </li>
                     <% }) 
@@ -39,7 +39,7 @@
                 <% if (auth) { %>
                     <% if (server && !(page === 'demo')) { %>
                         <li>
-                            <a href="/auth" id="button-random" class="subtitle is-5 is-white">
+                            <a onClick="getRandRole()" id="button-random" class="subtitle is-5 is-white">
                                 Random Colour
                             </a>
                         </li>
@@ -49,7 +49,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="/auth" id="button-pick" class="subtitle is-5 is-white">
+                            <a onClick="getPickedRole()" id="button-pick" class="subtitle is-5 is-white">
                                 Pick Colour
                             </a>
                         </li>
@@ -74,7 +74,7 @@
                         Documentation
                     </a>
                 </li>
-                <% if (auth) { %>
+                <% if (auth && user) { %>
                     <li>
                         <a href="/logout" id="button-logout" class="subtitle is-5 is-white">
                             Log out (<%= user.tag %>)

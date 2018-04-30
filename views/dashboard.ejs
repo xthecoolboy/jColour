@@ -105,6 +105,15 @@
     <button onClick="toggleModal()" class="modal-close is-large" aria-label="close"></button>
 </div>
 
+<div class="modal" id="errormodal">
+    <div onClick="hideError()" class="modal-background"></div>
+    <div class="modal-content">
+        <h1 class="title" id="errorcode">Error.</h1>
+        <h2 class="subtitle" id="errormessage">Error Description</h2>
+    </div>
+    <button onClick="hideError()" class="modal-close is-large" aria-label="close"></button>
+</div>
+
 </div>
 
 <%- include elements/footer %>
@@ -131,6 +140,65 @@
         var elem = document.getElementById("modal");
         elem.classList.toggle("is-active");
     }
+
+    var showError = (code, message) => {
+        var codeElement = document.getElementById("errorcode");
+        var msgElement = document.getElementById("errormessage");
+
+        codeElement.innerHTML = code;
+        msgElement.innerHTML = message;
+        var elem = document.getElementById("errormodal");
+        elem.classList.add("is-active");
+    }
+
+    var hideError = () => {
+        var elem = document.getElementById("errormodal");
+        elem.classList.remove("is-active");
+    }
+
+    <% if (id && auth) { %>
+        var getRandRole = () => {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", '/get/random/<%= id %>', true);
+
+            //Send the proper header information along with the request
+            xhr.setRequestHeader("Content-type", "application/json");
+
+            xhr.onreadystatechange = function() {//Call a function when the state changes.
+                if(xhr.readyState == XMLHttpRequest.DONE) {
+                    if (xhr.status == 200) {
+                        var role = JSON.parse(this.responseText);
+                        toggleModal(role.name, role.colour, '<%= user.name %>', '<%= user.avatar %>')
+                    } else {
+                        var error = JSON.parse(this.responseText);
+                        showError(error.error, error.message)
+                    }
+                }
+            }
+            xhr.send(); 
+        }
+
+        var getPickedRole = () => {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", '/get/pick/<%= id %>', true);
+
+            //Send the proper header information along with the request
+            xhr.setRequestHeader("Content-type", "application/json");
+
+            xhr.onreadystatechange = function() {//Call a function when the state changes.
+                if(xhr.readyState == XMLHttpRequest.DONE) {
+                    if (xhr.status == 200) {
+                        var role = JSON.parse(this.responseText);
+                        toggleModal(role.name, role.colour, '<%= user.name %>', '<%= user.avatar %>')
+                    } else {
+                        var error = JSON.parse(this.responseText);
+                        showError(error.error, error.message)
+                    }
+                }
+            }
+            xhr.send(); 
+        }
+    <% } %>
 </script>
 
 </body>

@@ -1,6 +1,6 @@
 {
 	"name": "jcolour",
-	"version": "3.0.0-a1",
+	"version": "3.0.0-a2",
 	"description": "Emerald",
 	"scripts": {
 		"start": "node run.js"

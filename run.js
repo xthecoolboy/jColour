@@ -1,4 +1,5 @@
 const config = require('./config/config.json');
+const getColors = require('get-image-colors')
 
 // Things the Discord bot sharding needs
 const Discord = require('discord.js');
@@ -19,6 +20,8 @@ const chroma = require("chroma-js");
 var session = require('express-session');
 var passport = require('passport');
 var Strategy = require('passport-discord').Strategy
+
+const bodyParser = require("body-parser")
 
 /* 
 
@@ -51,7 +54,11 @@ const middleware = [
 		saveUninitialized: false
 	}),
 	passport.initialize(),
-	passport.session()
+	passport.session(),
+	bodyParser.urlencoded({
+		extended: true
+	}),
+	bodyParser.json()
 ]
 
 app.set('view engine', 'ejs'); // ejs for server side js templating
@@ -100,6 +107,99 @@ app.get('/logout', function (req, res) {
 	req.logout();
 	res.redirect('/');
 });
+
+app.get("/get/random/:id", function (req, res) {
+	if (req.isAuthenticated()) {
+		Manager.broadcastEval("this.getGuildData('" + req.params.id + "')").then(
+			function (guilds) {
+				const guild = guilds.filter(guild => guild)[0];
+				if (guild) {
+					const roles = guild.roles;
+					if (roles.length > 0) {
+						return res.json(roles[Math.floor(Math.random() * guild.roles.length)])
+					} else {
+						return res.status(400).json({
+							error: 400,
+							message: "No colours found!"
+						})
+					}
+				} else {
+					return res.status(400).json({
+						error: 400,
+						message: "No server found!"
+					})
+				}
+			}
+		)
+	} else {
+		return res.status(403).json({
+			error: 403,
+			message: "Not authenticated!"
+		})
+	}
+})
+
+app.get("/get/pick/:id", function (req, res) {
+	if (req.isAuthenticated()) {
+		const userid = req.user.id
+		Manager.broadcastEval("this.getGuildData('" + req.params.id + "')").then(
+			function (guilds) {
+				const guild = guilds.filter(guild => guild)[0];
+				if (guild) {
+					Manager.broadcastEval("this.getUserData('" + userid + "')").then(
+						function (users) {
+							const user = users.filter(user => user)[0]
+							if (user) {
+								const roles = guild.roles;
+								if (roles.length > 0) {
+									let smallestDistance = {
+										id: null,
+										distance: 999999
+									}
+									getColors(user.avatar, function (err, colors) {
+										const color = colors[0];
+										roles.forEach(function (element) {
+											const distance = chroma.deltaE(element.colour, color);
+											// lab distance between colours
+		
+											if (distance < smallestDistance.distance) { // Replaces if smaller
+												smallestDistance = {
+													id: element.id,
+													distance: distance
+												}
+											}
+		
+										});
+										return res.json(roles.filter(role => role.id === smallestDistance.id)[0])
+									})
+								} else {
+									return res.status(400).json({
+										error: 400,
+										message: "No colours found!"
+									})								
+								}
+							} else {
+								return res.status(400).json({
+									error: 400,
+									message: "No user found!"
+								})								
+							}
+						})
+				} else {
+					return res.status(400).json({
+						error: 400,
+						message: "No server found!"
+					})
+				}
+			}
+		)
+	} else {
+		return res.status(403).json({
+			error: 403,
+			message: "Not authenticated!"
+		})
+	}
+})
 
 // redirect to bot inv
 app.get('/invite', function (req, res) {
@@ -183,7 +283,7 @@ app.get("/demo", function (req, res) {
 					const reqServers = [];
 					if (req.user) {
 						req.user["guilds"].forEach(function (element) {
-						reqServers.push(element.id);
+							reqServers.push(element.id);
 						})
 					}
 					const shared = merged.filter(guild => reqServers.includes(guild.id));
@@ -197,7 +297,7 @@ app.get("/demo", function (req, res) {
 						auth: req.isAuthenticated(),
 						server: server,
 						page: "demo"
-						
+
 					})
 				}
 			)
@@ -294,7 +394,8 @@ function checkAuth(req, res, next) {
 app.use(function (req, res) {
 	res.status(404).render('error.ejs', {
 		errorNum: 404,
-		errorMsg: "File not found."
+		errorMsg: "File not found.",
+		server: false
 	})
 });
 
