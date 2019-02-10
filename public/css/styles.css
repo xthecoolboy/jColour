@@ -1,0 +1,362 @@
+/*
+
+DEFAULT PAGE SETTINGS
+
+*/
+
+body {
+	background-color: #eaeaea;
+	overflow-x: hidden;
+}
+
+html {
+	background-color: #212121;
+}
+
+.footer {
+	background-color: #212121;
+	z-index: 10 !important;
+	position: relative;
+	margin-top: -1rem !important;
+}
+
+/*
+
+COMMANDS TABLE
+
+*/
+
+.tg {
+	border-collapse: collapse;
+	border-spacing: 0;
+	border-color: #ccc;
+}
+
+.tg td {
+	font-family: Arial, sans-serif;
+	font-size: 14px;
+	padding: 10px 5px;
+	border-style: solid;
+	border-width: 0px;
+	overflow: hidden;
+	word-break: normal;
+	border-top-width: 1px;
+	border-bottom-width: 1px;
+	border-color: #ccc;
+	color: #333;
+	background-color: #fff;
+}
+
+.tg th {
+	font-family: Arial, sans-serif;
+	font-size: 14px;
+	font-weight: normal;
+	padding: 10px 5px;
+	border-style: solid;
+	border-width: 0px;
+	overflow: hidden;
+	word-break: normal;
+	border-top-width: 1px;
+	border-bottom-width: 1px;
+	border-color: #ccc;
+	color: #333;
+	background-color: #f0f0f0;
+}
+
+.tg .tg-us36 {
+	border-color: inherit;
+	vertical-align: top
+}
+
+@media screen and (max-width: 768px) {
+	.tg {
+		width: auto !important;
+	}
+	.tg col {
+		width: auto !important;
+	}
+	.tg-wrap {
+		overflow-x: auto;
+		-webkit-overflow-scrolling: touch;
+	}
+}
+
+/*
+
+Colour cards
+
+*/
+
+@media only screen and (max-device-width: 768px) {
+	.is-fullwidth-mobile {
+		width: 100%;
+	}
+}
+
+.is-colour {
+	margin: 10px;
+	-webkit-box-shadow: 0px 5px 15px 1px rgba(0, 0, 0, 0.37);
+	-moz-box-shadow: 0px 5px 15px 1px rgba(0, 0, 0, 0.37);
+	box-shadow: 0px 5px 15px 1px rgba(0, 0, 0, 0.37);
+}
+
+.has-card-margin {
+	margin: 10px;
+}
+
+.colours {
+	margin: 15px;
+}
+
+.style-colour {
+	text-transform: capitalize;
+	color: white;
+}
+
+/*
+
+Colour modals
+
+*/
+
+.modal-content {
+	background-color: white;
+	padding: 30px;
+	border-radius: 10px;
+}
+
+.discord .name {
+	font-size: 20px;
+	display: inline-block;
+}
+
+.discord-dark .name {
+	color: white;
+}
+
+.discord .date {
+	display: inline-block;
+	font-size: 14px;
+	margin: 0px 5px;
+}
+
+.discord .text {
+	font-size: 18px;
+}
+
+.discord-dark .text {
+	color: white;
+}
+
+.discord .media-left {
+	margin: 0px 20px 0px 0px;
+}
+
+/*
+
+Misc
+
+*/
+
+.has-btn-margin {
+	border-radius: 8px;
+	margin-top: 10px !important;
+}
+
+#hiddenCheckbox {
+	display: none;
+}
+
+.is-large {
+	margin: 5px;
+}
+
+.is-white {
+	color: white !important;
+	transition-duration: 0.1s;
+}
+
+li .is-white:hover {
+	background-color: rgb(62, 139, 255);
+	transition-duration: 0.1s;
+}
+
+.is-active:not(.modal) {
+	background-color: rgb(36, 106, 212) !important;
+	transition-duration: 0.1s;
+}
+
+.is-active:hover:not(.modal) {
+	background-color: rgb(55, 126, 233) !important;
+	transition-duration: 0.1s;
+}
+
+.rounded-img {
+	border-radius: 50%;
+}
+
+.has-no-colours {
+	color: rgba(240, 80, 80, 0.6);
+	float: right;
+}
+
+.is-blue {
+	background-color: #3273dc;
+	color: white;
+	transition-duration: 0.2s;
+}
+
+.is-blue-btn:hover,
+.is-blue-btn:active {
+	background-color: #5383d1;
+	color: white;
+	transition-duration: 0.2s;
+}
+
+.has-select-below {
+	margin-bottom: 5px !important;
+}
+
+.select {
+	margin-bottom: 1rem !important;
+}
+
+@media screen and (max-device-width: 768px) {
+	.server-column {
+		margin-bottom: 0px !important;
+		padding-bottom: 0px !important;
+	}
+}
+
+.server-column {
+	z-index: 1 !important;
+	position: static
+}
+
+.features {
+	list-style-type: disc;
+	margin-left: 30px;
+	padding-bottom: 15px;
+}
+
+.has-features-below {
+	margin-bottom: 0px !important;
+	margin-top: 15px !important;
+}
+
+/*
+
+Nav
+
+*/
+
+.nav-button {
+	background-color: #5d95ef;
+	border-radius: 5px;
+	margin: 5px;
+	transition-duration: 0.2s;
+}
+
+.nav-button:hover, .nav-button:active {
+	background-color: #5383d1 !important;
+	color: white !important;
+	transition-duration: 0.2s;
+}
+
+@media screen and (min-device-width: 769px) {
+	.navbar-menu {
+		padding-right: 10px;
+	}
+}
+
+.nav-title {
+	font-size: 25px;
+	vertical-align: center;
+}
+
+.navbar-item {
+	color: white;
+}
+
+/*
+
+Tooltips
+
+*/
+
+/* Tooltip container */
+
+@media screen and (max-device-width: 768px) {
+	.tooltip-text {
+		display: none;
+	}
+	.nav-content {
+		padding-bottom: 30px;
+		padding-top: 40px;
+		display: none;
+	}
+
+	#nav {
+		padding-bottom: 2rem !important;
+	}
+
+	.closeButton {
+		position: absolute;
+		right: 5px;
+		top: 0px;
+
+	}
+
+}
+
+@media screen and (min-device-width: 769px) {
+	.tooltip {
+		position: relative;
+		display: inline-block;
+	}
+
+.closeButton {
+	display: none;
+}
+
+	/* Tooltip text */
+
+	.tooltip .tooltip-text {
+		visibility: hidden;
+		width: 120px;
+		background-color: #555;
+		color: #fff;
+		text-align: center;
+		padding: 5px 0;
+		border-radius: 6px;
+		/* Position the tooltip text */
+		position: absolute;
+		z-index: 1;
+		bottom: 125%;
+		left: 50%;
+		margin-left: -60px;
+		/* Fade in tooltip */
+		opacity: 0;
+		transition: opacity 0.3s;
+	}
+
+	/* Tooltip arrow */
+
+	.tooltip .tooltip-text::after {
+		content: "";
+		position: absolute;
+		top: 100%;
+		left: 50%;
+		margin-left: -5px;
+		border-width: 5px;
+		border-style: solid;
+		border-color: #555 transparent transparent transparent;
+	}
+
+	/* Show the tooltip text when you mouse over the tooltip container */
+
+	.tooltip:hover .tooltip-text {
+		visibility: visible;
+		opacity: 1;
+	}
+}

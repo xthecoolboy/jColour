@@ -1,0 +1,24 @@
+<head>
+
+  <!-- ALL THE SINGLE METAS -->
+  <title><%= title %></title>
+  <meta name="description" content="<%= desc %>">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Jaakko Repo">
+  <meta name="keywords" content="jColour, jColour, Discord, Discord bot">
+  <meta name="theme-color" content="#7d73d1">
+
+  <!-- Stylesheets -->
+  <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/bulma-modal-fx/dist/css/modal-fx.min.css"/>
+	<link href="/css/styles.css" rel="stylesheet" type="text/css">
+
+  <!-- Scripts -->
+
+  <script type="text/javascript" src="https://unpkg.com/bulma-modal-fx/dist/js/modal-fx.min.js"></script>
+
+  <!-- if theres a server we use its icon, otherwise bot pfp -->
+  <link rel="icon" href="<%= server ? server.iconurl : '/assets/avatar.png' %>">
+
+</head>

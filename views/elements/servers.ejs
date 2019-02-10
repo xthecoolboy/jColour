@@ -1,0 +1,92 @@
+<aside id="nav" class="column is-3 is-narrow-mobile is-fullheight section server-column is-blue">
+  <a class="subtitle is-1 is-white closeButton is-hidden-tablet" onclick="nav()">&#9776;</a>
+  <div class="nav-content" id="nav-content">
+    <ul class="menu-list">
+      <li>
+        <a href="/" id="button-home" class="subtitle is-5 <%= page === 'home' ? 'is-active' : ''%> is-white">
+          Home
+        </a>
+      </li>
+    </ul>
+    <% if (page !== "error") { %>
+      <p class="menu-label subtitle is-4 is-white">Servers</p>
+      <ul class="menu-list">
+
+        <% if (auth) {
+          commonServers.sort(function (a, b) {
+              return (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : (a.name.toUpperCase() > b.name.toUpperCase()) ? 1 : 0;
+          }).forEach(function (server) { %>
+          <li>
+            <a href="/<%= server.id %>" id="button-<%= server.id %>" class="subtitle is-5 <%= server.id === id ? 'is-active' : '' %> is-white">
+              <span style="vertical-align:middle" class="icon">
+                <img src="<%= server.iconurl %>" class="rounded-img" alt="Server">
+              </span>
+              <%= server.name %>
+              <%- server ? server.roles.length === 0 ? '<span class="has-no-colours tooltip">🚫 <span class="tooltip-text">This server has no colours!</span> </span>' : '' : '' %>
+              </a>
+            </li>
+            <% })
+                }
+                if (commonServers.length === 0) { %>
+              <li>
+                <a href="/demo" id="button-noservers" class="subtitle is-5 is-white <%= page === 'demo' ? 'is-active' : '' %>">
+                  Demo Server
+                </a>
+              </li>
+            <% } %>
+          </ul>
+        <% } %>
+        <p class="menu-label subtitle is-4 is-white">Options</p>
+        <ul class="menu-list">
+          <li>
+            <a href="/invite" id="button-invite" class="subtitle is-5 is-white">
+              Add me to more servers!
+            </a>
+          </li>
+          <li>
+            <a href="/docs" id="button-invite" class="subtitle is-5 is-white">
+              Documentation
+            </a>
+          </li>
+          <li>
+            <a href="/support" id="button-invite" class="subtitle is-5 is-white">
+              Support Server
+            </a>
+          </li>
+          <% if (auth) { %>
+            <li>
+              <a href="/logout" id="button-logout" class="subtitle is-5 is-white">
+                Log out (<%= user ? user.tag : userBackup ? userBackup.username + "#" + userBackup.discriminator : "?"%>)
+              </a>
+            </li>
+            <% } else if (page !== "error") { %>
+              <li>
+                <a href="/auth" id="button-login" class="subtitle is-5 is-active is-white">
+                  Log in
+                </a>
+              </li>
+            <% } %>
+          </ul>
+        </div>
+      </aside>
+
+      <script>
+        function openNav() {
+          document.getElementById("nav").style.height = "100%";
+          document.getElementById("nav-content").style.display = "block";
+        }
+
+        function closeNav() {
+          document.getElementById("nav").style.height = "0%";
+          document.getElementById("nav-content").style.display = "none";
+        }
+
+        function nav() {
+          var display = document.getElementById("nav-content").style.display;
+          if (display !== "block") {
+            openNav()
+          } else {
+            closeNav()
+          }
+        }
+      </script>

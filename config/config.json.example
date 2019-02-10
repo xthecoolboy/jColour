@@ -1,0 +1,30 @@
+{
+	"token": "h",
+	"prefix": "j!",
+	"ownerid": "124194717471923",
+	"shards": 1,
+	"port": 8085,
+
+	"id": "128412467987",
+	"_comment8": "bots id",
+
+	"secret": "lemons",
+	"_comment9": "Clients secret (get it from the same place you get your otken, bots edit page)",
+
+	"callback": "http://localhost:8085/callback",
+	"_comment10": "Callback url (where user returns after auth). Must be defined in Discord bot settings.",
+
+	"base_www": "http://jcolour.jaqreven.com/",
+	"_comment": "The base url: this+server id - Make sure to include a slash in the end.",
+	
+	"dblToken": "",
+	"_comment": "Token to discordbots.org, can be left empty",
+
+	"dbotsToken": "",
+	"_comment": "Token to bots.discord.pw, can be left empty",
+	
+	"support": "https://discord.gg/gwqgJy8",
+
+	"dblWebAuth": "",
+	"_comment6": "If you use DBL webhooks, use this as the webhook authorization."
+}

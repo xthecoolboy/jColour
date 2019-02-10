@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <%- include('elements/meta', {
+	title: "jColour Colours",
+	desc: "jColour Discord bot.",
+  server: null
+}) %>
+
+    <body>
+
+      <div class="is-page">
+
+        <section class="main-content columns is-fullheight">
+          <%- include('elements/servers', {
+          commonServers: commonServers,
+          server: false,
+          page: "home",
+          user: user,
+          auth: auth,
+          id: 0
+        }) %>
+            <div class="container column is-9 full-column">
+              <div class="section">
+                <%- include('elements/home', {
+                  auth: auth
+                }) %>
+                </div>
+              </div>
+            </section>
+
+          </div>
+
+          <%- include elements/footer %>
+
+          </body>
+
+        </html>

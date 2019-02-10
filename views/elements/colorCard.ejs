@@ -1,0 +1,7 @@
+<a id="colourcard-<%= element.id %>" onClick="toggleModal(`<%= element.name %>`, '<%= element.colour %>', '<%= auth ? user.name : "Discord User"%>', '<%= auth ? user.avatar : "/assets/discord.png" %>', '<%= element.id %>')" class="card is-colour is-fullwidth-mobile" style="background-color: <%=element.colour%>">
+    <div class="card-content">
+        <h2 id="<%= element.id %>" style="color: <%= chroma(element.colour).luminance() < 0.5 ? "white" : "black" %>" class="title is-5 style-colour">
+            <%= element.name.substring(7) %>
+        </h2>
+    </div>
+</a>
