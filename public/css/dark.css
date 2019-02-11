@@ -1,0 +1,90 @@
+/* BODY COLOURS */
+body {
+  background-color: #3d3d3d;
+}
+
+html {
+  background-color: #212121;
+}
+
+.footer {
+  background-color: #212121;
+}
+
+/* Style for colour blocks */
+.style-colour {
+  color: white;
+}
+
+/* Preview modals */
+.modal-content {
+  background-color: #282828;
+}
+
+.discord-dark .name {
+  color: white;
+}
+
+.discord-dark .text {
+  color: white;
+}
+
+/* Misc stuff */
+.is-white {
+  color: white !important;
+}
+
+.is-blue {
+  background-color: #262626;
+  color: white;
+}
+
+.has-no-colours {
+  color: rgba(240, 80, 80, 0.6);
+}
+
+.title {
+  color: rgb(255, 255, 255);
+}
+
+.subtitle {
+  color: rgb(230, 230, 230);
+}
+
+.features {
+  color: rgb(230, 230, 230);
+}
+
+/* Server column and nav bar */
+li .is-white:hover {
+  background-color: #191919;
+}
+
+.is-active:not(.modal) {
+  background-color: #0f0f0f !important;
+}
+
+.is-active:hover:not(.modal) {
+  background-color: #1c1c1c !important;
+}
+
+.navbar-item {
+  color: white;
+}
+
+.nav-button:hover, .nav-button:active {
+  background-color: #5383d1 !important;
+  color: white !important;
+}
+
+/* TOOLTIPS */
+@media screen and (min-device-width: 769px) {
+  .tooltip .tooltip-text {
+    background-color: #555;
+    color: #fff;
+  }
+
+  .tooltip .tooltip-text::after {
+    border-color: #555 transparent transparent transparent;
+  }
+}

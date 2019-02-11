@@ -107,6 +107,21 @@ app.get('/support', function(req, res) { // Support guild
   res.redirect(config.support)
 });
 
+app.post("/toggleTheme", function (req, res) {
+	if (req.isAuthenticated()) {
+		Manager.broadcastEval("this.updateTheme('" + req.user.id + "')")
+    res.status(200).json({
+      status: 200,
+      message: "OK"
+    })
+	} else {
+		return res.status(403).json({
+			status: 403,
+			message: "Not authenticated!"
+		})
+	}
+})
+
 app.get("/demo", function (req, res) {
 	const command = `this.getUserAndGuildData('${req.user ? req.user.id : ""}', '${config.demoId}')`;
 	Manager.broadcastEval(command).then(

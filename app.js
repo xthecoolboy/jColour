@@ -120,7 +120,8 @@ client.getUserAndGuildData = function (id, guildid) {
 			"name": user.username,
 			"tag": user.tag,
 			"canUseColours": coloursRole ? member.roles.exists('id', coloursRole) : true,
-			"canUseHex": hexColoursRole ? member.roles.exists("id", hexColoursRole) : false
+			"canUseHex": hexColoursRole ? member.roles.exists("id", hexColoursRole) : false,
+			"theme": client.settings.get("dark-theme-" + user.id, false)
 		}
 	} else {
 		return client.getUserData(id)
@@ -133,7 +134,8 @@ client.getUserData = function (id) {
 		return {
 			"avatar": user.displayAvatarURL,
 			"name": user.username,
-			"tag": user.tag
+			"tag": user.tag,
+			"theme": client.settings.get("dark-theme-" + user.id, false)
 		}
 	} else {
 		return false;
@@ -197,6 +199,11 @@ client.getAllServers = function (options) {
 
 	})
 	return json;
+}
+
+client.updateTheme = function (id) {
+	const darktheme = client.settings.get("dark-theme-" + id, false)
+	client.settings.set("dark-theme-" + id, darktheme ? false : true)
 }
 
 client.handleWebhook = function (type, bot, user) { // handles webhooks for each shard

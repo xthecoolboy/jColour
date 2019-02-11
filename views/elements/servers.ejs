@@ -55,6 +55,11 @@
           </li>
           <% if (auth) { %>
             <li>
+              <a onClick="updateTheme()" id="button-logout" class="subtitle is-5 is-white">
+                Enable <%= user ? (user.theme ? "Light" : "Dark") : "Dark" %> Theme
+              </a>
+            </li>
+            <li>
               <a href="/logout" id="button-logout" class="subtitle is-5 is-white">
                 Log out (<%= user ? user.tag : userBackup ? userBackup.username + "#" + userBackup.discriminator : "?"%>)
               </a>
@@ -88,5 +93,24 @@
           } else {
             closeNav()
           }
+        }
+
+        function updateTheme() {
+          var xhr = new XMLHttpRequest();
+          xhr.open("POST", '/toggleTheme', true);
+
+          //Send the proper header information along with the request
+          xhr.setRequestHeader("Content-Type", "application/json");
+
+          xhr.onreadystatechange = function() { // Call a function when the state changes.
+              if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                  location.reload(true)
+              } else if (this.readyState === XMLHttpRequest.DONE && this.status === 403) {
+                  alert("You are not logged in!")
+              } else if (this.readyState === XMLHttpRequest.DONE) {
+                  alert("Something went wrong!")
+              }
+          }
+          xhr.send();
         }
       </script>

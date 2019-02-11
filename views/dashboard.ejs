@@ -3,7 +3,8 @@
 <%- include('elements/meta', {
 	title: server ? server.name + " - jColour" : "jColour",
 	desc: "jColour Discord bot.",
-  server: server ? server : null
+  server: server ? server : null,
+	theme: user ? (user.theme ? "dark" : "light") : "light"
 }) %>
 
 	<body>
@@ -58,7 +59,7 @@
 				<div onClick="toggleModal()" class="modal-background"></div>
 				<div class="modal-content">
 					<h1 class="title">Colour previews.</h1>
-					<div class="card discord">
+					<div class="card discord discord-light">
 						<div class="card-content">
 							<div class="media">
 								<div class="media-left">

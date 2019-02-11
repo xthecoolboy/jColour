@@ -3,7 +3,8 @@
   <%- include('elements/meta', {
 	title: "jColour Colours",
 	desc: "jColour Discord bot.",
-  server: null
+  server: null,
+  theme: user ? (user.theme ? "dark" : "light") : "light"
 }) %>
 
     <body>

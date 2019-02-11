@@ -1,0 +1,78 @@
+/* BODY COLOURS */
+body {
+  background-color: #eaeaea;
+}
+
+html {
+  background-color: #212121;
+}
+
+.footer {
+  background-color: #212121;
+}
+
+/* Style for colour blocks */
+.style-colour {
+  color: white;
+}
+
+/* Preview modals */
+.modal-content {
+  background-color: white;
+}
+
+.discord-dark .name {
+  color: white;
+}
+
+.discord-dark .text {
+  color: white;
+}
+
+/* Misc stuff */
+.is-white {
+  color: white !important;
+}
+
+.is-blue {
+  background-color: #3273dc;
+  color: white;
+}
+
+.has-no-colours {
+  color: rgba(240, 80, 80, 0.6);
+}
+
+/* Server column and nav bar */
+li .is-white:hover {
+  background-color: rgb(62, 139, 255);
+}
+
+.is-active:not(.modal) {
+  background-color: rgb(55, 126, 232) !important;
+}
+
+.is-active:hover:not(.modal) {
+  background-color: rgb(79, 143, 239) !important;
+}
+
+.navbar-item {
+  color: white;
+}
+
+.nav-button:hover, .nav-button:active {
+  background-color: #5383d1 !important;
+  color: white !important;
+}
+
+/* TOOLTIPS */
+@media screen and (min-device-width: 769px) {
+  .tooltip .tooltip-text {
+    background-color: #555;
+    color: #fff;
+  }
+
+  .tooltip .tooltip-text::after {
+    border-color: #555 transparent transparent transparent;
+  }
+}

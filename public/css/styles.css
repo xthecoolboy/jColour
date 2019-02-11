@@ -3,51 +3,41 @@
 DEFAULT PAGE SETTINGS
 
 */
-
 body {
-	background-color: #eaeaea;
-	overflow-x: hidden;
-}
-
-html {
-	background-color: #212121;
+  overflow-x: hidden;
 }
 
 .footer {
-	background-color: #212121;
-	z-index: 10 !important;
-	position: relative;
-	margin-top: -1rem !important;
+  z-index: 10 !important;
+  position: relative;
+  margin-top: -1rem !important;
 }
 
 .is-9 {
-	min-height: 90vh;
+  min-height: 90vh;
 }
-
 
 /*
 
 Colour cards
 
 */
-
 @media only screen and (max-device-width: 768px) {
-	.is-fullwidth-mobile {
-		width: 100%;
-	}
+  .is-fullwidth-mobile {
+    width: 100%;
+  }
 }
 
 .is-colour {
-	border-radius: 10px;
-	margin: 10px;
-	-webkit-box-shadow: 0px 5px 15px 1px rgba(0, 0, 0, 0.37);
-	-moz-box-shadow: 0px 5px 15px 1px rgba(0, 0, 0, 0.37);
-	box-shadow: 0px 5px 15px 1px rgba(0, 0, 0, 0.37);
+  border-radius: 10px;
+  margin: 10px;
+  -webkit-box-shadow: 0px 5px 15px 1px rgba(0, 0, 0, 0.37);
+  -moz-box-shadow: 0px 5px 15px 1px rgba(0, 0, 0, 0.37);
+  box-shadow: 0px 5px 15px 1px rgba(0, 0, 0, 0.37);
 }
 
 .style-colour {
-	text-transform: capitalize;
-	color: white;
+  text-transform: capitalize;
 }
 
 /*
@@ -55,38 +45,36 @@ Colour cards
 Colour modals
 
 */
-
 .modal-content {
-	background-color: white;
-	padding: 30px;
-	border-radius: 10px;
+  padding: 30px;
+  border-radius: 10px;
 }
 
 .discord .name {
-	font-size: 20px;
-	display: inline-block;
-}
-
-.discord-dark .name {
-	color: white;
+  font-size: 20px;
+  display: inline-block;
 }
 
 .discord .date {
-	display: inline-block;
-	font-size: 14px;
-	margin: 0px 5px;
+  display: inline-block;
+  font-size: 14px;
+  margin: 0px 5px;
 }
 
 .discord .text {
-	font-size: 18px;
-}
-
-.discord-dark .text {
-	color: white;
+  font-size: 18px;
 }
 
 .discord .media-left {
-	margin: 0px 20px 0px 0px;
+  margin: 0px 20px 0px 0px;
+}
+
+.discord-dark {
+	border-radius: 0px 0px 10px 10px;
+}
+
+.discord-light {
+	border-radius: 10px 10px 0px 0px;
 }
 
 /*
@@ -94,82 +82,77 @@ Colour modals
 Misc
 
 */
-
-.is-large {
-	margin: 5px;
+.is-white {
+  transition-duration: 0.2s;
 }
 
-.is-white {
-	color: white !important;
-	transition-duration: 0.1s;
+.is-large {
+  margin: 5px;
 }
 
 li .is-white:hover {
-	background-color: rgb(62, 139, 255);
-	border-radius: 10px;
+  border-radius: 10px;
+  transition-duration: 0.2s;
+}
+
+li {
 	transition-duration: 0.2s;
 }
 
 .is-active:not(.modal) {
-	border-radius: 10px;
-	-webkit-box-shadow: 0px 5px 15px 1px rgba(0, 0, 0, 0.37);
-	-moz-box-shadow: 0px 5px 15px 1px rgba(0, 0, 0, 0.37);
-	box-shadow: 0px 5px 15px 1px rgba(0, 0, 0, 0.37);
-	background-color: rgb(55, 126, 232) !important;
-	transition-duration: 0.1s;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 5px 15px 1px rgba(0, 0, 0, 0.37);
+  -moz-box-shadow: 0px 5px 15px 1px rgba(0, 0, 0, 0.37);
+  box-shadow: 0px 5px 15px 1px rgba(0, 0, 0, 0.37);
+  transition-duration: 0.2s;
 }
 
 .is-active:hover:not(.modal) {
-	-webkit-box-shadow: 0px 5px 15px 1px rgba(0, 0, 0, 0.37);
-	-moz-box-shadow: 0px 5px 15px 1px rgba(0, 0, 0, 0.37);
-	box-shadow: 0px 5px 15px 1px rgba(0, 0, 0, 0.37);
-	background-color: rgb(79, 143, 239) !important;
-	transition-duration: 0.1s;
+  -webkit-box-shadow: 0px 5px 15px 1px rgba(0, 0, 0, 0.37);
+  -moz-box-shadow: 0px 5px 15px 1px rgba(0, 0, 0, 0.37);
+  box-shadow: 0px 5px 15px 1px rgba(0, 0, 0, 0.37);
+  transition-duration: 0.2s;
 }
 
 .rounded-img {
-	border-radius: 50%;
+  border-radius: 50%;
 }
 
 .has-no-colours {
-	color: rgba(240, 80, 80, 0.6);
-	float: right;
+  float: right;
 }
 
 .is-blue {
-	background-color: #3273dc;
-	color: white;
-	transition-duration: 0.2s;
+  transition-duration: 0.2s;
 }
 
 .menu-label {
-	margin-bottom: 0.2em !important;
+  margin-bottom: 0.2em !important;
 }
 
 @media screen and (max-device-width: 768px) {
-	.server-column {
-		margin-bottom: 0px !important;
-		padding-bottom: 0px !important;
-	}
+  .server-column {
+    margin-bottom: 0px !important;
+    padding-bottom: 0px !important;
+  }
 }
 
 .server-column {
-	z-index: 1 !important;
-	position: static
-	-webkit-box-shadow: 0px 5px 15px 1px rgba(0, 0, 0, 0.37);
-	-moz-box-shadow: 0px 5px 15px 1px rgba(0, 0, 0, 0.37);
-	box-shadow: 0px 5px 15px 1px rgba(0, 0, 0, 0.37);
+  z-index: 1 !important;
+  position: static -webkit-box-shadow: 0px 5px 15px 1px rgba(0, 0, 0, 0.37);
+  -moz-box-shadow: 0px 5px 15px 1px rgba(0, 0, 0, 0.37);
+  box-shadow: 0px 5px 15px 1px rgba(0, 0, 0, 0.37);
 }
 
 .features {
-	list-style-type: disc;
-	margin-left: 30px;
-	padding-bottom: 15px;
+  list-style-type: disc;
+  margin-left: 30px;
+  padding-bottom: 15px;
 }
 
 .has-features-below {
-	margin-bottom: 0px !important;
-	margin-top: 15px !important;
+  margin-bottom: 0px !important;
+  margin-top: 15px !important;
 }
 
 /*
@@ -178,32 +161,15 @@ Nav
 
 */
 
-.nav-button {
-	background-color: #5d95ef;
-	border-radius: 5px;
-	margin: 5px;
-	transition-duration: 0.2s;
-}
-
-.nav-button:hover, .nav-button:active {
-	background-color: #5383d1 !important;
-	color: white !important;
-	transition-duration: 0.2s;
-}
-
 @media screen and (min-device-width: 769px) {
-	.navbar-menu {
-		padding-right: 10px;
-	}
+  .navbar-menu {
+    padding-right: 10px;
+  }
 }
 
 .nav-title {
-	font-size: 25px;
-	vertical-align: center;
-}
-
-.navbar-item {
-	color: white;
+  font-size: 25px;
+  vertical-align: center;
 }
 
 /*
@@ -211,80 +177,71 @@ Nav
 Tooltips
 
 */
-
 /* Tooltip container */
-
 @media screen and (max-device-width: 768px) {
-	.tooltip-text {
-		display: none;
-	}
-	.nav-content {
-		padding-bottom: 30px;
-		padding-top: 40px;
-		display: none;
-	}
+  .tooltip-text {
+    display: none;
+  }
 
-	#nav {
-		padding-bottom: 2rem !important;
-	}
+  .nav-content {
+    padding-bottom: 30px;
+    padding-top: 40px;
+    display: none;
+  }
 
-	.closeButton {
-		position: absolute;
-		right: 5px;
-		top: 0px;
+  #nav {
+    padding-bottom: 2rem !important;
+  }
 
-	}
-
+  .closeButton {
+    position: absolute;
+    right: 5px;
+    top: 0px;
+  }
 }
 
 @media screen and (min-device-width: 769px) {
-	.tooltip {
-		position: relative;
-		display: inline-block;
-	}
+  .tooltip {
+    position: relative;
+    display: inline-block;
+  }
 
-.closeButton {
-	display: none;
-}
+  .closeButton {
+    display: none;
+  }
 
-	/* Tooltip text */
+  /* Tooltip text */
+  .tooltip .tooltip-text {
+    visibility: hidden;
+    width: 120px;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    /* Position the tooltip text */
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    /* Fade in tooltip */
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
 
-	.tooltip .tooltip-text {
-		visibility: hidden;
-		width: 120px;
-		background-color: #555;
-		color: #fff;
-		text-align: center;
-		padding: 5px 0;
-		border-radius: 6px;
-		/* Position the tooltip text */
-		position: absolute;
-		z-index: 1;
-		bottom: 125%;
-		left: 50%;
-		margin-left: -60px;
-		/* Fade in tooltip */
-		opacity: 0;
-		transition: opacity 0.3s;
-	}
+  /* Tooltip arrow */
+  .tooltip .tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+  }
 
-	/* Tooltip arrow */
-
-	.tooltip .tooltip-text::after {
-		content: "";
-		position: absolute;
-		top: 100%;
-		left: 50%;
-		margin-left: -5px;
-		border-width: 5px;
-		border-style: solid;
-		border-color: #555 transparent transparent transparent;
-	}
-
-	/* Show the tooltip text when you mouse over the tooltip container */
-
-	.tooltip:hover .tooltip-text {
-		visibility: visible;
-		opacity: 1;
-	}
+  /* Show the tooltip text when you mouse over the tooltip container */
+  .tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+  }
 }
