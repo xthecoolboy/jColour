@@ -69,7 +69,7 @@
 								</div>
 								<div class="media-content">
 									<p class="name" id="modal-colour1">Discord user</p>
-									<p class="date">Today at 6.00 PM</p>
+									<p class="date">Today at 6.00 <%= user ? (user.theme ? "PM" : "AM") : "AM" %></p>
 
 									<p class="text" id="modal-text1"></p>
 								</div>
@@ -87,7 +87,7 @@
 								</div>
 								<div class="media-content">
 									<p class="name" id="modal-colour2">Discord user</p>
-									<p class="date">Today at 6.00 PM</p>
+									<p class="date">Today at 6.00 <%= user ? (user.theme ? "PM" : "AM") : "AM" %></p>
 
 									<p class="text" id="modal-text2"></p>
 								</div>
