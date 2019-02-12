@@ -1,7 +1,18 @@
 // Run this file instead of bot.js, allows support for sharding and launches the web server
 
 const Discord = require('discord.js');
-const config = require('./config/config.json');
+
+const nodeEnv = function() {
+  switch (process.env.NODE_ENV) {
+    case 'development':
+      return 'development';
+    case 'default':
+      return 'default';
+    default:
+      return 'default';
+  };
+};
+const config = require('./config/config.json')[nodeEnv()];
 
 const Manager = new Discord.ShardingManager('./app.js');
 Manager.spawn(config.shards);
@@ -107,59 +118,59 @@ app.get('/support', function(req, res) { // Support guild
   res.redirect(config.support)
 });
 
-app.post("/toggleTheme", function (req, res) {
-	if (req.isAuthenticated()) {
-		Manager.broadcastEval("this.updateTheme('" + req.user.id + "')")
+app.post("/toggleTheme", function(req, res) {
+  if (req.isAuthenticated()) {
+    Manager.broadcastEval("this.updateTheme('" + req.user.id + "')")
     res.status(200).json({
       status: 200,
       message: "OK"
     })
-	} else {
-		return res.status(403).json({
-			status: 403,
-			message: "Not authenticated!"
-		})
-	}
+  } else {
+    return res.status(403).json({
+      status: 403,
+      message: "Not authenticated!"
+    })
+  }
 })
 
-app.get("/demo", function (req, res) {
-	const command = `this.getUserAndGuildData('${req.user ? req.user.id : ""}', '${config.demoId}')`;
-	Manager.broadcastEval(command).then(
-		function (datas) {
-			let user = datas.find(function (element) {
-				return typeof element.manageRoles !== 'undefined';
-			})
-			if (!user) {
-				user = datas.find(function (element) {
-					return element
-				})
-			}
-			Manager.broadcastEval("this.getAllServers({})").then(
-				function (value) {
-					const merged = [].concat.apply([], value);
-					const reqServers = [];
-					if (req.user) {
-						req.user["guilds"].forEach(function (element) {
-							reqServers.push(element.id);
-						})
-					}
-					const shared = merged.filter(guild => reqServers.includes(guild.id));
-					const server = merged.filter(guild => guild.id === config.demoId)[0]
-					res.render('dashboard.ejs', {
-						commonServers: shared,
-						chroma: chroma,
-						user: user,
+app.get("/demo", function(req, res) {
+  const command = `this.getUserAndGuildData('${req.user ? req.user.id : ""}', '${config.demoId}')`;
+  Manager.broadcastEval(command).then(
+    function(datas) {
+      let user = datas.find(function(element) {
+        return typeof element.manageRoles !== 'undefined';
+      })
+      if (!user) {
+        user = datas.find(function(element) {
+          return element
+        })
+      }
+      Manager.broadcastEval("this.getAllServers({})").then(
+        function(value) {
+          const merged = [].concat.apply([], value);
+          const reqServers = [];
+          if (req.user) {
+            req.user["guilds"].forEach(function(element) {
+              reqServers.push(element.id);
+            })
+          }
+          const shared = merged.filter(guild => reqServers.includes(guild.id));
+          const server = merged.filter(guild => guild.id === config.demoId)[0]
+          res.render('dashboard.ejs', {
+            commonServers: shared,
+            chroma: chroma,
+            user: user,
             userBackup: req.user,
-						id: config.demoId,
-						auth: req.isAuthenticated(),
-						server: server,
-						page: "demo"
+            id: config.demoId,
+            auth: req.isAuthenticated(),
+            server: server,
+            page: "demo"
 
-					})
-				}
-			)
-		}
-	)
+          })
+        }
+      )
+    }
+  )
 })
 
 app.get('/:id', /* checkAuth,*/ function(req, res) {
@@ -183,6 +194,7 @@ app.get('/:id', /* checkAuth,*/ function(req, res) {
             })
             const shared = merged.filter(guild => reqServers.includes(guild.id));
             const server = shared.filter(guild => guild.id === req.params.id)[0]
+            const serverExists = merged.filter(guild => guild.id === req.params.id)[0]
             if (server) {
               res.render('dashboard.ejs', {
                 commonServers: shared,
@@ -193,8 +205,18 @@ app.get('/:id', /* checkAuth,*/ function(req, res) {
                 server: server,
                 page: "colour"
               })
+            } else if (serverExists) {
+              return res.status(403).render('error.ejs', {
+                errorNum: 403,
+                errorMsg: "You aren't a member on this server!",
+                server: false
+              })
             } else {
-              res.redirect("/")
+              return res.status(404).render('error.ejs', {
+                errorNum: 404,
+                errorMsg: "Server not found.",
+                server: false
+              })
             }
           }
         )

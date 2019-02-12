@@ -1,7 +1,17 @@
 const {
 	Command
 } = require('discord.js-commando');
-const config = require('./../../config/config.json');
+const nodeEnv = function() {
+  switch (process.env.NODE_ENV) {
+    case 'development':
+      return 'development';
+    case 'default':
+      return 'default';
+    default:
+      return 'default';
+  };
+};
+const config = require('./../../config/config.json')[nodeEnv()];
 
 const {
 	giveRole,
@@ -68,18 +78,18 @@ module.exports = class ChannelCommand extends Command {
 		const totalAccess = requiredTotalRole ? msg.member.roles.has(requiredTotalRole.id) : true;
 
 		const clientUser = this.client;
-		
+
 		if (!totalAccess) {
 			await msg.say("Sorry, but to use the colour command you need the `" + requiredTotalRoleName + "` role. Admins: " + prefix + "set-role")
 		} else {
 			if (!args.role) {
 				await msg.say(stripIndents `Here's a list of all the colours: ${config.base_www}${msg.guild.id}
 
-			Use \`${prefix}colour <colour name>\` 
+			Use \`${prefix}colour <colour name>\`
 			For a random colour, try \`${prefix}colour random\`
 			Get the best colour for your avatar: \`${prefix}colour pick\`
 			You can also get rid of all colours with \`${prefix}colour none\`
-			
+
 			If enabled, you can get a custom colour with \`${prefix}colour hex <hex colour>\`.`)
 			} else {
 
@@ -87,7 +97,7 @@ module.exports = class ChannelCommand extends Command {
 
 					/*
 
-					RANDOM ROLE 
+					RANDOM ROLE
 
 					*/
 					// if (checkDbl(msg, clientUser)) {
@@ -121,12 +131,12 @@ module.exports = class ChannelCommand extends Command {
 
 				By typing \`${prefix}enable-hex\` you will enable the custom colours.
 				When you run the command, I will ask you if you want to limit custom hex colours to a certain role.
-				
+
 				Custom hex colours can be deleted later with \`${prefix}disable-hex\`.
 				When you run the command, I will ask if you want to delete the custom hex colour roles.
-				
+
 				**Hex Colours: Usage**
-				
+
 				The hex colour needs to be in #xxxxxx format (ex. #ff00ff is pink).
 				After you've got a hex colour, type \`${prefix}colour hex <hex colour>\`
 				You can also use \`${prefix}colour hex pick/random\`.`)
@@ -155,8 +165,8 @@ module.exports = class ChannelCommand extends Command {
 
 						/*
 
-						EVERYTHING WAS SUCCESSFUL 
-					
+						EVERYTHING WAS SUCCESSFUL
+
 						*/
 
 						giveRole(msg, chosenRole);

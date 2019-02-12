@@ -6,13 +6,17 @@ const {
 	version,
 	description
 } = require('./package.json');
-const config = require('./config/config.json');
-
-const DBL = require("dblapi.js");
-const dbl = new DBL(config.dblToken);
-
-const DiscordBots = require('discordbots');
-const dbots = new DiscordBots(config.dbotsToken);
+const nodeEnv = function() {
+  switch (process.env.NODE_ENV) {
+    case 'development':
+      return 'development';
+    case 'default':
+      return 'default';
+    default:
+      return 'default';
+  };
+};
+const config = require('./config/config.json')[nodeEnv()];
 
 // Init client
 const client = new Commando.Client({
@@ -202,8 +206,12 @@ client.getAllServers = function (options) {
 }
 
 client.updateTheme = function (id) {
-	const darktheme = client.settings.get("dark-theme-" + id, false)
-	client.settings.set("dark-theme-" + id, darktheme ? false : true)
+	const darkTheme = client.settings.get("dark-theme-" + id, false)
+	if (darkTheme) {
+		client.settings.remove("dark-theme-" + id)
+	} else {
+		client.settings.set("dark-theme-" + id, true)
+	}
 }
 
 client.handleWebhook = function (type, bot, user) { // handles webhooks for each shard

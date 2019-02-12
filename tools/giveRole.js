@@ -1,12 +1,19 @@
 const getColors = require('get-image-colors')
 const chroma = require("chroma-js")
 
-const config = require('./../config/config.json');
+const nodeEnv = function() {
+  switch (process.env.NODE_ENV) {
+    case 'development':
+      return 'development';
+    case 'default':
+      return 'default';
+    default:
+      return 'default';
+  };
+};
+const config = require('./../config/config.json')[nodeEnv()];
 
-const DBL = require("dblapi.js");
-const dbl = new DBL(config.dblToken);
-
-/* 
+/*
 
 The holy piece of code that makes the thing work
 
@@ -87,7 +94,7 @@ async function giveThings(options) {
 
 /*
 
-STUFF 
+STUFF
 
 */
 
@@ -213,7 +220,7 @@ async function giveHexRole(msg, client, prefix, colour) {
         colour = chroma(
             Math.floor(Math.random() * 360), // hue 0-360
             Math.random(), // saturation 0-1
-            Math.random(), // Lightness 0-1 
+            Math.random(), // Lightness 0-1
             'hsl').hex() // hsl colour space
         giveActualHexRole(msg, client, prefix, colour, "(random) ")
     } else {
@@ -231,7 +238,7 @@ X11 colours:
   green
   blue
   ivory
-  
+
 More X11 colours: http://cng.seas.rochester.edu/CNG/docs/x11color.html`)
         }
         if (chromaColour) {

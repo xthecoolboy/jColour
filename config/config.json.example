@@ -1,30 +1,55 @@
 {
-	"token": "h",
-	"prefix": "j!",
-	"ownerid": "124194717471923",
-	"shards": 1,
-	"port": 8085,
+  "development": {
 
-	"id": "128412467987",
-	"_comment8": "bots id",
+		"_IMPORTANT_COMMENT": "Do not edit these unless you know what you're doing! Edit values under default instead.",
 
-	"secret": "lemons",
-	"_comment9": "Clients secret (get it from the same place you get your otken, bots edit page)",
+    "token": "DO",
+    "prefix": "NOT",
+    "ownerid": "TOUCH",
+    "shards": 1,
+    "port": 8085,
+    "id": "THESE",
+    "secret": "I",
+    "callback": "SWEAR",
+    "base_www": "TO",
+    "support": "GOD",
+    "demoId": "!!!!"
 
-	"callback": "http://localhost:8085/callback",
-	"_comment10": "Callback url (where user returns after auth). Must be defined in Discord bot settings.",
+  },
+  "default": {
 
-	"base_www": "http://jcolour.jaqreven.com/",
-	"_comment": "The base url: this+server id - Make sure to include a slash in the end.",
-	
-	"dblToken": "",
-	"_comment": "Token to discordbots.org, can be left empty",
+    "_token_comment": "The token for the bot! Create a Discord bot account and paste the token here.",
+    "token": "UIBGGG893H9RH32HT98Y4HTJJ3-T430UGJ3H4TONGT4OU3T9UJGNVOEIRJHTI4JTYHRETIOURWHTPRÖEWHT",
 
-	"dbotsToken": "",
-	"_comment": "Token to bots.discord.pw, can be left empty",
-	
-	"support": "https://discord.gg/gwqgJy8",
+    "_secret_comment": "The secret for the bot - used for the Discord login feature.",
+    "secret": "IFGIGOIOUETO8RTEJIOGPOKGRKOP",
 
-	"dblWebAuth": "",
-	"_comment6": "If you use DBL webhooks, use this as the webhook authorization."
+    "_id_comment": "The ID of the bot - needed for the Discord login feature",
+    "id": "12345678910111213",
+
+    "_ownerid_comment": "The ID of your account - enable developer mode in Discord and right click your name --> Copy ID",
+    "ownerid": "12345678910111213",
+
+		"_demoid_comment": "The ID for the demo guild - follow instructions above ^ except click on the guild instead",
+		"demoid": "12345678910111213",
+
+    "_shards_comment": "How many shards you want to use - just leave it to 1.",
+    "shards": 1,
+
+    "_port_comment": "Which port the bot uses",
+    "port": 8085,
+
+		"_callback_comment": "Users are redirected to this URL upon login.",
+		"callback": "https://jcolour.jaqreven.com/callback",
+
+		"_base_www_comment": "This URL is the base URL for colour links. Make sure to include a / in the end",
+		"base_www": "https://jcolour.jaqreven.com/",
+
+		"_prefix_comment": "What prefix you use in front of commands: (prefix)colour for example",
+    "prefix": "j-",
+
+		"_support_comment": "A Discord invite link to the support server of the bot",
+		"support": "https://discord.gg/aaaaaaaaaaaaaaaaaaa"
+
+  }
 }

@@ -1,9 +1,10 @@
 {
 	"name": "jcolour",
-	"version": "3.1.0",
+	"version": "3.1.1",
 	"description": "Fuchsia",
 	"scripts": {
-		"start": "node run.js"
+		"start": "NODE_ENV=default node run.js",
+		"test": "NODE_ENV=development node run.js"
 	},
 	"author": "Jaakko Repo",
 	"license": "MIT",

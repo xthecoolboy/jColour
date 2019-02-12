@@ -1,7 +1,17 @@
 const {
 	Command
 } = require('discord.js-commando');
-const config = require('./../../config/config.json');
+const nodeEnv = function() {
+  switch (process.env.NODE_ENV) {
+    case 'development':
+      return 'development';
+    case 'default':
+      return 'default';
+    default:
+      return 'default';
+  };
+};
+const config = require('./../../config/config.json')[nodeEnv()];
 
 const {
 	giveRole,
