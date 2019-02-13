@@ -19,10 +19,10 @@
   "default": {
 
     "_token_comment": "The token for the bot! Create a Discord bot account and paste the token here.",
-    "token": "UIBGGG893H9RH32HT98Y4HTJJ3-T430UGJ3H4TONGT4OU3T9UJGNVOEIRJHTI4JTYHRETIOURWHTPRÖEWHT",
+    "token": "secret",
 
     "_secret_comment": "The secret for the bot - used for the Discord login feature.",
-    "secret": "IFGIGOIOUETO8RTEJIOGPOKGRKOP",
+    "secret": "secret",
 
     "_id_comment": "The ID of the bot - needed for the Discord login feature",
     "id": "12345678910111213",

@@ -149,7 +149,6 @@ app.get('/:id', /* checkAuth,*/ function(req, res) {
 function showDashboard(req, res, isDemo) {
   Manager.broadcastEval(`this.getUserAndGuildData('${req.user ? req.user.id : ""}', '${req.params.id}')`).then(
     function(datas) {
-      console.log(datas)
       // USER stuff
       let user = datas.find(function(element) { // I have no clue what this is...
         return element.user ? (typeof element.user.manageRoles !== 'undefined') : null;
