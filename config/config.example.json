@@ -1,7 +1,7 @@
 {
   "development": {
 
-		"_IMPORTANT_COMMENT": "Do not edit these unless you know what you're doing! Edit values under default instead.",
+    "_IMPORTANT_COMMENT": "Do not edit these unless you know what you're doing! Edit values under default instead.",
 
     "token": "DO",
     "prefix": "NOT",
@@ -30,8 +30,8 @@
     "_ownerid_comment": "The ID of your account - enable developer mode in Discord and right click your name --> Copy ID",
     "ownerid": "12345678910111213",
 
-		"_demoid_comment": "The ID for the demo guild - follow instructions above ^ except click on the guild instead",
-		"demoid": "12345678910111213",
+    "_demoid_comment": "The ID for the demo guild - follow instructions above ^ except click on the guild instead",
+    "demoid": "12345678910111213",
 
     "_shards_comment": "How many shards you want to use - just leave it to 1.",
     "shards": 1,
@@ -39,17 +39,17 @@
     "_port_comment": "Which port the bot uses",
     "port": 8085,
 
-		"_callback_comment": "Users are redirected to this URL upon login.",
-		"callback": "https://jcolour.jaqreven.com/callback",
+    "_callback_comment": "Users are redirected to this URL upon login.",
+    "callback": "https://jcolour.jaqreven.com/callback",
 
-		"_base_www_comment": "This URL is the base URL for colour links. Make sure to include a / in the end",
-		"base_www": "https://jcolour.jaqreven.com/",
+    "_base_www_comment": "This URL is the base URL for colour links. Make sure to include a / in the end",
+    "base_www": "https://jcolour.jaqreven.com/",
 
-		"_prefix_comment": "What prefix you use in front of commands: (prefix)colour for example",
+    "_prefix_comment": "What prefix you use in front of commands: (prefix)colour for example",
     "prefix": "j-",
 
-		"_support_comment": "A Discord invite link to the support server of the bot",
-		"support": "https://discord.gg/aaaaaaaaaaaaaaaaaaa"
+    "_support_comment": "A Discord invite link to the support server of the bot",
+    "support": "https://discord.gg/aaaaaaaaaaaaaaaaaaa"
 
   }
 }

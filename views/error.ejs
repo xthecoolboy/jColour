@@ -6,13 +6,13 @@
 	theme: "light"
 }) %>
 
-	<body>
+<body>
 
-		<div class="is-page">
+	<div class="is-page">
 
-			<section class="main-content columns is-fullheight">
+		<section class="main-content columns is-fullheight">
 
-				<%- include('elements/servers', {
+			<%- include('elements/servers', {
 			commonServers: [],
 			server: null,
 			page: "error",
@@ -20,29 +20,36 @@
 			auth: false
 		}) %>
 
-					<div class="container column is-9 full-column">
-						<div class="section">
+			<div class="container column is-9 full-column">
+				<div class="section">
 
-							<h1 class="title is-3"> <%= errorNum %>: <%= errorMsg %></h1>
+					<h1 class="title is-3">
+						<%= errorNum %>:
+						<%= errorMsg %>
+					</h1>
 
-							<h2 class="title is-4">What can I do?</h2>
-							<h2 class="subtitle is-6">
-                    We've trained our highly intelligent code monkeys to deal with this kind of stuff. I swear! <br />
-					All you can do is go home. Unless the error was on the home page. Then there's nothing you can do. <br />
-					Well I'd appreciate reporting the problem on Gitlab or tweeting me.
-                </h2>
-							<a href="/" class="button is-large is-blue">Home</a>
-							<a href="https://twitter.com/jaakkorepo" class="button is-large is-blue">Tweet me!</a>
-							<a href="https://gitlab.com/jColour/jColour" class="button is-large is-blue">Gitlab</a>
-						</div>
-					</div>
+					<h2 class="title is-4">What can I do?</h2>
+					<h2 class="subtitle is-6">
+						<% if (errorNum === 403 || 404) { %>
+							As far as I can tell, this is a normal error. <br />
+							If you feel like this wasn't supposed to happen, please contact me via Github or Twitter:
+						<% } else { %>
+							This really wasn't supposed to happen! <br />
+							Please contact me via Github or Twitter and let me know what you were trying to do.
+						<% } %>
+					</h2>
+					<a href="/" class="button is-large is-blue">Home</a>
+					<a href="https://twitter.com/jaakkorepo" class="button is-large is-blue">Tweet me!</a>
+					<a href="https://gitlab.com/jColour/jColour" class="button is-large is-blue">Gitlab</a>
+				</div>
+			</div>
 
-			</section>
+		</section>
 
-		</div>
+	</div>
 
-		<%- include elements/footer %>
+	<%- include elements/footer %>
 
-	</body>
+</body>
 
 </html>

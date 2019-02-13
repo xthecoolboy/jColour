@@ -134,141 +134,106 @@ app.post("/toggleTheme", function(req, res) {
 })
 
 app.get("/demo", function(req, res) {
-  const command = `this.getUserAndGuildData('${req.user ? req.user.id : ""}', '${config.demoId}')`;
-  Manager.broadcastEval(command).then(
+  req.params.id = config.demoId;
+  showDashboard(req, res, true);
+})
+
+app.get('/:id', /* checkAuth,*/ function(req, res) {
+  if (req.isAuthenticated()) {
+    showDashboard(req, res, false);
+  } else {
+    res.redirect("/auth")
+  }
+});
+
+function showDashboard(req, res, isDemo) {
+  Manager.broadcastEval(`this.getUserAndGuildData('${req.user ? req.user.id : ""}', '${req.params.id}')`).then(
     function(datas) {
-      let user = datas.find(function(element) {
-        return typeof element.manageRoles !== 'undefined';
+      console.log(datas)
+      // USER stuff
+      let user = datas.find(function(element) { // I have no clue what this is...
+        return element.user ? (typeof element.user.manageRoles !== 'undefined') : null;
       })
       if (!user) {
         user = datas.find(function(element) {
           return element
         })
       }
-      Manager.broadcastEval("this.getAllServers({})").then(
-        function(value) {
-          const merged = [].concat.apply([], value);
-          const reqServers = [];
-          if (req.user) {
-            req.user["guilds"].forEach(function(element) {
-              reqServers.push(element.id);
-            })
-          }
-          const shared = merged.filter(guild => reqServers.includes(guild.id));
-          const server = merged.filter(guild => guild.id === config.demoId)[0]
-          res.render('dashboard.ejs', {
-            commonServers: shared,
-            chroma: chroma,
-            user: user,
-            userBackup: req.user,
-            id: config.demoId,
-            auth: req.isAuthenticated(),
-            server: server,
-            page: "demo"
-
-          })
-        }
-      )
+      user = user.user // /r/ontheledgeandshit
+      // GUILD stuff
+      const allGuilds = [];
+      datas.forEach(function(element) {
+        allGuilds.push(element["guilds"])
+      })
+      const merged = [].concat.apply([], allGuilds);
+      const reqServers = [];
+      let shared = [];
+      if (req.user) {
+        req.user["guilds"].forEach(function(element) {
+          reqServers.push(element.id);
+        })
+        shared = merged.filter(guild => reqServers.includes(guild.id));
+      }
+      const server = merged.filter(guild => guild.id === req.params.id)[0]
+      if (server) {
+        res.render('dashboard.ejs', {
+          commonServers: shared,
+          chroma: chroma,
+          user: user,
+          id: req.params.id,
+          auth: req.isAuthenticated(),
+          server: server,
+          page: isDemo ? "demo" : "colour"
+        })
+      } else {
+        return res.status(404).render('dashboard.ejs', {
+          commonServers: shared,
+          chroma: chroma,
+          user: user,
+          id: req.params.id,
+          auth: req.isAuthenticated(),
+          server: false,
+          page: isDemo ? "demo" : "colour"
+        })
+      }
     }
   )
-})
-
-app.get('/:id', /* checkAuth,*/ function(req, res) {
-  if (req.isAuthenticated()) {
-    Manager.broadcastEval(`this.getUserAndGuildData('${req.user.id}', '${req.params.id}')`).then(
-      function(datas) {
-        let user = datas.find(function(element) {
-          return typeof element.manageRoles !== 'undefined';
-        })
-        if (!user) {
-          user = datas.find(function(element) {
-            return element
-          })
-        }
-        Manager.broadcastEval("this.getAllServers({})").then(
-          function(value) {
-            const merged = [].concat.apply([], value);
-            const reqServers = [];
-            req.user["guilds"].forEach(function(element) {
-              reqServers.push(element.id);
-            })
-            const shared = merged.filter(guild => reqServers.includes(guild.id));
-            const server = shared.filter(guild => guild.id === req.params.id)[0]
-            const serverExists = merged.filter(guild => guild.id === req.params.id)[0]
-            if (server) {
-              res.render('dashboard.ejs', {
-                commonServers: shared,
-                chroma: chroma,
-                user: user,
-                id: req.params.id,
-                auth: req.isAuthenticated(),
-                server: server,
-                page: "colour"
-              })
-            } else if (serverExists) {
-              return res.status(403).render('error.ejs', {
-                errorNum: 403,
-                errorMsg: "You aren't a member on this server!",
-                server: false
-              })
-            } else {
-              return res.status(404).render('error.ejs', {
-                errorNum: 404,
-                errorMsg: "Server not found.",
-                server: false
-              })
-            }
-          }
-        )
-      }
-    )
-  } else {
-    if (req.params.id) {
-      res.redirect("/auth")
-    }
-  }
-});
+}
 
 app.get('/', /* checkAuth,*/ function(req, res) {
-  if (req.isAuthenticated()) {
-    const command = `this.getUserData('${req.user.id}')`;
-    Manager.broadcastEval(command).then(
-      function(datas) {
-        user = datas.find(function(element) {
-          return element
+  const command = `this.getUserData('${req.user ? req.user.id : false}')`;
+  Manager.broadcastEval(command).then(
+    function(datas) {
+      // USER stuff
+      let user = datas.find(function(element) {
+        return element.user
+      })
+      user = user ? user.user : false
+      // GUILD stuff
+      const allGuilds = [];
+      datas.forEach(function(element) {
+        allGuilds.push(element["guilds"])
+      })
+      const merged = [].concat.apply([], allGuilds);
+      const reqServers = [];
+      let shared = [];
+      if (req.user) {
+        req.user["guilds"].forEach(function(element) {
+          reqServers.push(element.id);
         })
-        Manager.broadcastEval("this.getAllServers({})").then(
-          function(value) {
-            const merged = [].concat.apply([], value);
-            const reqServers = [];
-            req.user["guilds"].forEach(function(element) {
-              reqServers.push(element.id);
-            })
-            const shared = merged.filter(guild => reqServers.includes(guild.id));
-            res.render('home.ejs', {
-              commonServers: shared,
-              user: user,
-              userBackup: req.user,
-              auth: req.isAuthenticated()
-            })
-          }
-        )
+        shared = merged.filter(guild => reqServers.includes(guild.id));
       }
-    )
-  } else {
-    if (req.params.id) {
-      res.redirect("/auth")
-    } else {
-      res.render("home.ejs", {
-        commonServers: [],
-        user: false,
-        userBackup: false,
-        auth: req.isAuthenticated(),
+      res.render('home.ejs', {
+        commonServers: shared,
+        user: user,
+        userBackup: req.user,
+        auth: req.isAuthenticated()
       })
     }
-
-  }
+  )
 });
+
+
 
 function checkAuth(req, res, next) {
   if (req.isAuthenticated()) return next();
@@ -286,6 +251,7 @@ app.use(function(req, res) {
 
 // Any error
 app.use(function(err, req, res, next) {
+  console.log(err)
   return res.status(500).render('error.ejs', {
     errorNum: 500,
     errorMsg: "Internal server error",

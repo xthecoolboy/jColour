@@ -12,7 +12,7 @@ https://jcolour.jaqreven.com/invite
 * Clone it
 * Install the necessary components (Ejs, Express etc) with `npm i`
 * Make a Discord bot
-* Rename /config/config.json.example to /config/config.json and fill it up
+* Rename /config/config.example.json to /config/config.json and fill it up
 * npm start
 
 * (Ex. Apache for domains)
