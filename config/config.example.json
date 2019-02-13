@@ -31,7 +31,7 @@
     "ownerid": "12345678910111213",
 
     "_demoid_comment": "The ID for the demo guild - follow instructions above ^ except click on the guild instead",
-    "demoid": "12345678910111213",
+    "demoId": "12345678910111213",
 
     "_shards_comment": "How many shards you want to use - just leave it to 1.",
     "shards": 1,
