@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html>
-  <%- include('elements/meta', {
+<%- include('elements/meta', {
 	title: "jColour Colours",
 	desc: "jColour Discord bot.",
   server: null,
   theme: user ? (user.theme ? "dark" : "light") : "light"
 }) %>
 
-    <body>
+<body>
 
-      <div class="is-page">
+  <div class="is-page">
 
-        <section class="main-content columns is-fullheight">
-          <%- include('elements/servers', {
+    <section class="main-content columns is-fullheight">
+      <%- include('elements/servers', {
           commonServers: commonServers,
           server: false,
           page: "home",
@@ -20,19 +20,19 @@
           auth: auth,
           id: 0
         }) %>
-            <div class="container column is-9 full-column">
-              <div class="section">
-                <%- include('elements/home', {
+      <div class="container column is-9 full-column">
+        <div class="section">
+          <%- include('elements/home', {
                   auth: auth
                 }) %>
-                </div>
-              </div>
-            </section>
+        </div>
+      </div>
+    </section>
 
-          </div>
+  </div>
 
-          <%- include elements/footer %>
+  <%- include elements/footer %>
 
-          </body>
+</body>
 
-        </html>
+</html>
