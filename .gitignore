@@ -68,6 +68,6 @@ config/config.json
 
 settings.sqlite3
 
-badviews/
+.badviews/
 
 .vscode/
