@@ -22,7 +22,7 @@
                 <img src="<%= server.iconurl %>" class="rounded-img" alt="Server">
               </span>
               <%= server.name %>
-              <%- server ? server.roles.length === 0 ? '<span class="has-no-colours tooltip">🚫 <span class="tooltip-text">This server has no colours!</span> </span>' : '' : '' %>
+              <%- server ? server.roles.length === 0 ? '<span class="has-no-colours tooltip">🚫 </span>' : '' : '' %>
               </a>
             </li>
             <% })

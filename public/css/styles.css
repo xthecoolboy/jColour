@@ -201,7 +201,7 @@ Nav
     font-size: 36px;
     margin-left: 50px;
     z-index: 10;
-    padding: 0px 15px 5px 15px;
+    padding: 15px;
     border-bottom-left-radius: 10px;
     text-align: right;
     vertical-align: middle;
@@ -215,59 +215,8 @@ Nav
   }
 }
 
-/*
-
-Tooltips
-
-*/
-/* Tooltip container
-@media screen and (max-device-width: 768px) {
-  .tooltip-text {
-    display: none;
-  }
-} */
 @media only screen and (min-width: 768px) {
-  .tooltip {
-    position: relative;
-    display: inline-block;
-  }
-
   .navButton {
     display: none;
-  }
-
-  /* Tooltip text */
-  .tooltip .tooltip-text {
-    visibility: hidden;
-    width: 120px;
-    text-align: center;
-    padding: 5px 0;
-    border-radius: 6px;
-    /* Position the tooltip text */
-    position: absolute;
-    z-index: 1;
-    bottom: 125%;
-    left: 50%;
-    margin-left: -60px;
-    /* Fade in tooltip */
-    opacity: 0;
-    transition: opacity 0.2s;
-  }
-
-  /* Tooltip arrow */
-  .tooltip .tooltip-text::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-  }
-
-  /* Show the tooltip text when you mouse over the tooltip container */
-  .tooltip:hover .tooltip-text {
-    visibility: visible;
-    opacity: 1;
   }
 }
