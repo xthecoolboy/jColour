@@ -77,6 +77,10 @@ li .is-white:hover {
   color: white !important;
 }
 
+.navButton {
+  background-color: #0f0f0f;
+}
+
 /* TOOLTIPS */
 @media screen and (min-device-width: 769px) {
   .tooltip .tooltip-text {

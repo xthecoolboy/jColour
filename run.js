@@ -61,7 +61,7 @@ const middleware = [
 app.set('view engine', 'ejs'); // ejs for server side js templating
 app.use(middleware);
 
-app.use("/docs", express.static('docs/_build/html'))
+app.use("/docs", express.static('docs/_build/'))
 
 passport.serializeUser(function(user, done) {
   done(null, user);

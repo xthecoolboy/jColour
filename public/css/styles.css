@@ -8,7 +8,7 @@ body {
 }
 
 .footer {
-  z-index: 10 !important;
+  z-index: 3 !important;
   position: relative;
   margin-top: -1rem !important;
 }
@@ -22,7 +22,7 @@ body {
 Colour cards
 
 */
-@media only screen and (max-device-width: 768px) {
+@media only screen and (max-width: 768px) {
   .is-fullwidth-mobile {
     width: 100%;
   }
@@ -70,11 +70,11 @@ Colour modals
 }
 
 .discord-dark {
-	border-radius: 0px 0px 10px 10px;
+  border-radius: 0px 0px 10px 10px;
 }
 
 .discord-light {
-	border-radius: 10px 10px 0px 0px;
+  border-radius: 10px 10px 0px 0px;
 }
 
 /*
@@ -96,7 +96,7 @@ li .is-white:hover {
 }
 
 li {
-	transition-duration: 0.2s;
+  transition-duration: 0.2s;
 }
 
 .is-active:not(.modal) {
@@ -130,18 +130,23 @@ li {
   margin-bottom: 0.2em !important;
 }
 
-@media screen and (max-device-width: 768px) {
+/* @media screen and (max-device-width: 768px) {
   .server-column {
     margin-bottom: 0px !important;
     padding-bottom: 0px !important;
   }
-}
-
+} */
 .server-column {
   z-index: 1 !important;
-  position: static -webkit-box-shadow: 0px 5px 15px 1px rgba(0, 0, 0, 0.37);
-  -moz-box-shadow: 0px 5px 15px 1px rgba(0, 0, 0, 0.37);
-  box-shadow: 0px 5px 15px 1px rgba(0, 0, 0, 0.37);
+  position: static;
+}
+
+@media only screen and (min-width: 768px) {
+  .server-column {
+    -webkit-box-shadow: 0px 5px 15px 1px rgba(0, 0, 0, 0.37);
+    -moz-box-shadow: 0px 5px 15px 1px rgba(0, 0, 0, 0.37);
+    box-shadow: 0px 5px 15px 1px rgba(0, 0, 0, 0.37);
+  }
 }
 
 .features {
@@ -160,8 +165,7 @@ li {
 Nav
 
 */
-
-@media screen and (min-device-width: 769px) {
+@media only screen and (min-width: 768px) {
   .navbar-menu {
     padding-right: 10px;
   }
@@ -172,41 +176,63 @@ Nav
   vertical-align: center;
 }
 
+@media only screen and (max-width: 768px) {
+  #nav {
+    height: 100%;
+    width: 0px;
+    position: fixed;
+    z-index: 4 !important;
+    top: 0;
+    left: 0;
+    overflow-x: hidden !important;
+    transition: 0.5s;
+    padding: 85px 0px 60px 0px;
+  }
+
+  .fullWidth {
+    width: 100% !important;
+    padding: 85px 30px 60px 30px !important;
+  }
+
+  .navButton {
+    position: fixed !important;
+    top: 0px;
+    right: 0px;
+    font-size: 36px;
+    margin-left: 50px;
+    z-index: 10;
+    padding: 0px 15px 5px 15px;
+    border-bottom-left-radius: 10px;
+    text-align: right;
+    vertical-align: middle;
+    -webkit-box-shadow: 0px 0px 30px 4px rgba(0, 0, 0, 0.37);
+    -moz-box-shadow: 0px 0px 30px 4px rgba(0, 0, 0, 0.37);
+    box-shadow: 0px 0px 30px 4px rgba(0, 0, 0, 0.37);
+  }
+
+  .is-9 {
+    margin-top: 25px;
+  }
+}
+
 /*
 
 Tooltips
 
 */
-/* Tooltip container */
+/* Tooltip container
 @media screen and (max-device-width: 768px) {
   .tooltip-text {
     display: none;
   }
-
-  .nav-content {
-    padding-bottom: 30px;
-    padding-top: 40px;
-    display: none;
-  }
-
-  #nav {
-    padding-bottom: 2rem !important;
-  }
-
-  .closeButton {
-    position: absolute;
-    right: 5px;
-    top: 0px;
-  }
-}
-
-@media screen and (min-device-width: 769px) {
+} */
+@media only screen and (min-width: 768px) {
   .tooltip {
     position: relative;
     display: inline-block;
   }
 
-  .closeButton {
+  .navButton {
     display: none;
   }
 
