@@ -135,18 +135,28 @@ app.post("/toggleTheme", function(req, res) {
 
 app.get("/demo", function(req, res) {
   req.params.id = config.demoId;
-  showDashboard(req, res, true);
+  showDashboard(req, res, true, false);
 })
 
 app.get('/:id', /* checkAuth,*/ function(req, res) {
+  req.params.id = req.params.id.replace(/[.*+?^${}()|[\]\\]/g, "")
   if (req.isAuthenticated()) {
-    showDashboard(req, res, false);
+    showDashboard(req, res, false, false);
   } else {
     res.redirect("/auth")
   }
 });
 
-function showDashboard(req, res, isDemo) {
+app.get('/settings/:id', /* checkAuth,*/ function(req, res) {
+  req.params.id = req.params.id.replace(/[.*+?^${}()|[\]\\]/g, "")
+  if (req.isAuthenticated()) {
+    showDashboard(req, res, false, true);
+  } else {
+    res.redirect("/auth")
+  }
+});
+
+function showDashboard(req, res, isDemo, settingsPage) {
   Manager.broadcastEval(`this.getUserAndGuildData('${req.user ? req.user.id : ""}', '${req.params.id}')`).then(
     function(datas) {
       // USER stuff
@@ -175,15 +185,28 @@ function showDashboard(req, res, isDemo) {
       }
       const server = merged.filter(guild => guild.id === req.params.id)[0]
       if (server) {
-        res.render('dashboard.ejs', {
-          commonServers: shared,
-          chroma: chroma,
-          user: user,
-          id: req.params.id,
-          auth: req.isAuthenticated(),
-          server: server,
-          page: isDemo ? "demo" : "colour"
-        })
+        if (settingsPage) {
+          res.render('settings.ejs', {
+            commonServers: shared,
+            chroma: chroma,
+            user: user,
+            id: req.params.id,
+            auth: req.isAuthenticated(),
+            server: server,
+            page: isDemo ? "demo" : "colour"
+          })
+        } else {
+          res.render('dashboard.ejs', {
+            commonServers: shared,
+            chroma: chroma,
+            user: user,
+            id: req.params.id,
+            auth: req.isAuthenticated(),
+            server: server,
+            page: isDemo ? "demo" : "colour"
+          })
+        }
+
       } else {
         return res.status(404).render('dashboard.ejs', {
           commonServers: shared,
