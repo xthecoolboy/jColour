@@ -28,10 +28,7 @@
 					<% if (server) { %>
 					<h1 class="title is-2">
 						<%= server.name %>: Colours</h1>
-					<% const sortedRoles = server.roles.sort(function (a, b) {
-				        return chroma(a.colour).get("hcl")[0] - chroma(b.colour).get("hcl")[0];
-				    });
-				    if (server.roles.length === 0) { %>
+					<% if (server.roles.length === 0) { %>
 					<div class="is-server">
 						<h2 class="subtitle is-4">This server has no colours! Please ask a staff member to set them up.</h2>
 						<a href="/docs" class="button is-large is-blue is-blue-btn">Docs</a>
@@ -42,7 +39,7 @@
 					<br />
 					<% } %>
 					<div class="columns is-multiline is-inline-flex-touch is-server" id="colours-<%= server.id %>">
-						<% sortedRoles.forEach(function(element) { %>
+						<% server.roles.forEach(function(element) { %>
 						<%- include('elements/colorCard', {
 												element: element,
 												chroma: chroma,

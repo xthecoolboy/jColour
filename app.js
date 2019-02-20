@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 const Commando = require('discord.js-commando');
 const sqlite = require('sqlite');
 const path = require('path');
+const chroma = require('chroma-js')
 const {
   version,
   description
@@ -25,6 +26,14 @@ const client = new Commando.Client({
   disableEveryone: true,
   unknownCommandResponse: false
 });
+
+const DiscordBotList = require("dblapi.js");
+if (config.dblToken) {
+  const DBL = new DiscordBotList(config.dblToken, client);
+  DBL.on('posted', () => {
+    console.log("Discordbots stats posted!")
+  })
+}
 
 client.registry
   // Registers your custom command groups
@@ -68,25 +77,25 @@ client.getUserAndGuildData = function(id, guildid) {
   const guild = client.guilds.find("id", guildid);
   if (user && guild) {
     const member = guild.members.get(id)
-		if (member) {
-			const coloursRole = guild.settings.get('color-role');
-	    const hexColoursRole = guild.settings.get('hexColor');
-	    const perms = member ? member.hasPermission("MANAGE_ROLES") : false;
-	    return {
-	      "user": {
-	        "manageRoles": perms,
-	        "avatar": user.displayAvatarURL,
-	        "name": user.username,
-	        "tag": user.tag,
-	        "canUseColours": coloursRole ? member.roles.exists('id', coloursRole) : true,
-	        "canUseHex": hexColoursRole ? member.roles.exists("id", hexColoursRole) : false,
-	        "theme": client.settings.get("dark-theme-" + user.id, false)
-	      },
-	      "guilds": client.getAllServers()
-	    }
-		} else {
-			return client.getUserData(id)
-		}
+    if (member) {
+      const coloursRole = guild.settings.get('color-role');
+      const hexColoursRole = guild.settings.get('hexColor');
+      const perms = member ? member.hasPermission("MANAGE_ROLES") : false;
+      return {
+        "user": {
+          "manageRoles": perms,
+          "avatar": user.displayAvatarURL,
+          "name": user.username,
+          "tag": user.tag,
+          "canUseColours": coloursRole ? member.roles.exists('id', coloursRole) : true,
+          "canUseHex": hexColoursRole ? member.roles.exists("id", hexColoursRole) : false,
+          "theme": client.settings.get("dark-theme-" + user.id, false)
+        },
+        "guilds": client.getAllServers()
+      }
+    } else {
+      return client.getUserData(id)
+    }
 
   } else {
     return client.getUserData(id)
@@ -107,9 +116,9 @@ client.getUserData = function(id) {
     }
   } else {
     return {
-			"user": false,
-			"guilds": client.getAllServers()
-		}
+      "user": false,
+      "guilds": client.getAllServers()
+    }
   }
 }
 
@@ -137,9 +146,25 @@ client.getAllServers = function() {
       role =>
       role.name.toLowerCase().startsWith("colour ") &&
       !(role.name.toLowerCase().startsWith("colour u-"))
-    );
+    )
 
     const roles = colourRoles.map(role => // push each role into array
+      ({
+        "name": role.name,
+        "colour": role.hexColor,
+        "id": role.id
+      })
+    ).sort(function(a, b) {
+      return chroma(a.colour).get("hcl")[0] - chroma(b.colour).get("hcl")[0];
+    });
+
+    const normalRoles = guild.roles.array().filter(
+      role => !role.name.toLowerCase().startsWith("colour ") && !role.managed
+    ).sort(function(a, b) {
+      return (a.position > b.position) ? 1 : ((b.position > a.position) ? -1 : 0);
+    });
+
+    const formattedNormalRoles = normalRoles.map(role => // push each role into array
       ({
         "name": role.name,
         "colour": role.hexColor,
@@ -153,6 +178,7 @@ client.getAllServers = function() {
       "id": guild.id,
       "iconurl": guild.iconURL ? guild.iconURL : "https://discordapp.com/assets/81d74b2ebb053fbccee41865a47d48c3.svg",
       "roles": roles,
+      "normalRoles": formattedNormalRoles,
       "restrictRole": guild.settings.get('color-role')
     })
 

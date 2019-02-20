@@ -13,7 +13,8 @@
     "callback": "SWEAR",
     "base_www": "TO",
     "support": "GOD",
-    "demoId": "!!!!"
+    "demoId": "!!!!",
+    "dblToken": ""
 
   },
   "default": {
@@ -23,6 +24,9 @@
 
     "_secret_comment": "The secret for the bot - used for the Discord login feature.",
     "secret": "secret",
+
+    "_dblToken_comment": "The token for discordbots.org - leave empty if you aren't listing the bot there.",
+    "dblToken": "yyup",
 
     "_id_comment": "The ID of the bot - needed for the Discord login feature",
     "id": "12345678910111213",
