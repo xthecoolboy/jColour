@@ -80,3 +80,9 @@ li .is-white:hover {
     border-color: #555 transparent transparent transparent;
   }
 }
+
+input {
+  border-color: black;
+  color: black;
+  background-color: #F2F2F2;
+}

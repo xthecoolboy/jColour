@@ -92,3 +92,9 @@ li .is-white:hover {
     border-color: #555 transparent transparent transparent;
   }
 }
+
+input {
+  border-color: white;
+  color: white;
+  background-color: #1c1c1c;
+}

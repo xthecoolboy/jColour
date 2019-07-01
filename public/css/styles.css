@@ -220,3 +220,11 @@ Nav
     display: none;
   }
 }
+
+input {
+  border-width: 0px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  padding: 7px;
+  font-size: 14px;
+}

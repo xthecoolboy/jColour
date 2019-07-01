@@ -17,7 +17,6 @@ const {
 	giveRole,
 	giveRandomRole,
 	giveSuitableRole,
-	checkDbl,
 	checkHexPerms,
 	giveHexRole,
 	removeRole
@@ -114,11 +113,11 @@ module.exports = class ChannelCommand extends Command {
 
 					*/
 
-					if (checkDbl(msg, clientUser)) {
+					/*if (checkDbl(msg, clientUser)) {*/
 						giveSuitableRole(msg, prefix);
-					} else {
+					/*} else {
 						msg.say("Sorry, but to use this command you need to vote for the bot every month at https://discordbots.org/bot/" + clientUser.user.id);
-					}
+					}*/
 
 				} else if (["none", "remove"].includes(args.role)) {
 					removeRole(msg)
