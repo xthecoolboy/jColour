@@ -44,7 +44,7 @@ module.exports = class ChannelCommand extends Command {
   }
 
   hasPermission(msg) {
-    return msg.member.hasPermission('MANAGE_CHANNELS') || this.client.isOwner(msg.author);
+    return msg.member.hasPermission('MANAGE_ROLES') || this.client.isOwner(msg.author);
   }
 
   async run(msg, args) {
@@ -57,7 +57,7 @@ module.exports = class ChannelCommand extends Command {
       }
     })
     msg.guild.settings.set("optInRoles", newRoleIds);
-    
+
     const embed = new Discord.RichEmbed();
     embed.setColor("RED");
     embed.setTitle("Removed the role " + args.role.name + ".");

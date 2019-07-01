@@ -36,7 +36,7 @@ module.exports = class ChannelCommand extends Command {
   }
 
   hasPermission(msg) {
-    return msg.member.hasPermission('MANAGE_CHANNELS') || this.client.isOwner(msg.author);
+    return msg.member.hasPermission('MANAGE_ROLES') || this.client.isOwner(msg.author);
   }
 
   async run(msg, args) {
