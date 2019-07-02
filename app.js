@@ -134,7 +134,7 @@ client.on('guildMemberAdd', member => {
 
 client.on('guildMemberRemove', member => {
 
-  const targetChannel = member.guild.channels.find("id", member.guild.settings.get("joinLogsChannel"));
+  const targetChannel = member.guild.channels.find("id", member.guild.settings.get("joinLogsChannel", null));
 
   if (targetChannel) {
 
@@ -176,8 +176,8 @@ client.getUserAndGuildData = function (id, guildid) {
   if (user && guild) {
     const member = guild.members.get(id)
     if (member) {
-      const coloursRole = guild.settings.get('color-role');
-      const hexColoursRole = guild.settings.get('hexColor');
+      const coloursRole = guild.settings.get('color-role', null);
+      const hexColoursRole = guild.settings.get('hexColor', null);
       const perms = member ? member.hasPermission("MANAGE_ROLES") : false;
       return {
         "user": {
@@ -271,13 +271,13 @@ client.getAllServers = function () {
     )
 
     json.push({
-      "hexRole": guild.settings.get('hexColor'),
+      "hexRole": guild.settings.get('hexColor', null),
       "name": guild.name,
       "id": guild.id,
       "iconurl": guild.iconURL ? guild.iconURL : "https://discordapp.com/assets/81d74b2ebb053fbccee41865a47d48c3.svg",
       "roles": roles,
       "normalRoles": formattedNormalRoles,
-      "restrictRole": guild.settings.get('color-role')
+      "restrictRole": guild.settings.get('color-role', null)
     })
 
   })
