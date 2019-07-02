@@ -1,15 +1,15 @@
 const getColors = require('get-image-colors')
 const chroma = require("chroma-js")
 
-const nodeEnv = function() {
-  switch (process.env.NODE_ENV) {
-    case 'development':
-      return 'development';
-    case 'default':
-      return 'default';
-    default:
-      return 'default';
-  };
+const nodeEnv = function () {
+    switch (process.env.NODE_ENV) {
+        case 'development':
+            return 'development';
+        case 'default':
+            return 'default';
+        default:
+            return 'default';
+    };
 };
 const config = require('./../config/config.json')[nodeEnv()];
 
@@ -207,15 +207,15 @@ async function giveHexRole(msg, client, prefix, colour) {
     const pickRole = ["suitable", "pick", "choose"].includes(colour.toLowerCase());
     const randomRole = colour.toLowerCase() === "random";
     if (pickRole) {
-        if (checkDbl(msg, client)) {
-            getColors(msg.author.displayAvatarURL, function (err, colors) {
-                if (err) throw err
-                colour = chroma(colors[0]).hex();
-                giveActualHexRole(msg, client, prefix, colour, "(suitable) ")
-            })
-        } else {
+        //if (checkDbl(msg, client)) {
+        getColors(msg.author.displayAvatarURL, function (err, colors) {
+            if (err) throw err
+            colour = chroma(colors[0]).hex();
+            giveActualHexRole(msg, client, prefix, colour, "(suitable) ")
+        })
+        /*} else {
             msg.say("Sorry, but to use this command you need to vote for the bot every month at https://discordbots.org/bot/" + client.user.id);
-        }
+        }*/
     } else if (randomRole) {
         colour = chroma(
             Math.floor(Math.random() * 360), // hue 0-360
@@ -315,7 +315,7 @@ CHECKS
 */
 
 function checkDbl(msg, client) {
-    if (config.dblToken) {
+    /*if (config.dblToken) {
         if (client.isOwner(msg.author)) {
             return true; // User is bot owner
         } else {
@@ -327,7 +327,8 @@ function checkDbl(msg, client) {
         }
     } else {
         return true // no dbl token in config
-    }
+    }*/
+    return true;
 }
 
 function withinLastMonth(d1, d2, msg) { // https://stackoverflow.com/questions/6154689/how-to-check-if-date-is-within-30-days
