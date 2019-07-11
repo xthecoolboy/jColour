@@ -41,7 +41,8 @@ if (config.dblToken) {
 client.registry
   // Registers your custom command groups
   .registerGroups([
-    ['colour', 'Colour'],
+    ['colour', 'Regular Colours'],
+    ['hex', 'Hex Colours'],
     ['info', 'Information'],
     ['jlogs', 'Join Logs'],
     ['role', 'Opt-In Roles']

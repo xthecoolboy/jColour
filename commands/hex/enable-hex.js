@@ -30,7 +30,7 @@ module.exports = class ChannelCommand extends Command {
     constructor(client) {
         super(client, {
             name: 'enable-hex',
-            group: 'colour',
+            group: 'hex',
             memberName: 'enable-hex',
             description: 'Enables custom hex colours for the server (can be limited to a role)',
             examples: ["enable-hex Admin", "enable-hex everyone"],
@@ -66,9 +66,9 @@ module.exports = class ChannelCommand extends Command {
 
         msg.guild.settings.set('hexColor', args.role.id);
         if (args.role.name === "@everyone") {
-            msg.say(`Custom hex colours have been enabled. Use \`${prefix}colour hex <hex colour>\` to get a custom hex colour. \`Everyone\` can get one. Please note that Discord has a hard limit on roles.`)
+            msg.say(`Custom hex colours have been enabled. Use \`${prefix}hex <hex colour>\` to get a custom hex colour. \`Everyone\` can get one. Please note that Discord has a hard limit on roles.`)
         } else {
-            msg.say(`Custom hex colours have been enabled. Use \`${prefix}colour hex <hex colour>\` to get a custom hex colour. Only people with the role \`${args.role.name}\` can get one. Please note that Discord has a hard limit on roles.`)
+            msg.say(`Custom hex colours have been enabled. Use \`${prefix}hex <hex colour>\` to get a custom hex colour. Only people with the role \`${args.role.name}\` can get one. Please note that Discord has a hard limit on roles.`)
         }
 
     }

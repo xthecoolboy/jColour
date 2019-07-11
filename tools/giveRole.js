@@ -345,27 +345,14 @@ function withinLastMonth(d1, d2, msg) { // https://stackoverflow.com/questions/6
 
 };
 
-function checkHexPerms(msg, client) {
-    const isEnabled = msg.guild.settings.get('hexColor') ? true : false;
-    const hexColorRoleId = msg.guild.settings.get('hexColor-role');
+function checkHexPerms(msg) {
 
-    if (hexColorRoleId && isEnabled) { // Required role
-
-        const hexColorRole = msg.guild.roles.find("id", hexColorRoleId); // Role object
-        if (hexColorRole) { // Role exists
-
-            if (msg.member.roles.has(hexColorRoleId)) { // Role in author roles
-                return true;
-            } else { // Role not in author roles
-                return false;
-            }
-
-        } else { // Role somehow disappeared
-            return false;
-        }
-
-    } else {
-        return isEnabled; // No required role
+    const hexColorRoleId = msg.guild.settings.get('hexColor', "0");
+    const hexColorRole = msg.guild.roles.find("id", hexColorRoleId); // Role object
+    if (hexColorRole) { // Role exists
+        return msg.member.roles.has(hexColorRoleId); // Role in author roles
+    } else { // Role somehow disappeared
+        return false;
     }
 
 }

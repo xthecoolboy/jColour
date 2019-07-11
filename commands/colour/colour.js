@@ -33,13 +33,13 @@ module.exports = class ChannelCommand extends Command {
 			group: 'colour',
 			memberName: 'colour',
 			description: 'Gives you a list of colours (if no arguments) or gives you a colour.',
-			examples: ["colour <any name from the website>", "colour random", "colour pick", "colour none", "colour hex random"],
+			examples: ["colour <any name from the website>", "colour random", "colour pick", "colour none"],
 			guildOnly: true,
 			throttling: {
 				usages: 2,
 				duration: 10
 			},
-			format: '[colour/"pick"/"random"/"hex"/"none"]',
+			format: '[colour/"pick"/"random"/"none"]',
 			aliases: [
 				"color",
 				"colours",
@@ -67,10 +67,6 @@ module.exports = class ChannelCommand extends Command {
 			prefix = msg.guild.commandPrefix;
 		}
 
-		const requiredRoleId = msg.guild.settings.get('hexColor-role', "0");
-		const requiredRole = msg.guild.roles.find("id", requiredRoleId);
-		const requiredRoleName = requiredRole ? requiredRole.name : "";
-
 		const requiredTotalRoleId = msg.guild.settings.get('color-role', null);
 		const requiredTotalRole = msg.guild.roles.find("id", requiredTotalRoleId);
 		const requiredTotalRoleName = requiredTotalRole ? requiredTotalRole.name : "";
@@ -87,9 +83,7 @@ module.exports = class ChannelCommand extends Command {
 			Use \`${prefix}colour <colour name>\`
 			For a random colour, try \`${prefix}colour random\`
 			Get the best colour for your avatar: \`${prefix}colour pick\`
-			You can also get rid of all colours with \`${prefix}colour none\`
-
-			If enabled, you can get a custom colour with \`${prefix}colour hex <hex colour>\`.`)
+			You can also get rid of all colours with \`${prefix}colour none\``)
 			} else {
 
 				if (args.role.toLowerCase() === "random") {
@@ -121,39 +115,6 @@ module.exports = class ChannelCommand extends Command {
 
 				} else if (["none", "remove"].includes(args.role)) {
 					removeRole(msg)
-				} else if (args.role.toLowerCase() === "hex") { // HEX INFORMATION
-
-					msg.say(stripIndents `**Hex Colours: Setup**
-
-				You can allow users to make custom colour roles for themselves.
-				*You need \`manage roles\` permissions for this!*
-
-				By typing \`${prefix}enable-hex\` you will enable the custom colours.
-				When you run the command, I will ask you if you want to limit custom hex colours to a certain role.
-
-				Custom hex colours can be deleted later with \`${prefix}disable-hex\`.
-				When you run the command, I will ask if you want to delete the custom hex colour roles.
-
-				**Hex Colours: Usage**
-
-				The hex colour needs to be in #xxxxxx format (ex. #ff00ff is pink).
-				After you've got a hex colour, type \`${prefix}colour hex <hex colour>\`
-				You can also use \`${prefix}colour hex pick/random\`.`)
-
-				} else if (args.role.toLowerCase().startsWith("hex ")) {
-
-					const colour = args.role.split(" ")[1];
-					if (checkHexPerms(msg, clientUser)) {
-						await giveHexRole(msg, clientUser, prefix, colour);
-					} else {
-						if (requiredRoleName) {
-							msg.say(`Sorry, but you don't have access to custom hex roles. You need the ${requiredRoleName} role.`)
-						} else {
-							msg.say(`Custom hex roles are not enabled. Ask an admin to run \`${prefix}colour hex\` and \`${prefix}enable-hex\`.`)
-						}
-
-					}
-
 				} else {
 
 					// Gets a role by string, converts it to lower case. All role names are converted to lower case too.

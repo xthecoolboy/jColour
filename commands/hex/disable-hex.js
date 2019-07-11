@@ -30,7 +30,7 @@ module.exports = class ChannelCommand extends Command {
 	constructor(client) {
 		super(client, {
 			name: 'disable-hex',
-			group: 'colour',
+			group: 'hex',
 			memberName: 'disable-hex',
 			description: 'Disables custom hex colours from the server. Can also delete the custom colours.',
 			examples: ["disable-hex Admin", "disable-hex everyone"],

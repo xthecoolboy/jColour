@@ -95,13 +95,13 @@ Getting hex colours
 Specific hex colour
 --------------------
 
-#. Type j-colour hex #hex (ex. j-colour hex #ff00ff)
+#. Type j-hex #hex (ex. j-hex #ff00ff)
 #. That's it!
 
 Random hex colour
 ------------------
 
-#. Type j-colour hex random
+#. Type j-hex random
 #. Done!
 
 Suitable hex colour
@@ -109,7 +109,7 @@ Suitable hex colour
 
 jColour looks at your avatar and decides which hex colour suits it the best.
 
-#. Type j-colour hex pick
+#. Type j-hex pick
 #. That's it!
 
 ****
